@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="PokemonManager.Windows.PokemonTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokemonManager.Windows"
+             mc:Ignorable="d" Height="764" Width="501" Background="#FFEEEEEE" Loaded="OnLoaded">
+    <Grid>
+        <Grid x:Name="gridBoxViewers" Margin="0,0,0,250" SizeChanged="OnBoxViewerGridSizeChanged">
+            <StackPanel x:Name="stackPanelBoxes" Margin="0" VerticalAlignment="Center">
+                <local:PokemonBoxViewer x:Name="boxViewer1" Width="Auto" HorizontalAlignment="Stretch"/>
+                <local:PokemonBoxViewer x:Name="boxViewer2" Width="Auto" HorizontalAlignment="Stretch"/>
+                <local:PokemonBoxViewer x:Name="boxViewer3" Width="Auto" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Grid>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="22" Margin="10,6,0,0" Stroke="Black" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=labelStoredPokemon}"/>
+        <Label x:Name="labelStoredPokemon" Content="Pokémon   421" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="9,5,15,5"/>
+        <local:PokemonViewer x:Name="pokemonViewer" Width="Auto" VerticalAlignment="Bottom" Height="250"/>
+    </Grid>
+</UserControl>

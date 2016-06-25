@@ -1,0 +1,26 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PokemonManager.Windows"
+        mc:Ignorable="d" x:Class="PokemonManager.Windows.EditTrainerWindow"
+        Title="Edit Your PC Trainer" Height="188" Width="346" ResizeMode="NoResize" Icon="/TriggersPC;component/Resources/Trainers/WorldFireRedLeafGreenMale.png" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" Closing="OnWindowClosing" UseLayoutRounding="True">
+    <Grid>
+        <TextBox x:Name="textBoxName" MaxLength="7" Height="23" Margin="105,10,10,0" TextWrapping="Wrap" Text="TRIGSPC" VerticalAlignment="Top" TextChanged="OnNameChanged"/>
+        <Button Content="Close" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Background="#FF007ACC" Foreground="White" FontWeight="Bold" IsCancel="True" Focusable="False" IsTabStop="False"/>
+        <Grid HorizontalAlignment="Left" Margin="10,10,0,10" Width="90">
+            <Rectangle Fill="#FFE4EEF1" Margin="0" Stroke="Black" RadiusY="2" RadiusX="2"/>
+            <Image x:Name="imageTrainer" Margin="0" Height="74" Width="60"/>
+        </Grid>
+        <Button Content="Image" HorizontalAlignment="Right" Margin="0,42,10,0" VerticalAlignment="Top" Width="75" Background="#FF007ACC" Foreground="White" FontWeight="Bold" Focusable="False" IsTabStop="False" Click="OnSetImageClicked"/>
+        <Label Content="Trainer ID" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="108,59,0,0"/>
+        <Label Content="Secret ID" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="108,85,0,0"/>
+        <Label x:Name="labelTrainerID" Content="47031" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="180,59,0,0"/>
+        <Label x:Name="labelSecretID" Content="25464" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="180,85,0,0"/>
+        <RadioButton x:Name="radioButtonMale" Content="Male" HorizontalAlignment="Left" Margin="116,38,0,0" VerticalAlignment="Top" Click="OnMaleGenderClicked" ClickMode="Press"/>
+        <RadioButton x:Name="radioButtonFemale" Content="Female" HorizontalAlignment="Left" Margin="172,38,0,0" VerticalAlignment="Top" Click="OnFemaleGenderClicked" ClickMode="Press"/>
+        <Button x:Name="buttonRemoveImage" Content="Remove" HorizontalAlignment="Right" Margin="0,73,10,0" VerticalAlignment="Top" Width="75" Background="#FF007ACC" Foreground="White" FontWeight="Bold" Focusable="False" IsTabStop="False" Click="OnRemoveImageClicked"/>
+
+    </Grid>
+</Window>

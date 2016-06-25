@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="PokemonManager.Windows.TrainerInfoViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="335" Width="490">
+    <Grid Background="#FF286496">
+        <Grid HorizontalAlignment="Left" Height="138" Margin="10,10,0,0" VerticalAlignment="Top" Width="90">
+            <Rectangle Fill="#FFE4EEF1" Height="138" Margin="0" Stroke="Black" Width="90" RadiusY="2" RadiusX="2"/>
+            <Image x:Name="imageTrainer" Margin="0" Height="74" Width="60"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="138" Margin="105,10,0,0" VerticalAlignment="Top" Width="160">
+            <Rectangle Fill="#FFF4F4F5" Stroke="Black" RadiusY="2" RadiusX="2"/>
+            <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,2,0,0"/>
+            <Label Content="Trainer ID" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,28,0,0"/>
+            <Label Content="Secret ID" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,54,0,0"/>
+            <Label Content="Play Time" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,80,0,0"/>
+            <Label x:Name="labelTrainerName" Content="EMERALD" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="78,2,0,0"/>
+            <Label x:Name="labelTrainerID" Content="47031" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="78,28,0,0"/>
+            <Label x:Name="labelSecretID" Content="25464" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="78,54,0,0"/>
+            <Label x:Name="labelPlayTime" Content="255:31:02" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="78,80,0,0"/>
+            <Label x:Name="labelPokedexText" Content="Pokédex" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,106,0,0"/>
+            <Label x:Name="labelPokedex" Content="386" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="78,106,0,0"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="138" Margin="270,10,0,0" VerticalAlignment="Top" Width="202">
+            <Rectangle Fill="#FFF4F4F5" Stroke="Black" RadiusY="2" RadiusX="2"/>
+            <Label Content="Poké Dollars" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,2,0,0"/>
+            <Label Content="Coins" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,28,0,0"/>
+            <Label Content="Battle Points" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,54,0,0"/>
+            <Label Content="Poké Coupons" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,80,0,0"/>
+            <Label Content="Volcanic Ash" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,106,0,0"/>
+            <Button x:Name="buttonMoney" Content="" HorizontalAlignment="Left" Margin="100,2,0,0" VerticalAlignment="Top" Width="96" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ToolTip="Send To..." Focusable="False" IsTabStop="False" Height="26" Click="OnSendButtonClicked" Tag="Money"/>
+            <Button x:Name="buttonCoins" Content="" HorizontalAlignment="Left" Margin="100,28,0,0" VerticalAlignment="Top" Width="96" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ToolTip="Send To..." Focusable="False" IsTabStop="False" Height="26" Tag="Coins" Click="OnSendButtonClicked"/>
+            <Button x:Name="buttonBattlePts" Content="" HorizontalAlignment="Left" Margin="100,54,0,0" VerticalAlignment="Top" Width="96" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ToolTip="Send To..." Focusable="False" IsTabStop="False" Height="26" Tag="BattlePoints" Click="OnSendButtonClicked"/>
+            <Button x:Name="buttonCoupons" Content="" HorizontalAlignment="Left" Margin="100,80,0,0" VerticalAlignment="Top" Width="96" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ToolTip="Send To..." Focusable="False" IsTabStop="False" Height="26" Tag="PokeCoupons" Click="OnSendButtonClicked"/>
+            <Button x:Name="buttonSoot" Content="" HorizontalAlignment="Left" Margin="100,106,0,0" VerticalAlignment="Top" Width="96" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ToolTip="Send To..." Focusable="False" IsTabStop="False" Height="26" Tag="VolcanicAsh" Click="OnSendButtonClicked"/>
+            <Label x:Name="labelMoney" Content="$9,999,999,999" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="100,2,0,0" IsHitTestVisible="False"/>
+            <Label x:Name="labelCoins" Content="12,350" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="100,28,0,0" IsHitTestVisible="False"/>
+            <Label x:Name="labelBattlePts" Content="2,450 BP" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="100,54,0,0" IsHitTestVisible="False"/>
+            <Label x:Name="labelCoupons" Content="24,000" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="100,80,0,0" IsHitTestVisible="False"/>
+            <Label x:Name="labelSoot" Content="237" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="100,106,0,0" IsHitTestVisible="False"/>
+        </Grid>
+        <Grid x:Name="gridBadges" HorizontalAlignment="Left" Height="30" Margin="10,153,0,0" VerticalAlignment="Top" Width="462">
+            <Rectangle Fill="#FFF4F4F5" Stroke="Black" RadiusY="2" RadiusX="2"/>
+            <Label Content="Badges" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,2,0,0"/>
+            <Image x:Name="badge1" HorizontalAlignment="Left" Height="16" Margin="98,7,0,0" VerticalAlignment="Top" Width="16" Source="/TriggersPC;component/Resources/Badges/Kanto/KantoBadge1.png"/>
+            <Image x:Name="badge2" HorizontalAlignment="Left" Height="16" Margin="119,7,0,0" VerticalAlignment="Top" Width="16" Source="/TriggersPC;component/Resources/Badges/Kanto/KantoBadge2.png"/>
+            <Image x:Name="badge3" HorizontalAlignment="Left" Height="16" Margin="140,7,0,0" VerticalAlignment="Top" Width="16" Source="/TriggersPC;component/Resources/Badges/Kanto/KantoBadge3.png"/>
+            <Image x:Name="badge4" HorizontalAlignment="Left" Height="16" Margin="161,7,0,0" VerticalAlignment="Top" Width="16" Source="/TriggersPC;component/Resources/Badges/Kanto/KantoBadge4.png"/>
+            <Image x:Name="badge5" HorizontalAlignment="Left" Height="16" Margin="182,7,0,0" VerticalAlignment="Top" Width="16" Source="/TriggersPC;component/Resources/Badges/Kanto/KantoBadge5.png"/>
+            <Image x:Name="badge6" HorizontalAlignment="Left" Height="16" Margin="203,7,0,0" VerticalAlignment="Top" Width="16" Source="/TriggersPC;component/Resources/Badges/Kanto/KantoBadge6.png"/>
+            <Image x:Name="badge7" HorizontalAlignment="Left" Height="16" Margin="224,7,0,0" VerticalAlignment="Top" Width="16" Source="/TriggersPC;component/Resources/Badges/Kanto/KantoBadge7.png"/>
+            <Image x:Name="badge8" HorizontalAlignment="Left" Height="16" Margin="245,7,0,0" VerticalAlignment="Top" Width="16" Source="/TriggersPC;component/Resources/Badges/Kanto/KantoBadge8.png"/>
+        </Grid>
+        <Grid x:Name="gridSettings" HorizontalAlignment="Left" Height="72" Margin="10,188,0,0" VerticalAlignment="Top" Width="462">
+            <Rectangle Fill="#FFF4F4F5" Stroke="Black" RadiusY="2" RadiusX="2"/>
+            <Label Content="Altering Cave" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,8,0,0"/>
+            <ComboBox x:Name="comboBoxAlteringCave" Margin="123,6,0,0" VerticalAlignment="Top" SelectionChanged="OnAlteringCaveChanged" Height="30" HorizontalAlignment="Left" Width="214"/>
+            <Label x:Name="labelStevenBattleText" Content="Re-Battle Steven" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="6,41,0,0"/>
+            <Button x:Name="buttonStevenBattle" Content="Re-Enable" HorizontalAlignment="Left" Margin="123,43,0,0" VerticalAlignment="Top" Width="214" Background="#FF007ACC" Foreground="White" FontWeight="Bold" Focusable="False" IsTabStop="False" Click="OnRebattleStevenClicked"/>
+        </Grid>
+
+    </Grid>
+</UserControl>

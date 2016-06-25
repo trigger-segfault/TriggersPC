@@ -1,0 +1,12 @@
+﻿<Window x:Class="PokemonManager.Windows.EvolutionTypeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Selection Evolution Type" Height="161" Width="280" Icon="/TriggersPC;component/Resources/Empty.png" WindowStartupLocation="CenterOwner" UseLayoutRounding="True" ShowInTaskbar="False">
+    <Grid>
+        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False" IsCancel="True"/>
+        <Button x:Name="button1" Content="Level Up" HorizontalAlignment="Left" Margin="20,14,0,0" VerticalAlignment="Top" Width="90" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False" IsCancel="True" Height="60" Click="OnEvolve1Clicked"/>
+        <Button Content="Use Item" HorizontalAlignment="Right" Margin="0,14,20,0" VerticalAlignment="Top" Width="90" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False" IsCancel="True" Height="60" Click="OnEvolve2Clicked"/>
+        <Label Content="Select the Evolution Type" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" FontWeight="Bold"/>
+
+    </Grid>
+</Window>

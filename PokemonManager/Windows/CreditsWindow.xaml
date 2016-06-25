@@ -1,0 +1,163 @@
+﻿<Window x:Class="PokemonManager.Windows.CreditsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:c="clr-namespace:PokemonManager.Windows"
+        Title="Credits" Height="450" Width="400" ResizeMode="NoResize" UseLayoutRounding="True" Background="#FFEEEEEE" ShowInTaskbar="False" Icon="/TriggersPC;component/Resources/Icons/IconCredits.png" WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <c:MathConverter x:Key="MathConverter"/>
+    </Window.Resources>
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0" Margin="0,0,0,40" Background="#FF286496" BorderThickness="1" BorderBrush="Black">
+            <StackPanel>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+13, Converter={StaticResource MathConverter}, ElementName=label11}"
+                	Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,10,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label11}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label11}"/>
+
+                        <Label x:Name="label11" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow">
+                                <Run Text="Special thanks to"/>
+                                <Hyperlink NavigateUri="https://projectpokemon.org/forums/member.php?35481" RequestNavigate="OnRequestNavigate"><Run Text="HaxAras"/></Hyperlink>
+                                <Run Text="for dedication to testing, bug reporting, and suggestions early in the tool's developement. Without him Trigger's PC wouldn't be half of what it is now."/>
+                            </TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+6, Converter={StaticResource MathConverter}, ElementName=label12}"
+                      Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label12}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label12}"/>
+
+                        <Label x:Name="label12" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow">
+                                <Run Text="Big thanks to "/>
+                                <Hyperlink NavigateUri="huguesross.net" RequestNavigate="OnRequestNavigate"><Run Text="Hugues Ross"/></Hyperlink>
+                                <Run Text=" for writing a script to parse all of the Pokémon learnsets from Bulbapedia. Beacuse of this, Pokémon can learn moves in Trigger's PC."/>
+                            </TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+6, Converter={StaticResource MathConverter}, ElementName=label1}"
+                      Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label1}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label1}"/>
+
+                        <Label x:Name="label1" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Gen VI Shiny Box Sprites created by"/><Run Text=" "/><Hyperlink NavigateUri="https://www.reddit.com/user/dada_" RequestNavigate="OnRequestNavigate"><Run Text="Dada_"/></Hyperlink><Run Text=" "/><Run Text="and available"/><Run Text=" "/><Hyperlink NavigateUri="https://www.reddit.com/r/pokemon/comments/2ddtlv/i_made_some_shiny_pok%C3%A9mon_box_icons_for_all_721/" RequestNavigate="OnRequestNavigate"><Run Text="here"/></Hyperlink><Run Text=" "/><Run Text=". These shiny sprites are MIT Licensed."/></TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+6, Converter={StaticResource MathConverter}, ElementName=label2}"
+                      Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label2}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label2}"/>
+
+                        <Label x:Name="label2" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Hyperlink NavigateUri="http://p.yusukekamiyamane.com/" RequestNavigate="OnRequestNavigate"><Run Text="Fugue Icon Pack"/></Hyperlink><Run Text=" "/><Run Text="used for various generic icons."/></TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+6, Converter={StaticResource MathConverter}, ElementName=label3}"
+                      Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label3}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label3}"/>
+
+                        <Label x:Name="label3" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Trigger's PC Icon Pokéball found"/><Run Text=" "/><Hyperlink NavigateUri="http://www.giantbomb.com/poke-ball/3055-425/" RequestNavigate="OnRequestNavigate"><Run Text="Here"/></Hyperlink><Run Text=" "/><Run Text="."/></TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+6, Converter={StaticResource MathConverter}, ElementName=label4}"
+                      Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label4}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label4}"/>
+
+                        <Label x:Name="label4" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Shadow Pokémon Aura modified from"/><Run Text=" "/><Hyperlink NavigateUri="http://run--free.deviantart.com/art/Pokemon-Colosseum-GBA-2-320225896" RequestNavigate="OnRequestNavigate"><Run Text="Run--Free's Image"/></Hyperlink><Run Text=" "/><Run Text="."/></TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+6, Converter={StaticResource MathConverter}, ElementName=label5}"
+                      Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label5}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label5}"/>
+
+                        <Label x:Name="label5" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="XD001 Sprite modified from"/><Run Text=" "/><Hyperlink NavigateUri="http://s17.photobucket.com/user/Maverick-PK/media/shadow_lugia.png.html" RequestNavigate="OnRequestNavigate"><Run Text="Maverick-PK's Sprite"/></Hyperlink><Run Text=" "/><Run Text="."/></TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+6, Converter={StaticResource MathConverter}, ElementName=label6}"
+                      Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label6}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label6}"/>
+
+                        <Label x:Name="label6" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Evolution theme created by"/><Run Text=" "/><Hyperlink NavigateUri="https://www.youtube.com/channel/UCr4_x7h4eYTpkWkPVVdGcUw" RequestNavigate="OnRequestNavigate"><Run Text="Kunning Fox"/></Hyperlink><Run Text=" "/><Run Text="and viewable"/><Run Text=" "/><Hyperlink NavigateUri="https://www.youtube.com/watch?v=e1GIULg-RsU" RequestNavigate="OnRequestNavigate"><Run Text="here"/></Hyperlink><Run Text=" "/><Run Text="."/></TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+6, Converter={StaticResource MathConverter}, ElementName=label7}"
+                      Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label7}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label7}"/>
+
+                        <Label x:Name="label7" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Source code for loading GBA games and some of the UI design style based off of"/><Run Text=" "/><Hyperlink NavigateUri="https://projectpokemon.org/forums/showthread.php?46245" RequestNavigate="OnRequestNavigate"><Run Text="PokéCrafter"/></Hyperlink><Run Text=" "/><Run Text="."/></TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+6, Converter={StaticResource MathConverter}, ElementName=label8}"
+                      Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label8}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label8}"/>
+
+                        <Label x:Name="label8" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Source code for loading Colosseum and XD games based off of"/><Run Text=" "/><Hyperlink NavigateUri="https://projectpokemon.org/forums/showthread.php?47056" RequestNavigate="OnRequestNavigate"><Run Text="PkmGCSaveEditor"/></Hyperlink><Run Text=" "/><Run Text="."/></TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+6, Converter={StaticResource MathConverter}, ElementName=label9}"
+                      Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label9}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label9}"/>
+
+                        <Label x:Name="label9" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"  Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Source code for loading Pokemon Box game based off of"/><Run Text=" "/><Hyperlink NavigateUri="https://github.com/VitHuang/PokemonBoxSaveEditor" RequestNavigate="OnRequestNavigate"><Run Text="PokémonBoxSaveEditor"/></Hyperlink><Run Text=" "/><Run Text="."/></TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+6, Converter={StaticResource MathConverter}, ElementName=label13}"
+                	Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label13}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label13}"/>
+
+                        <Label x:Name="label13" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"  Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow">
+                                <Run Text="Source code for drawing Spinda's spots based off of"/>
+                                <Hyperlink NavigateUri="https://github.com/codemonkey85/PKMDS-Win32-DLL/" RequestNavigate="OnRequestNavigate"><Run Text="PKMDS-Win32-DLL"/></Hyperlink>
+                                <Run Text=". Original guidelines for drawing Spinda's spots from "/>
+                                <Hyperlink NavigateUri="http://www.freewebs.com/gatorshark/SpindaDocumentation.htm" RequestNavigate="OnRequestNavigate"><Run Text="GatorShark's Spinda Documentation"/></Hyperlink>
+                                <Run Text="."/>
+                                <Hyperlink NavigateUri="http://www.freewebs.com/gatorshark/Spinda%20Painter.htm" RequestNavigate="OnRequestNavigate"><Run Text="GatorShark's Spinda Painter"/></Hyperlink>
+                                <Run Text="used for testing and comparing Spinda spot drawing."/>
+                            </TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+15, Converter={StaticResource MathConverter}, ElementName=label10}"
+                      Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label10}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label10}"/>
+
+                        <Label x:Name="label10" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Badge sprites posted"/><Run Text=" "/><Hyperlink NavigateUri="http://www.neoseeker.com/forums/24412/t1013210-diamond-trainer-card-contest-ii-theme-ice/" RequestNavigate="OnRequestNavigate"><Run Text="here"/></Hyperlink><Run Text=" "/><Run Text="by GhostMember."/></TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Button Content="Close" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontSize="11" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False" IsCancel="True"/>
+    </Grid>
+</Window>

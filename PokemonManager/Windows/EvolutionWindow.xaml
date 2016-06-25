@@ -1,0 +1,88 @@
+﻿<Window x:Class="PokemonManager.Windows.EvolutionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:themes="http://schemas.xceed.com/wpf/xaml/toolkit/themes"
+        Title="Evolution" Height="300" Width="300" Icon="/TriggersPC;component/Resources/Empty.png" WindowStartupLocation="CenterOwner" Closing="OnWindowClosing" ShowInTaskbar="False">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFA0D8F0" Offset="0"/>
+            <GradientStop Color="#FFE0F8C8" Offset="0.313"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <Rectangle x:Name="rectBlackCover" HorizontalAlignment="Left" Height="270" VerticalAlignment="Top" Width="292" StrokeThickness="0" Fill="Black" Opacity="0"/>
+        <Rectangle x:Name="rectGlow" HorizontalAlignment="Left" Height="270" VerticalAlignment="Top" Width="292" StrokeThickness="0">
+            <Rectangle.Fill>
+                <RadialGradientBrush GradientOrigin="0.5,0.35" Center="0.5,0.35" SpreadMethod="Repeat" RadiusX="2" RadiusY="2">
+                    <GradientStop x:Name="gradiantStart" Color="#00000000" Offset="0.914"/>
+                    <GradientStop x:Name="gradiantOuter1" Color="#FF646482" Offset="0.928"/>
+                    <GradientStop x:Name="gradiantInner1" Color="#FFAAAAC8" Offset="0.942"/>
+                    <GradientStop x:Name="gradiantInner2" Color="#FFAAAAC8" Offset="0.957"/>
+                    <GradientStop x:Name="gradiantOuter2" Color="#FF646482" Offset="0.978"/>
+                    <GradientStop x:Name="gradiantEnd" Color="#00000000" Offset="1"/>
+                </RadialGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Image x:Name="imagePrevolution" Height="64" Margin="0,60,0,0" Width="64" Source="/TriggersPC;component/Resources/Kadabra.png" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <SkewTransform/>
+                    <ScaleTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="imageEvolution" HorizontalAlignment="Center" Height="64" Margin="0,60,0,0" VerticalAlignment="Top" Width="64" Source="/TriggersPC;component/Resources/Alakazam.png" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <SkewTransform/>
+                    <ScaleTransform ScaleY="0" ScaleX="0"/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Rectangle x:Name="rectMaskPrevolution" Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="64" Margin="0,60,0,0" VerticalAlignment="Top" Width="64" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <SkewTransform/>
+                    <ScaleTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <Rectangle x:Name="rectMaskEvolution" Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="64" Margin="0,60,0,0" VerticalAlignment="Top" Width="64" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <SkewTransform/>
+                    <ScaleTransform ScaleY="0" ScaleX="0"/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <Rectangle x:Name="rectFlash" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="270" VerticalAlignment="Top" Width="292" StrokeThickness="0" Opacity="0"/>
+        <Rectangle x:Name="rectTextWindow" Fill="#FF007ACC" Height="55" Margin="5,0,5,32" Stroke="Black" VerticalAlignment="Bottom" RadiusY="2" RadiusX="2"/>
+        <Button Margin="0,0,5,5" VerticalAlignment="Bottom" Background="#FF007ACC" BorderBrush="Black" IsTabStop="False" FontWeight="Bold" Foreground="White" Focusable="False" HorizontalAlignment="Right" Click="OnVolumeClicked">
+            <Image x:Name="imageVolume" Source="/TriggersPC;component/Resources/Icons/IconVolumeOn.png" Stretch="None"/>
+        </Button>
+        <Label Margin="5,0,5,32" VerticalAlignment="Bottom" Height="55" IsHitTestVisible="False" Padding="8,1" VerticalContentAlignment="Center">
+            <TextBox x:Name="textBlockMessage" TextWrapping="WrapWithOverflow" Text="What? Kadabra is evolving!" BorderThickness="0" Background="{x:Null}" FontWeight="Bold" IsHitTestVisible="False" IsReadOnlyCaretVisible="True" VerticalAlignment="Center" Foreground="White"/>
+        </Label>
+        <Grid x:Name="gridControlButtons" Height="22" Margin="5,0,32,5" VerticalAlignment="Bottom" Grid.IsSharedSizeScope="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition>
+
+                </ColumnDefinition>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Skip" VerticalAlignment="Top" Background="#FF007ACC" BorderBrush="Black" IsTabStop="False" Grid.Column="0" Margin="0" FontWeight="Bold" Foreground="White" Focusable="False" Click="OnSkipClicked"/>
+            <Button Content="Cancel" Margin="0" VerticalAlignment="Top" Background="#FF007ACC" BorderBrush="Black" Grid.Column="2" IsTabStop="False" FontWeight="Bold" Foreground="White" Focusable="False" Click="OnCancelClicked"/>
+        </Grid>
+        <Button x:Name="buttonClose" Content="Close" Margin="5,0,32,5" VerticalAlignment="Bottom" Background="#FF007ACC" BorderBrush="Black" IsTabStop="False" FontWeight="Bold" Foreground="White" Focusable="False" Visibility="Hidden" Click="OnCloseClicked"/>
+    </Grid>
+</Window>

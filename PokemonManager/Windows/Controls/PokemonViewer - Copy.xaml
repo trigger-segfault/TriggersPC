@@ -1,0 +1,275 @@
+﻿<UserControl x:Class="PokemonManager.Windows.PokemonViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokemonManager.Windows"
+             mc:Ignorable="d" Width="582" Background="#FFEEEEEE" Height="323.5">
+    <Grid>
+        <TabControl Margin="0">
+            <TabItem Header="General">
+                <Grid Background="#FF286496">
+                    <Grid Margin="115,7,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="21" Margin="0,3,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="222" RadiusX="2" RadiusY="2"/>
+                        <Label x:Name="labelNickname" Content="GBA4iOS" HorizontalAlignment="Left" Margin="96,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label Content="Nickname" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    </Grid>
+                    <Grid Margin="115,33,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="21" Margin="0,3,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="222" RadiusX="2" RadiusY="2"/>
+                        <Label x:Name="labelGender" Content="♂" HorizontalAlignment="Left" Margin="140,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Foreground="#FF0088B8"/>
+                        <Label x:Name="labelLevel" Content="Lv 14" HorizontalAlignment="Left" Margin="96,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label Content="Level" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    </Grid>
+                    <Rectangle Fill="#FFE4EEF1" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="100" RadiusX="2" RadiusY="2"/>
+                    <Image x:Name="imageShadowAura" Height="80" Width="80" Stretch="None" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,19,0,0" Source="/PokemonManager;component/Resources/UI/Pokemon/ShadowPokemonAura.png"/>
+                    <Image x:Name="imagePokemon" Height="64" Width="64" Stretch="None" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="28,27,0,0"/>
+                    <Rectangle x:Name="rectShadowMask" Fill="#4C8070B8" HorizontalAlignment="Left" Height="64" Margin="28,27,0,0" VerticalAlignment="Top" Width="64" Visibility="Hidden"/>
+                    <Image x:Name="imageBallCaught" HorizontalAlignment="Left" Height="12" Margin="92,91,0,0" VerticalAlignment="Top" Width="12" Stretch="None"/>
+                    <Grid Margin="115,59,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="21" Margin="0,3,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="222" RadiusX="2" RadiusY="2"/>
+                        <Label x:Name="labelOTName" Content="PAUL" HorizontalAlignment="Left" Margin="96,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Foreground="#FF0088B8"/>
+                        <Label Content="OT Name" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    </Grid>
+                    <Grid Margin="115,85,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="21" Margin="0,3,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="222" RadiusX="2" RadiusY="2"/>
+                        <Label x:Name="labelOTID" Content="18222" HorizontalAlignment="Left" Margin="96,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label Content="OT ID" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    </Grid>
+                    <Grid Margin="115,111,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="21" Margin="0,3,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="222" RadiusX="2" RadiusY="2"/>
+                        <Label x:Name="labelSecretID" Content="00000" HorizontalAlignment="Left" Margin="96,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label Content="Secret ID" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    </Grid>
+                    <Image x:Name="imageShinyStar" HorizontalAlignment="Left" Height="12" Margin="15,94,0,0" VerticalAlignment="Top" Width="12" Source="/PokemonManager;component/Resources/UI/Pokemon/ShinyStar.png" Stretch="None"/>
+                    <Grid Margin="115,137,0,0" Height="71" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="68" Margin="0,3,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="222" RadiusX="2" RadiusY="2"/>
+                        <Label x:Name="labelMetAtLevel" Content="Lv 4" HorizontalAlignment="Left" Margin="144,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label x:Name="labelMetAtText" Content="Fateful Encounter At" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                        <Label x:Name="labelMetAtLocation" Content="MT EMBER" HorizontalAlignment="Left" Margin="0,22,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label x:Name="labelGame" Content="FireRed (English)" HorizontalAlignment="Left" Margin="0,44,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                    </Grid>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="93" Margin="10,115,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="100" RadiusX="2" RadiusY="2"/>
+                    <Label x:Name="labelSpeciesName" Content="EEVEE" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Padding="5,5" FontWeight="Bold"/>
+                    <Label x:Name="labelSpeciesNumber" Content="No. 402" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Padding="5,5" FontWeight="Bold"/>
+                    <local:PokemonTypeControl x:Name="type1Pokemon" Margin="45,161,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"/>
+                    <Button x:Name="buttonOpenInPokedex" HorizontalAlignment="Left" Margin="87,139,0,0" VerticalAlignment="Top" Width="20" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ToolTip="Open in Pokédex" Focusable="False" IsTabStop="False">
+                        <Image Height="14" Width="14" Source="/PokemonManager;component/Resources/UI/Pokemon/PokedexIcon.png" Stretch="None"/>
+                    </Button>
+                    <local:PokemonTypeControl x:Name="type2Pokemon" Margin="45,184,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Left"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Info">
+                <Grid Background="#FF286496">
+                    <Grid Margin="115,7,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="21" Margin="0,3,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="222" RadiusX="2" RadiusY="2"/>
+                        <Label x:Name="labelHeldItem" Content="Soothe Bell" HorizontalAlignment="Left" Margin="96,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label Content="Held Item" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                        <Image x:Name="imageHeldItem" HorizontalAlignment="Left" Height="12" Margin="84,8,0,0" VerticalAlignment="Top" Width="12" Stretch="Fill"/>
+                    </Grid>
+                    <Grid Margin="115,33,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="21" Margin="0,3,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="222" RadiusX="2" RadiusY="2"/>
+                        <Label x:Name="labelFriendship" Content="70" HorizontalAlignment="Left" Margin="96,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label x:Name="labelFriendshipText" Content="Friendship" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    </Grid>
+                    <Rectangle Fill="#FFE4EEF1" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="100" RadiusX="2" RadiusY="2"/>
+                    <Image x:Name="imageShadowAura2" Height="80" Width="80" Stretch="None" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,19,0,0" Source="/PokemonManager;component/Resources/UI/Pokemon/ShadowPokemonAura.png"/>
+                    <Image x:Name="imagePokemon2" Height="64" Width="64" Stretch="None" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="28,27,0,0"/>
+                    <Rectangle x:Name="rectShadowMask2" Fill="#4C8070B8" HorizontalAlignment="Left" Height="64" Margin="28,27,0,0" VerticalAlignment="Top" Width="64" Visibility="Hidden"/>
+                    <Image x:Name="imageBallCaught2" HorizontalAlignment="Left" Height="12" Margin="92,91,0,0" VerticalAlignment="Top" Width="12"  Stretch="None"/>
+                    <Image x:Name="imageShinyStar2" HorizontalAlignment="Left" Height="12" Margin="15,94,0,0" VerticalAlignment="Top" Width="12" Source="/PokemonManager;component/Resources/UI/Pokemon/ShinyStar.png" Stretch="None"/>
+                    <Grid Margin="115,103,0,0" Height="62" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="58" Margin="0,3,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="222" RadiusX="2" RadiusY="2"/>
+                        <Label x:Name="labelAbility" Content="LEVITATE" HorizontalAlignment="Left" Margin="96,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label Content="Ability" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                        <Label HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Height="42" Width="222">
+                            <TextBlock x:Name="textBlockAbilityDescription" TextWrapping="Wrap" Text="Not hit by Ground attacks. And blah blah blah."/>
+                        </Label>
+                    </Grid>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="22" Margin="10,115,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="100" RadiusX="2" RadiusY="2"/>
+                    <Grid Margin="10,165,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="40" Margin="0,3,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="327" RadiusX="2" RadiusY="2"/>
+                        <Label x:Name="labelTotalExperience" Content="429302" HorizontalAlignment="Left" Margin="86,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label x:Name="labelExperienceText" Content="Experience" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                        <Label x:Name="labelNextLevelText" Content="Next Level" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="163,0,0,0"/>
+                        <Label x:Name="labelNextLevel" Content="429302" HorizontalAlignment="Left" Margin="255,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label x:Name="labelExperienceText2" Content="Experience" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="0,18,0,-1"/>
+                        <Label x:Name="labelTotalExperience2" Content="429302" HorizontalAlignment="Left" Margin="86,18,0,-1" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                    </Grid>
+                    <Grid Margin="115,59,0,0" Height="47" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="40" Margin="0,3,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="222" RadiusX="2" RadiusY="2"/>
+                        <Label x:Name="labelNature" Content="NAUGHTY" HorizontalAlignment="Left" Margin="96,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label Content="Nature" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                        <Label x:Name="labelNatureRaised" Content="+Attack" HorizontalAlignment="Left" Margin="18,19,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Label x:Name="labelNatureLowered" Content="-SpDefense" HorizontalAlignment="Left" Margin="118,19,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5"/>
+                        <Rectangle x:Name="rectExperienceBar" Fill="#FF646464" HorizontalAlignment="Left" Height="8" Margin="49,134,0,-95" Stroke="Black" VerticalAlignment="Top" Width="162"/>
+                        <Rectangle x:Name="rectPurificationBorder1" HorizontalAlignment="Left" Height="8" Margin="81,134,0,-95" Stroke="Black" VerticalAlignment="Top" Width="33"/>
+                        <Rectangle x:Name="rectPurificationBorder2" HorizontalAlignment="Left" Height="8" Margin="146,134,0,-95" Stroke="Black" VerticalAlignment="Top" Width="33"/>
+                    </Grid>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="22" Margin="10,142,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="100" RadiusX="2" RadiusY="2"/>
+                    <Label x:Name="labelPokerus" Content="Infected" HorizontalAlignment="Left" Margin="50,140,0,0" VerticalAlignment="Top" Padding="5,5" FontWeight="Bold" HorizontalContentAlignment="Right" Width="60"/>
+                    <Label Content="PKRS" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" Padding="5,5" FontWeight="Bold"/>
+                    <Label x:Name="markCircle" Content="●" HorizontalAlignment="Left" Margin="24,108,0,0" VerticalAlignment="Top" FontSize="17" HorizontalContentAlignment="Center" Foreground="#FFC8C8C8"/>
+                    <Label x:Name="markSquare" Content="◼" HorizontalAlignment="Left" Margin="42,112,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="#FFC8C8C8"/>
+                    <Label x:Name="markTriangle" Content="▲" HorizontalAlignment="Left" Margin="60,112,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="#FFC8C8C8"/>
+                    <Label x:Name="markHeart" Content="♥" HorizontalAlignment="Left" Margin="79,113,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="#FFC8C8C8"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Stats">
+                <Grid Background="#FF286496" Margin="0">
+                    <Rectangle Fill="#FFCCEAD5" HorizontalAlignment="Left" Height="198" Margin="10,10,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="327" RadiusX="2" RadiusY="2"/>
+                    <Rectangle Fill="#FFDCA4AB" HorizontalAlignment="Left" Height="188" Margin="15,15,0,0" Stroke="#FF4AB08F" VerticalAlignment="Top" Width="209" RadiusX="2" RadiusY="2"/>
+                    <Rectangle Fill="#FFC2B0D1" HorizontalAlignment="Left" Height="188" Margin="229,15,0,0" Stroke="#FF4AB08F" VerticalAlignment="Top" Width="103" RadiusX="2" RadiusY="2"/>
+                    <Grid Margin="13,16,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Label Content="HP" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="2,23,0,0"/>
+                        <Label Content="Attack" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="2,49,0,0"/>
+                        <Label Content="Defense" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="2,75,0,0"/>
+                        <Label Content="Sp Attack" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="2,101,0,0"/>
+                        <Label Content="Sp Defense" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="2,127,0,0"/>
+                        <Label Content="Speed" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="2,153,0,0"/>
+                        <Label Content="IVs" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="76,0,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label Content="EVs" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="121,0,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label Content="Value" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="0,5" Margin="166,0,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="151" Margin="76,26,0,0" Stroke="#FFAC4557" VerticalAlignment="Top" Width="40" RadiusX="2" RadiusY="2"/>
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="151" Margin="121,26,0,0" Stroke="#FFAC4557" VerticalAlignment="Top" Width="40" RadiusX="2" RadiusY="2"/>
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="151" Margin="166,26,0,0" Stroke="#FFAC4557" VerticalAlignment="Top" Width="40" RadiusX="2" RadiusY="2"/>
+                        <Label x:Name="labelHPIV" Content="31" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="76,23,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelAttackIV" Content="28" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="76,49,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelDefenseIV" Content="4" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="76,75,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelSpAttackIV" Content="13" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="76,101,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelSpDefenseIV" Content="8" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="76,127,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelSpeedIV" Content="11" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="76,153,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelHPEV" Content="252" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="121,23,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelAttackEV" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="121,49,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelDefenseEV" Content="40" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="121,75,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelSpAttackEV" Content="23" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="121,101,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelSpDefenseEV" Content="10" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="121,127,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelSpeedEV" Content="100" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="121,153,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelHPStat" Content="252" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="166,23,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelAttackStat" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="166,49,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelDefenseStat" Content="40" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="166,75,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelSpAttackStat" Content="23" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="166,101,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelSpDefenseStat" Content="10" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="166,127,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelSpeedStat" Content="100" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="166,153,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                    </Grid>
+                    <Grid Margin="228,16,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="151" Margin="58,26,0,0" Stroke="#FF633E81" VerticalAlignment="Top" Width="40" RadiusX="2" RadiusY="2"/>
+                        <Label Content="Cool" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="6,23,0,0"/>
+                        <Label Content="Beauty" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="6,49,0,0"/>
+                        <Label Content="Cute" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="6,75,0,0"/>
+                        <Label Content="Smart" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="6,101,0,0"/>
+                        <Label Content="Tough" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="6,127,0,0"/>
+                        <Label Content="Feel" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="6,153,0,0"/>
+                        <Label Content="Value" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="0,5" Margin="58,0,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelCool" Content="255" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="58,23,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelBeauty" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="58,49,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelCute" Content="40" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="58,75,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelSmart" Content="23" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="58,101,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelTough" Content="10" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="58,127,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="labelFeel" Content="100" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="58,153,0,0" Width="40" HorizontalContentAlignment="Center"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Moves">
+                <Grid Background="#FF286496">
+                    <Rectangle Fill="#FFB6D9E6" HorizontalAlignment="Left" Height="198" Margin="10,10,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="327" RadiusX="2" RadiusY="2"/>
+                    <Rectangle x:Name="rectMove1" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="23" Margin="14,36,0,0" Stroke="#FF4660BF" VerticalAlignment="Top" Width="319" RadiusX="2" RadiusY="2" MouseLeftButtonDown="rectMove1_MouseLeftButtonDown"/>
+                    <Label Content="Type" HorizontalAlignment="Left" Margin="31,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    <Label Content="Name" HorizontalAlignment="Left" Margin="133,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    <Label Content="PP" HorizontalAlignment="Left" Margin="295,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    <Label x:Name="labelMove1Name" Content="FLAMETHROWER" HorizontalAlignment="Left" Margin="134,34,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Label x:Name="labelMove1PP" Content="18" HorizontalAlignment="Left" Margin="295,34,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <local:PokemonTypeControl x:Name="typeMove1" Margin="24,38,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" IsHitTestVisible="False" />
+                    <Rectangle x:Name="rectMove2" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="23" Margin="14,64,0,0" Stroke="#FF4660BF" VerticalAlignment="Top" Width="319" RadiusX="2" RadiusY="2" MouseLeftButtonDown="rectMove2_MouseLeftButtonDown"/>
+                    <Rectangle x:Name="rectMove3" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="23" Margin="14,92,0,0" Stroke="#FF4660BF" VerticalAlignment="Top" Width="319" RadiusX="2" RadiusY="2" MouseLeftButtonDown="rectMove3_MouseLeftButtonDown"/>
+                    <Rectangle x:Name="rectMove4" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="23" Margin="14,120,0,0" Stroke="#FF4660BF" VerticalAlignment="Top" Width="319" RadiusX="2" RadiusY="2" MouseLeftButtonDown="rectMove4_MouseLeftButtonDown"/>
+                    <local:PokemonTypeControl x:Name="typeMove2" Margin="24,66,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" IsHitTestVisible="False" />
+                    <local:PokemonTypeControl x:Name="typeMove3" Margin="24,94,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" IsHitTestVisible="False" />
+                    <local:PokemonTypeControl x:Name="typeMove4" Margin="24,122,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" IsHitTestVisible="False" />
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="56" Margin="14,148,0,0" Stroke="#FF4660BF" VerticalAlignment="Top" Width="106" RadiusX="2" RadiusY="2"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="56" Margin="125,148,0,0" Stroke="#FF4660BF" VerticalAlignment="Top" Width="208" RadiusX="2" RadiusY="2"/>
+                    <Label HorizontalAlignment="Left" Margin="125,148,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="2" Height="56" Width="208">
+                        <TextBox x:Name="textBlockMoveDescription" TextWrapping="Wrap" Text="Description" BorderThickness="0" IsReadOnlyCaretVisible="True" Background="#00000000" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </Label>
+                    <Label Content="Power" HorizontalAlignment="Left" Margin="14,146,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    <Label Content="Accuracy" HorizontalAlignment="Left" Margin="14,163,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    <Label Content="Type" HorizontalAlignment="Left" Margin="14,180,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    <Label x:Name="labelMoveAccuracy" Content="100" HorizontalAlignment="Left" Margin="80,163,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" HorizontalContentAlignment="Right" Width="40"/>
+                    <Label x:Name="labelMovePower" Content="95" HorizontalAlignment="Left" Margin="80,146,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" HorizontalContentAlignment="Right" Width="40"/>
+                    <Label x:Name="labelMoveCategory" Content="Special" HorizontalAlignment="Left" Margin="40,180,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" HorizontalContentAlignment="Right" Width="80"/>
+                    <Label x:Name="labelMove2PP" Content="18" HorizontalAlignment="Left" Margin="295,62,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Label x:Name="labelMove3PP" Content="18" HorizontalAlignment="Left" Margin="295,90,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Label x:Name="labelMove4PP" Content="18" HorizontalAlignment="Left" Margin="295,118,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Label x:Name="labelMove2Name" Content="FLAMETHROWER" HorizontalAlignment="Left" Margin="133,62,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Label x:Name="labelMove3Name" Content="FLAMETHROWER" HorizontalAlignment="Left" Margin="133,90,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Label x:Name="labelMove4Name" Content="FLAMETHROWER" HorizontalAlignment="Left" Margin="133,118,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Contest">
+                <Grid Background="#FF286496">
+                    <Rectangle Fill="#FFCEB6E6" HorizontalAlignment="Left" Height="198" Margin="10,10,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="327" RadiusX="2" RadiusY="2"/>
+                    <Rectangle x:Name="rectContestMove1" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="23" Margin="14,36,0,0" Stroke="#FF8D4DB9" VerticalAlignment="Top" Width="319" RadiusX="2" RadiusY="2" MouseLeftButtonDown="rectMove1_MouseLeftButtonDown"/>
+                    <Label Content="Type" HorizontalAlignment="Left" Margin="31,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    <Label Content="Name" HorizontalAlignment="Left" Margin="133,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    <Label Content="PP" HorizontalAlignment="Left" Margin="295,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    <Label x:Name="labelContestMove1Name" Content="FLAMETHROWER" HorizontalAlignment="Left" Margin="134,34,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Label x:Name="labelContestMove1PP" Content="18" HorizontalAlignment="Left" Margin="295,34,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="56" Margin="14,148,0,0" Stroke="#FF8D4DB9" VerticalAlignment="Top" Width="106" RadiusX="2" RadiusY="2"/>
+                    <local:ConditionTypeControl x:Name="conditionMove1" Margin="24,38,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" IsHitTestVisible="False" />
+                    <Rectangle x:Name="rectContestMove2" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="23" Margin="14,64,0,0" Stroke="#FF8D4DB9" VerticalAlignment="Top" Width="319" RadiusX="2" RadiusY="2" MouseLeftButtonDown="rectMove2_MouseLeftButtonDown"/>
+                    <Rectangle x:Name="rectContestMove3" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="23" Margin="14,92,0,0" Stroke="#FF8D4DB9" VerticalAlignment="Top" Width="319" RadiusX="2" RadiusY="2" MouseLeftButtonDown="rectMove3_MouseLeftButtonDown"/>
+                    <Rectangle x:Name="rectContestMove4" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="23" Margin="14,120,0,0" Stroke="#FF8D4DB9" VerticalAlignment="Top" Width="319" RadiusX="2" RadiusY="2" MouseLeftButtonDown="rectMove4_MouseLeftButtonDown"/>
+                    <local:ConditionTypeControl x:Name="conditionMove2" Margin="24,66,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" IsHitTestVisible="False" />
+                    <local:ConditionTypeControl x:Name="conditionMove3" Margin="24,94,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" IsHitTestVisible="False" />
+                    <local:ConditionTypeControl x:Name="conditionMove4" Margin="24,122,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" IsHitTestVisible="False" />
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="56" Margin="125,148,0,0" Stroke="#FF8D4DB9" VerticalAlignment="Top" Width="208" RadiusX="2" RadiusY="2"/>
+                    <Label x:Name="labelMove1Name_Copy4" HorizontalAlignment="Left" Margin="125,148,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="2" Height="56" Width="208">
+                        <TextBox x:Name="textBlockContestMoveDescription" TextWrapping="Wrap" Text="Description" BorderThickness="0" IsReadOnlyCaretVisible="True" Background="#00000000" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </Label>
+                    <Label x:Name="labelMove1Name_Copy5" Content="Appeal" HorizontalAlignment="Left" Margin="14,150,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    <Label x:Name="labelMove1Name_Copy6" Content="Jam" HorizontalAlignment="Left" Margin="14,174,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                    <Label x:Name="labelMoveJam" Content="1" HorizontalAlignment="Left" Margin="80,174,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" HorizontalContentAlignment="Right" Width="40"/>
+                    <Label x:Name="labelMoveAppeal" Content="2" HorizontalAlignment="Left" Margin="80,150,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" HorizontalContentAlignment="Right" Width="40"/>
+                    <Label x:Name="labelContestMove2PP" Content="18" HorizontalAlignment="Left" Margin="295,62,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Label x:Name="labelContestMove3PP" Content="18" HorizontalAlignment="Left" Margin="295,90,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Label x:Name="labelContestMove4PP" Content="18" HorizontalAlignment="Left" Margin="295,118,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Label x:Name="labelContestMove2Name" Content="FLAMETHROWER" HorizontalAlignment="Left" Margin="133,62,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Label x:Name="labelContestMove3Name" Content="FLAMETHROWER" HorizontalAlignment="Left" Margin="133,90,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                    <Label x:Name="labelContestMove4Name" Content="FLAMETHROWER" HorizontalAlignment="Left" Margin="133,118,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" IsHitTestVisible="False"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Ribbons">
+                <Grid Background="#FF286496">
+                    <Rectangle Fill="#FF87D3C1" HorizontalAlignment="Left" Height="198" Margin="10,10,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="327" RadiusX="2" RadiusY="2"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="135" Margin="16,16,0,0" Stroke="#FF448D76" VerticalAlignment="Top" Width="314" RadiusX="2" RadiusY="2"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="45" Margin="16,156,0,0" Stroke="#FF448D76" VerticalAlignment="Top" Width="314" RadiusX="2" RadiusY="2"/>
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="16,156,0,0" Width="314" Height="45">
+                        <TextBox x:Name="textBlockRibbonDescription" TextWrapping="Wrap" Text="Description" HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnlyCaretVisible="True" BorderThickness="0" Background="#00000000"/>
+                    </Label>
+                    <StackPanel x:Name="stackPanelRibbons" HorizontalAlignment="Left" Height="129" Margin="19,19,0,0" VerticalAlignment="Top" Width="308" Background="#FFF4F5F5">
+
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Settings">
+                <Grid Background="#FF286496">
+                    <Rectangle Fill="#FF777BD3" HorizontalAlignment="Left" Height="198" Margin="10,10,0,0" Stroke="#FF5CBAF0" VerticalAlignment="Top" Width="327" RadiusX="2" RadiusY="2"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="170" Margin="24,24,0,0" Stroke="#FF605A95" VerticalAlignment="Top" Width="136" RadiusX="2" RadiusY="2"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="170" Margin="187,24,0,0" Stroke="#FF605A95" VerticalAlignment="Top" Width="136" RadiusX="2" RadiusY="2"/>
+                    <Label Content="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="24,24,0,0" Width="136" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="ButtonEVs" Content="Wipe EVs" HorizontalAlignment="Left" Margin="199,129,0,0" VerticalAlignment="Top" Width="112" Foreground="White" FontWeight="Bold" Background="#FF007ACC" IsTabStop="False" Focusable="False" Click="OnWipeEVsClick"/>
+                    <Button x:Name="buttonNickname" Content="Change Nickname" HorizontalAlignment="Left" Margin="199,75,0,0" VerticalAlignment="Top" Width="112" Foreground="White" FontWeight="Bold" Background="#FF007ACC" IsTabStop="False" Focusable="False" Click="OnChangeNicknameClicked"/>
+                    <Button x:Name="buttonMoves" Content="Rearrange Moves" HorizontalAlignment="Left" Margin="35,102,0,0" VerticalAlignment="Top" Width="112" Background="#FF007ACC" Foreground="White" FontWeight="Bold" IsTabStop="False" Focusable="False" Click="OnRearangeMovesClicked"/>
+                    <Button x:Name="buttonGive" Content="Give Item" HorizontalAlignment="Left" Margin="35,129,0,0" VerticalAlignment="Top" Width="112" Background="#FF007ACC" Foreground="White" FontWeight="Bold" IsTabStop="False" Focusable="False"/>
+                    <Button x:Name="buttonTake" Content="Take Item" HorizontalAlignment="Left" Margin="35,156,0,0" VerticalAlignment="Top" Width="112" Background="#FF007ACC" Foreground="White" FontWeight="Bold" IsTabStop="False" Focusable="False"/>
+                    <Button x:Name="buttonBall" Content="Replace Ball" HorizontalAlignment="Left" Margin="199,102,0,0" VerticalAlignment="Top" Width="112" Foreground="White" FontWeight="Bold" Background="#FF007ACC" IsTabStop="False" Focusable="False" Click="OnReplaceBallClick"/>
+                    <Button x:Name="buttonMarkings" Content="Change Markings" HorizontalAlignment="Left" Margin="35,75,0,0" VerticalAlignment="Top" Width="112" FontWeight="Bold" Background="#FF007ACC" Foreground="White" IsTabStop="False" Focusable="False" Click="OnChangeMarkingsClicked"/>
+                    <Label Content="Unique" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="187,24,0,0" Width="136" HorizontalContentAlignment="Center"/>
+                    <Label Content="Functionality" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="187,41,0,0" Width="136" HorizontalContentAlignment="Center"/>
+                    <Label Content="Functionality" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="24,41,0,0" Width="136" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="buttonDeoxys" Content="Deoxys Form" HorizontalAlignment="Left" Margin="199,156,0,0" VerticalAlignment="Top" Width="112" Foreground="White" FontWeight="Bold" Background="#FF007ACC" IsTabStop="False" Focusable="False" Click="OnChangeFormClicked"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</UserControl>

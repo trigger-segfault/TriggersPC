@@ -1,0 +1,12 @@
+﻿<Window x:Class="PokemonManager.Windows.VolumeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Volume" Height="119" Width="286" Icon="/TriggersPC;component/Resources/Icons/IconVolumeOn.png" WindowStartupLocation="CenterOwner" Closing="OnClosing" ShowInTaskbar="False">
+    <Grid>
+        <Slider x:Name="sliderVolume" Margin="20,10,20,0" VerticalAlignment="Top" Maximum="100" SmallChange="5" LargeChange="20" TickFrequency="5" ValueChanged="OnVolumeChanged" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+        <Button Content="OK" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" IsDefault="True" Background="#FF007ACC" Foreground="White" FontWeight="Bold" FontSize="11" Focusable="False" IsTabStop="False" Click="OnOKClicked"/>
+        <CheckBox x:Name="checkboxMuted" Content="Mute" HorizontalAlignment="Left" Margin="20,0,0,13" VerticalAlignment="Bottom" Click="OnMuteChecked"/>
+        <Label x:Name="labelVolume" Content="Volume: 100%" HorizontalAlignment="Left" Margin="79,0,0,8" VerticalAlignment="Bottom"/>
+
+    </Grid>
+</Window>

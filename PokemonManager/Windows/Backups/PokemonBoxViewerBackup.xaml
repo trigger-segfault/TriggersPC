@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="PokemonManager.Windows.PokemonBoxViewerBackup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokemonManager.Windows"
+             mc:Ignorable="d" Background="#FFEEEEEE" Height="192" Width="260" Loaded="OnLoaded">
+    <Grid Background="#FFEEEEEE">
+        <local:PokeBoxControl x:Name="pokeBoxControl" Height="144" Margin="42,37,42,0" VerticalAlignment="Top" Width="156"/>
+        <Button Content="❮" Margin="10,37,224,0" VerticalAlignment="Top" Width="26" Click="OnPreviousBoxButtonClicked" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Height="144" Focusable="False" IsTabStop="False" RenderTransformOrigin="0.538,1.007"/>
+        <Button Content="❯" Margin="224,37,10,0" VerticalAlignment="Top" Width="26" Click="OnNextBoxButtonClicked" FontWeight="Bold" Foreground="White" Background="#FF007ACC" Height="144" Focusable="False" IsTabStop="False"/>
+        <Button x:Name="buttonParty" Content="Party" Margin="0,10,0,0" VerticalAlignment="Top" Click="OnPartyButtonClicked" FontWeight="Bold" Foreground="White" Background="#FF007ACC" Height="22" Focusable="False" IsTabStop="False" Width="156"/>
+
+    </Grid>
+</UserControl>

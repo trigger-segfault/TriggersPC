@@ -1,0 +1,21 @@
+﻿<Window x:Class="PokemonManager.Windows.AdvancedSendSelectionToWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PokemonManager.Windows"
+        Title="Send Item" Height="263" Width="270" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/TriggersPC;component/Resources/Empty.png" Loaded="OnLoaded">
+    <Grid>
+        <local:ComboBoxGameSaves x:Name="comboBoxGames" VerticalAlignment="Top" Margin="10,10,10,0" SelectionChanged="OnGameChanged"/>
+        <ComboBox x:Name="comboBoxPockets" Margin="10,37,10,0" VerticalAlignment="Top" SelectionChanged="OnPocketChanged"/>
+        <local:NumericUpDown x:Name="numericKeep" Margin="78,121,10,0" Width="Auto" VerticalAlignment="Top" Value="0" ValueChanged="OnKeepValueChanged" />
+        <Label Content="Keep" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,3"/>
+        <local:NumericUpDown x:Name="numericMax" Margin="78,94,10,0" Width="Auto" VerticalAlignment="Top" ValueChanged="OnMaxValueChanged" />
+        <Label x:Name="labelMax" Content="Most" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,3"/>
+        <Label Content="At Least" HorizontalAlignment="Left" Margin="10,158,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,3"/>
+        <local:NumericUpDown x:Name="numericMin" Margin="78,158,10,0" Width="Auto" VerticalAlignment="Top" ValueChanged="OnMinValueChanged" Value="0" />
+        <CheckBox x:Name="checkBoxSendAll" Content="All" HorizontalAlignment="Left" Margin="15,70,0,0" VerticalAlignment="Top" Click="OnSendAllChecked"/>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" FontSize="11" IsDefault="True" Click="OKClicked" Background="#FF007ACC" Foreground="White" FontWeight="Bold" Focusable="False" IsTabStop="False"/>
+        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontSize="11" IsCancel="True" FontWeight="Bold" Foreground="White" Background="#FF007ACC" Focusable="False" IsTabStop="False"/>
+        <CheckBox x:Name="checkBoxPercentage" Content="Percentage" HorizontalAlignment="Left" Margin="119,70,0,0" VerticalAlignment="Top" Click="OnPercentageChecked"/>
+        <CheckBox x:Name="checkBoxMax" Content="Max" HorizontalAlignment="Left" Margin="63,70,0,0" VerticalAlignment="Top" Click="OnMaxChecked"/>
+    </Grid>
+</Window>

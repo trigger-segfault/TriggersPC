@@ -18,6 +18,15 @@ $RECYCLE.BIN/
 *.lnk
 
 # =========================
+# Triggers PC Files
+# =========================
+
+Saves
+Work
+PokemonManager/bin
+PokemonManager/obj
+
+# =========================
 # Operating System Files
 # =========================
 

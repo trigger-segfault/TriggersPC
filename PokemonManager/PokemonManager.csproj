@@ -1,0 +1,1594 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2CE58B58-3936-4772-88E9-745241EFE878}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PokemonManager</RootNamespace>
+    <AssemblyName>TriggersPC</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\App.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.101.0\lib\net45\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.7\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Game\FileStructure\CharacterEncoding.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\DecorationBlockData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\GBAGameFlags.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\PokeBoxBlockData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GC\DaycareData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GC\GameConfigData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GC\GCCharacterEncoding.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GC\GCData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GC\ShadowPokemonData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GC\StrategyMemoData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\ManagerGameSave.cs" />
+    <Compile Include="Game\FileStructure\Gen3\PB\PokemonBoxBlockData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\PB\PokemonBoxGameSave.cs" />
+    <Compile Include="Game\FileStructure\Gen3\PB\PokemonBoxSaveData.cs" />
+    <Compile Include="Items\PlayerSecretBase.cs" />
+    <Compile Include="Items\SecretBase.cs" />
+    <Compile Include="Items\ItemInventory.cs" />
+    <Compile Include="Items\Mail.cs" />
+    <Compile Include="Items\MailBox.cs" />
+    <Compile Include="Items\RouteData.cs" />
+    <Compile Include="Items\SecretBaseDatabase.cs" />
+    <Compile Include="Items\SecretBaseEnums.cs" />
+    <Compile Include="Items\LocationData.cs" />
+    <Compile Include="Items\RoomData.cs" />
+    <Compile Include="Items\SharedSecretBase.cs" />
+    <Compile Include="Items\SecretBaseManager.cs" />
+    <Compile Include="PokemonStructures\ColosseumPokemon.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GC\GCEnums.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GC\GCGameSave.cs" />
+    <Compile Include="PokemonStructures\BoxPokemon.cs" />
+    <Compile Include="PokemonStructures\BoxPokeBox.cs" />
+    <Compile Include="PokemonStructures\BoxPokePC.cs" />
+    <Compile Include="PokemonStructures\ColosseumDaycare.cs" />
+    <Compile Include="PokemonStructures\Events\RegiDollEventDistribution.cs" />
+    <Compile Include="PokemonStructures\Events\EventDistribution.cs" />
+    <Compile Include="PokemonStructures\Events\PokemonEventDistribution.cs" />
+    <Compile Include="PokemonStructures\Events\TicketEventDistribution.cs" />
+    <Compile Include="PokemonStructures\GBADaycare.cs" />
+    <Compile Include="PokemonStructures\PokemonFinder.cs" />
+    <Compile Include="PokemonStructures\XDDaycare.cs" />
+    <Compile Include="PokemonStructures\IDaycare.cs" />
+    <Compile Include="PokemonStructures\LearnableMove.cs" />
+    <Compile Include="Windows\AdvancedSendSingleToWindow.xaml.cs">
+      <DependentUpon>AdvancedSendSingleToWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EVTrainingWindow.xaml.cs">
+      <DependentUpon>EVTrainingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PokerusWindow.xaml.cs">
+      <DependentUpon>PokerusWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SendPokeblockToWindow.xaml.cs">
+      <DependentUpon>SendPokeblockToWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EventDisplayItem.xaml.cs">
+      <DependentUpon>EventDisplayItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EventViewerTab.xaml.cs">
+      <DependentUpon>EventViewerTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SecretBaseEditTrainerWindow.xaml.cs">
+      <DependentUpon>SecretBaseEditTrainerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SecretBaseLocationChooser.xaml.cs">
+      <DependentUpon>SecretBaseLocationChooser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SecretBaseViewer.xaml.cs">
+      <DependentUpon>SecretBaseViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MirageIslandResultsWindow.xaml.cs">
+      <DependentUpon>MirageIslandResultsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\OpaqueClickableImage.cs" />
+    <Compile Include="Windows\SecretBaseLocationDisplay.xaml.cs">
+      <DependentUpon>SecretBaseLocationDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SecretBaseRoomDisplay.xaml.cs">
+      <DependentUpon>SecretBaseRoomDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SecretBaseEditor.xaml.cs">
+      <DependentUpon>SecretBaseEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowSearchPokemonSettings.xaml.cs">
+      <DependentUpon>WindowSearchPokemonSettings.xaml</DependentUpon>
+    </Compile>
+    <None Include="PokemonStructures\PokemonNew.cs" />
+    <None Include="PokemonStructures\Pokemon.cs" />
+    <Compile Include="PokemonStructures\PokemonSearch.cs" />
+    <Compile Include="PokemonStructures\XDPokeParty.cs" />
+    <Compile Include="PokemonStructures\XDPokeBox.cs" />
+    <Compile Include="PokemonStructures\XDPokePC.cs" />
+    <Compile Include="PokemonStructures\ManagerPokeBox.cs" />
+    <Compile Include="PokemonStructures\EvolutionData.cs" />
+    <Compile Include="PokemonStructures\PokeContainerEnumerator.cs" />
+    <Compile Include="PokemonStructures\PokePCEnumerator.cs" />
+    <Compile Include="PokemonStructures\XDPokemon.cs" />
+    <Compile Include="Windows\AdvancedSendSelectionToWindow.xaml.cs">
+      <DependentUpon>AdvancedSendSelectionToWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\BuySellInfoControl.xaml.cs">
+      <DependentUpon>BuySellInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ComboBoxPCRows.cs" />
+    <Compile Include="Windows\PokemonSearchResults.xaml.cs">
+      <DependentUpon>PokemonSearchResults.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RelearnMoveWindow.xaml.cs">
+      <DependentUpon>RelearnMoveWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\LearnMoveWindow.xaml.cs">
+      <DependentUpon>LearnMoveWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditGameTrainerWindow.xaml.cs">
+      <DependentUpon>EditGameTrainerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditRowWindow.xaml.cs">
+      <DependentUpon>EditRowWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditTrainerWindow.xaml.cs">
+      <DependentUpon>EditTrainerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EvolutionTypeWindow.xaml.cs">
+      <DependentUpon>EvolutionTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PokemonTab.xaml.cs">
+      <DependentUpon>PokemonTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SelectGameTypeFullWindow.xaml.cs">
+      <DependentUpon>SelectGameTypeFullWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CreditsWindow.xaml.cs">
+      <DependentUpon>CreditsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MathConverter.cs" />
+    <Compile Include="Windows\PokedexViewer.xaml.cs">
+      <DependentUpon>PokedexViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SendMailToWindow.xaml.cs">
+      <DependentUpon>SendMailToWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MailViewerTab.xaml.cs">
+      <DependentUpon>MailViewerTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ErrorMessageBox.xaml.cs">
+      <DependentUpon>ErrorMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\GiveItemWindow.xaml.cs">
+      <DependentUpon>GiveItemWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SelectItemWindow.xaml.cs">
+      <DependentUpon>SelectItemWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EvolutionWindow.xaml.cs">
+      <DependentUpon>EvolutionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\IPokemonViewer.cs" />
+    <Compile Include="Windows\PokemonViewerSidePart.xaml.cs">
+      <DependentUpon>PokemonViewerSidePart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PokemonViewerSmall.xaml.cs">
+      <DependentUpon>PokemonViewerSmall.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ManageBoxesWindow.xaml.cs">
+      <DependentUpon>ManageBoxesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SpriteCustomizationWindow.xaml.cs">
+      <DependentUpon>SpriteCustomizationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TriggerMessageBox.xaml.cs">
+      <DependentUpon>TriggerMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SaveManager.xaml.cs">
+      <DependentUpon>SaveManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Game\FileStructure\Gen3\GC\PCData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GC\PlayerData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GC\GCSaveData.cs" />
+    <Compile Include="Items\PlacedDecoration.cs" />
+    <Compile Include="Items\DecorationPocket.cs" />
+    <Compile Include="Items\Decoration.cs" />
+    <Compile Include="Items\DecorationData.cs" />
+    <Compile Include="Items\DecorationInventory.cs" />
+    <Compile Include="Items\PokeblockCase.cs" />
+    <Compile Include="PokeManager.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\BlockData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\BlockDataCollection.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\GBACharacterEncoding.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\GBAEnums.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\GBAGameSave.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\IBlockData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\NationalPokedexBAndCBlockData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\RivalInfoBlockData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\SectionIDTable.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\TeamAndItemsBlockData.cs" />
+    <Compile Include="Game\FileStructure\IGameSave.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\GBASaveData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GBA\TrainerInfoBlockData.cs" />
+    <Compile Include="PokemonStructures\AbilityData.cs" />
+    <Compile Include="PokemonStructures\ColosseumPokeParty.cs" />
+    <Compile Include="PokemonStructures\ColosseumPokeBox.cs" />
+    <Compile Include="PokemonStructures\ColosseumPokePC.cs" />
+    <Compile Include="PokemonStructures\GBAPokemon.cs" />
+    <Compile Include="PokemonStructures\GBAPokeParty.cs" />
+    <Compile Include="PokemonStructures\ManagerPokePC.cs" />
+    <Compile Include="PokemonStructures\IPokemon.cs" />
+    <Compile Include="PokemonStructures\IPokeBox.cs" />
+    <Compile Include="PokemonStructures\IPokeContainer.cs" />
+    <Compile Include="PokemonStructures\IPokePC.cs" />
+    <Compile Include="PokemonStructures\Move.cs" />
+    <Compile Include="PokemonStructures\NatureData.cs" />
+    <Compile Include="PokemonStructures\PokemonFormData.cs" />
+    <Compile Include="PokemonStructures\PokemonDatabase.cs" />
+    <Compile Include="PokemonStructures\PokemonStorage.cs" />
+    <Compile Include="PokemonStructures\RibbonData.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceDatabase.cs" />
+    <Compile Include="Util\BigEndian.cs" />
+    <Compile Include="Util\LittleEndian.cs" />
+    <Compile Include="Windows\ControlsWindow.xaml.cs">
+      <DependentUpon>ControlsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ChangeNickname.xaml.cs">
+      <DependentUpon>ChangeNickname.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ComboBoxGameSaves.cs" />
+    <Compile Include="Windows\ConditionTypeControl.xaml.cs">
+      <DependentUpon>ConditionTypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\VolumeWindow.xaml.cs">
+      <DependentUpon>VolumeWindow.xaml</DependentUpon>
+    </Compile>
+    <None Include="ItemDatabase.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="PokemonDatabase.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SecretBaseDatabase.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Windows\Backups\PokeBoxControlBackup.xaml.cs">
+      <DependentUpon>PokeBoxControlBackup.xaml</DependentUpon>
+    </None>
+    <None Include="Windows\Backups\PokemonBoxViewerBackup.xaml.cs">
+      <DependentUpon>PokemonBoxViewerBackup.xaml</DependentUpon>
+    </None>
+    <Compile Include="Windows\ChangeDeoxysFormWindow.xaml.cs">
+      <DependentUpon>ChangeDeoxysFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ChangeMarkingsWindow.xaml.cs">
+      <DependentUpon>ChangeMarkingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\NumericUpDown.xaml.cs">
+      <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddSaveNicknameWindow.xaml.cs">
+      <DependentUpon>AddSaveNicknameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SelectGameTypeWindow.xaml.cs">
+      <DependentUpon>SelectGameTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditBoxWindow.xaml.cs">
+      <DependentUpon>EditBoxWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RearangeMovesWindow.xaml.cs">
+      <DependentUpon>RearangeMovesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SendCurrencyToWindow.xaml.cs">
+      <DependentUpon>SendCurrencyToWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SendPokemonToWindow.xaml.cs">
+      <DependentUpon>SendPokemonToWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PokeBoxControl.xaml.cs">
+      <DependentUpon>PokeBoxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PokemonBoxViewer.xaml.cs">
+      <DependentUpon>PokemonBoxViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PokemonTypeControl.xaml.cs">
+      <DependentUpon>PokemonTypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PokemonViewer.xaml.cs">
+      <DependentUpon>PokemonViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ReplaceBallWindow.xaml.cs">
+      <DependentUpon>ReplaceBallWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SendDecorationToWindow.xaml.cs">
+      <DependentUpon>SendDecorationToWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DecorationViewerTab.xaml.cs">
+      <DependentUpon>DecorationViewerTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DecorationInventoryViewer.xaml.cs">
+      <DependentUpon>DecorationInventoryViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SecretBaseSendToWindow.xaml.cs">
+      <DependentUpon>SecretBaseSendToWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\InventoryViewer.xaml.cs">
+      <DependentUpon>InventoryViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ItemViewerTab.xaml.cs">
+      <DependentUpon>ItemViewerTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Items\ItemDatabase.cs" />
+    <Compile Include="Windows\PokeblockViewerTab.xaml.cs">
+      <DependentUpon>PokeblockViewerTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SendItemToWindow.xaml.cs">
+      <DependentUpon>SendItemToWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\ByteHelper.cs" />
+    <Compile Include="Windows\TrainerInfoViewer.xaml.cs">
+      <DependentUpon>TrainerInfoViewer.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Windows\AdvancedSendSelectionToWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ControlsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\BuySellInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AdvancedSendSingleToWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\EVTrainingWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\PokerusWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SendPokeblockToWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\EventDisplayItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EventViewerTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SecretBaseEditTrainerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SecretBaseLocationChooser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SecretBaseViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MirageIslandResultsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\PokemonSearchResults.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RelearnMoveWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\LearnMoveWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\EditGameTrainerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\EditRowWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditTrainerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\EvolutionTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PokemonTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SecretBaseLocationDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SecretBaseRoomDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SecretBaseEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SelectGameTypeFullWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\CreditsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PokedexViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SendMailToWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\MailViewerTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ErrorMessageBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\GiveItemWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SelectItemWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\EvolutionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PokemonViewerSidePart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PokemonViewerSmall.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ManageBoxesWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SpriteCustomizationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TriggerMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ChangeNickname.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ConditionTypeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <None Include="Windows\Backups\PokeBoxControlBackup.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Windows\Backups\PokemonBoxViewerBackup.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <Page Include="Windows\ChangeDeoxysFormWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ChangeMarkingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\NumericUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddSaveNicknameWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SelectGameTypeWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\EditBoxWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\RearangeMovesWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SendCurrencyToWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SendPokemonToWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\PokeBoxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PokemonBoxViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PokemonTypeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PokemonViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ReplaceBallWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SendDecorationToWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\DecorationViewerTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\DecorationInventoryViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SecretBaseSendToWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\InventoryViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ItemViewerTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PokeblockViewerTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PokeManagerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DragAndDrop\DragAdorner.cs" />
+    <Compile Include="DragAndDrop\ListViewDragDropManager.cs" />
+    <Compile Include="DragAndDrop\MouseUtilities.cs" />
+    <Compile Include="Game\GameEnums.cs" />
+    <Compile Include="Windows\ItemCountWindow.xaml.cs">
+      <DependentUpon>ItemCountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Items\Inventory.cs" />
+    <Compile Include="Items\ItemData.cs" />
+    <Compile Include="Items\ItemEnums.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Windows\PokeManagerWindow.xaml.cs">
+      <DependentUpon>PokeManagerWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Windows\ItemCountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SendItemToWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TrainerInfoViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SaveManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\VolumeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WindowSearchPokemonSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Items\ItemPocket.cs" />
+    <Compile Include="Items\Pokeblock.cs" />
+    <Compile Include="PokemonStructures\GBAPokeBox.cs" />
+    <Compile Include="PokemonStructures\MoveData.cs" />
+    <Compile Include="PokemonStructures\IPokeParty.cs" />
+    <Compile Include="PokemonStructures\GBAPokePC.cs" />
+    <Compile Include="PokemonStructures\PokemonData.cs" />
+    <Compile Include="PokemonStructures\PokemonEnums.cs" />
+    <None Include="PokemonStructures\PokemonOld.cs" />
+    <Compile Include="PokemonStructures\PokemonManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Trainers\ColosseumMale.png" />
+    <Resource Include="Resources\Trainers\EmeraldFemale.png" />
+    <Resource Include="Resources\Trainers\EmeraldMale.png" />
+    <Resource Include="Resources\Trainers\FireRedLeafGreenFemale.png" />
+    <Resource Include="Resources\Trainers\FireRedLeafGreenMale.png" />
+    <Resource Include="Resources\Trainers\RubySapphireFemale.png" />
+    <Resource Include="Resources\Trainers\RubySapphireMale.png" />
+    <Resource Include="Resources\Trainers\XDMale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Trainers\WorldEmeraldFemale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Trainers\WorldEmeraldMale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Trainers\WorldFireRedLeafGreenFemale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Trainers\WorldFireRedLeafGreenMale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Trainers\WorldRubySapphireFemale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Trainers\WorldRubySapphireMale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Trainers\WorldXDMale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Trainers\WorldColosseumMale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GameTypes\ColosseumPhysical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GameTypes\EmeraldPhysical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GameTypes\FireRedPhysical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GameTypes\LeafGreenPhysical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GameTypes\RubyPhysical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GameTypes\SapphirePhysical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GameTypes\XDPhysical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\DeoxysForms\DeoxysAttack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\DeoxysForms\DeoxysDefault.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\DeoxysForms\DeoxysDefense.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\DeoxysForms\DeoxysNormal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\DeoxysForms\DeoxysSpeed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Pokemon\BoxPokemonHeldItem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Pokemon\BoxPokemonShadow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Pokemon\BoxSelectorMove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Pokemon\BoxSelectorSummary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Pokemon\PartySlot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Pokemon\PartyWindow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Pokemon\PokedexIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Pokemon\ShadowPokemonAura.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Pokemon\ShinyStar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\PosterTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\TMCaseTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\BerriesTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\ChairTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\CologneCaseTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\CushionTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\DeskTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\DiscCaseTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\DollTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\ItemsTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\KeyItemsTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\MatTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\OrnamentTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\PCTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\PlantTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\PokeBalls2Tab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\PokeBallsTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Tabs\PokeblockCaseTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockWhiteLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockYellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockYellowLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockBlackLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockBlueLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockBrown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockBrownLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockGold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockGoldLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockGray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockGrayLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockGreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockGreenLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockIndigo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockIndigoLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockLiteBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockLiteBlueLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockOlive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockOliveLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockPink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockPinkLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockPurple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockPurpleLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockRed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pokeblocks\PokeblockRedLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Decorations\DecorationBedroom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Decorations\DecorationSecretBase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonBeauty-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonBeauty-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonBeauty-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonBeauty-4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonChampion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonCool-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonCool-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonCool-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonCool-4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonCountry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonCute-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonCute-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonCute-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonCute-4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonEarth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonEffort.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonLand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonMarine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonNational.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonSky.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonSmart-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonSmart-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonSmart-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonSmart-4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonTough-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonTough-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonTough-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonTough-4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonVictory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonWinning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonWorld.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ribbons\RibbonArtist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerBeachE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerBeachRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerCaveE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerCaveRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerCityE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerCityRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerCragE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerCragRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerDesertE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerDesertRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerForestE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerForestRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerMachineE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerMachineRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerPokeCenterE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerPokeCenterFRLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerPokeCenterRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerPolkadotE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerPolkadotRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerRiverE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerRiverRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSavannaE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSavannaRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSeafloorColoE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSeafloorColoRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSeafloorE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSeafloorRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSimpleE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSimpleFRLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSimpleRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSkyE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSkyRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSnowE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerSnowRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerStarsFRLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerTilesFRLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerVolcanoE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerVolcanoRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGSavanna.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGSeafloor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGSimple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGSky.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGSnow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGVolcano.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGBeach.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGCave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGCity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGCrag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGDesert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGForest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGMachine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGPokeCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGPolkadot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\FireRedLeafGreen\WallpaperFRLGRiver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldSnow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldVolcano.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldBeach.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldCave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldCity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldCrag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldDesert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldForest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldMachine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldPokeCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldPolkadot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldRiver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldSavanna.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldSeafloor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldSimple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldSky.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Colosseum\WallpaperColosseumDesertE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Colosseum\WallpaperColosseumDesertRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Colosseum\WallpaperColosseumForestE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Colosseum\WallpaperColosseumForestRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Colosseum\WallpaperColosseumSeafloorE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\Colosseum\WallpaperColosseumSeafloorRS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Trainers\ManagerFemale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Trainers\ManagerMale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSSeafloor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSSimple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSSky.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSSnow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSVolcano.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSBeach.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSCave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSCity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSCrag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSDesert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSForest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSMachine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSPokeCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSPolkadot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSRiver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSSavanna.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\UI\Pokemon\BoxPokemonUnknown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Windows\Controls\" />
+    <Folder Include="Windows\Dialogs\Items\" />
+    <Folder Include="Windows\Dialogs\Manager\" />
+    <Folder Include="Windows\Dialogs\Pokemon\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Alakazam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Kadabra.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\IconVolumeMute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\IconVolumeOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\IconClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\IconSave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Audio\Evolution.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\Icons\IconPokerus.png" />
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerFlowerBox.png" />
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerCarpetBox.png" />
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerTileBox.png" />
+    <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerRuinBox.png" />
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSCarpet.png" />
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSTile.png" />
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSRuin.png" />
+    <Resource Include="Resources\UI\Wallpapers\RubySapphire\WallpaperRSFlower.png" />
+    <Resource Include="Resources\UI\Decorations\FemaleSecretBaseLarge4.png" />
+    <Resource Include="Resources\UI\Decorations\FemaleSecretBaseLarge3.png" />
+    <Resource Include="Resources\UI\Decorations\FemaleSecretBaseLarge2.png" />
+    <Resource Include="Resources\UI\Decorations\FemaleSecretBaseLarge1.png" />
+    <Resource Include="Resources\UI\Decorations\FemaleSecretBaseLarge0.png" />
+    <Resource Include="Resources\UI\Decorations\MaleSecretBaseLarge4.png" />
+    <Resource Include="Resources\UI\Decorations\MaleSecretBaseLarge3.png" />
+    <Resource Include="Resources\UI\Decorations\MaleSecretBaseLarge2.png" />
+    <Resource Include="Resources\UI\Decorations\MaleSecretBaseLarge1.png" />
+    <Resource Include="Resources\UI\Decorations\MaleSecretBaseLarge0.png" />
+    <Resource Include="Resources\UI\Pokemon\TeamBallBackground.png" />
+    <Resource Include="Resources\UI\Decorations\SecretBaseTypeYellowCave.png" />
+    <Resource Include="Resources\UI\Decorations\SecretBaseTypeTree.png" />
+    <Resource Include="Resources\UI\Decorations\SecretBaseTypeShrub.png" />
+    <Resource Include="Resources\UI\Decorations\SecretBaseTypeRedCave.png" />
+    <Resource Include="Resources\UI\Decorations\SecretBaseTypeBrownCave.png" />
+    <Resource Include="Resources\UI\Decorations\SecretBaseTypeBlueCave.png" />
+    <Resource Include="Resources\UI\Tabs\SecretBaseTab.png" />
+    <Resource Include="Resources\Icons\IconSecretBase.png" />
+    <Resource Include="Resources\Icons\IconPencil.png" />
+    <Resource Include="Resources\Icons\IconMove.png" />
+    <Resource Include="Resources\Icons\IconEraser.png" />
+    <Resource Include="Resources\UI\Decorations\NoteMat0.png" />
+    <Resource Include="Resources\UI\Decorations\NoteMat7.png" />
+    <Resource Include="Resources\UI\Decorations\NoteMat6.png" />
+    <Resource Include="Resources\UI\Decorations\NoteMat5.png" />
+    <Resource Include="Resources\UI\Decorations\NoteMat4.png" />
+    <Resource Include="Resources\UI\Decorations\NoteMat3.png" />
+    <Resource Include="Resources\UI\Decorations\NoteMat2.png" />
+    <Resource Include="Resources\UI\Decorations\NoteMat1.png" />
+    <Resource Include="Resources\UI\Decorations\RouteSignWater.png" />
+    <Resource Include="Resources\UI\Decorations\RouteSignLand.png" />
+    <Resource Include="Resources\UI\Decorations\FemaleSecretBase0.png" />
+    <Resource Include="Resources\UI\Decorations\MaleSecretBase4.png" />
+    <Resource Include="Resources\UI\Decorations\MaleSecretBase3.png" />
+    <Resource Include="Resources\UI\Decorations\MaleSecretBase2.png" />
+    <Resource Include="Resources\UI\Decorations\MaleSecretBase1.png" />
+    <Resource Include="Resources\UI\Decorations\MaleSecretBase0.png" />
+    <Resource Include="Resources\UI\Decorations\FemaleSecretBase4.png" />
+    <Resource Include="Resources\UI\Decorations\FemaleSecretBase3.png" />
+    <Resource Include="Resources\UI\Decorations\FemaleSecretBase2.png" />
+    <Resource Include="Resources\UI\Decorations\FemaleSecretBase1.png" />
+    <Resource Include="Resources\UI\Decorations\RouteLocationSelector.png" />
+    <Resource Include="Resources\TreeBackground.png" />
+    <Resource Include="Resources\Route119ID193.png" />
+    <Resource Include="Resources\Route119.png" />
+    <Resource Include="Resources\TreeD.png" />
+    <Resource Include="Resources\UI\Tabs\EvolutionTab.png" />
+    <Resource Include="Resources\UI\Tabs\VitaminsTab.png" />
+    <Resource Include="Resources\UI\Tabs\ValuablesTab.png" />
+    <Resource Include="Resources\UI\Tabs\MiscTab.png" />
+    <Resource Include="Resources\UI\Tabs\InBattleTab.png" />
+    <Resource Include="Resources\UI\Tabs\HoldTab.png" />
+    <Resource Include="Resources\UI\Pokemon\SideEgg.png" />
+    <Resource Include="Resources\UI\Pokemon\NewSideEgg.png" />
+    <Resource Include="Resources\Icons\IconPokeblocks.png" />
+    <Resource Include="Resources\Icons\IconItem.png" />
+    <Resource Include="Resources\Icons\IconDecoration.png" />
+    <Resource Include="Resources\Icons\IconEgg.png" />
+    <Resource Include="Resources\Badges\Hoenn\HoennBadge8.png" />
+    <Resource Include="Resources\Badges\Hoenn\HoennBadge7.png" />
+    <Resource Include="Resources\Badges\Hoenn\HoennBadge6.png" />
+    <Resource Include="Resources\Badges\Hoenn\HoennBadge5.png" />
+    <Resource Include="Resources\Badges\Hoenn\HoennBadge4.png" />
+    <Resource Include="Resources\Badges\Hoenn\HoennBadge3.png" />
+    <Resource Include="Resources\Badges\Hoenn\HoennBadge2.png" />
+    <Resource Include="Resources\Badges\Hoenn\HoennBadge1.png" />
+    <Resource Include="Resources\Badges\Kanto\KantoBadge8.png" />
+    <Resource Include="Resources\Badges\Kanto\KantoBadge7.png" />
+    <Resource Include="Resources\Badges\Kanto\KantoBadge6.png" />
+    <Resource Include="Resources\Badges\Kanto\KantoBadge5.png" />
+    <Resource Include="Resources\Badges\Kanto\KantoBadge4.png" />
+    <Resource Include="Resources\Badges\Kanto\KantoBadge3.png" />
+    <Resource Include="Resources\Badges\Kanto\KantoBadge2.png" />
+    <Resource Include="Resources\Badges\Kanto\KantoBadge1.png" />
+    <Resource Include="Resources\UI\Pokemon\DaycareWindow.png" />
+    <Resource Include="Resources\UI\Pokemon\DaycareUnusedSlot.png" />
+    <Resource Include="Resources\Icons\IconMirageIsland.png" />
+    <Resource Include="Resources\Icons\IconSearchGoto.png" />
+    <Resource Include="Resources\Icons\IconSearchEdit.png" />
+    <Resource Include="Resources\Icons\IconSearch.png" />
+    <Resource Include="Resources\UI\Pokemon\BoxSelectorSummaryHover.png" />
+    <Resource Include="Resources\UI\Pokemon\BoxSelectorMoveHover.png" />
+    <Resource Include="Resources\LearnableMoves\LearnableMoves101_151.txt" />
+    <Resource Include="Resources\LearnableMoves\LearnableMovesDeoxys.txt" />
+    <Resource Include="Resources\LearnableMoves\LearnableMoves351-386.txt" />
+    <Resource Include="Resources\LearnableMoves\LearnableMoves301-350.txt" />
+    <Resource Include="Resources\LearnableMoves\LearnableMoves252_300.txt" />
+    <Resource Include="Resources\LearnableMoves\LearnableMoves201-251.txt" />
+    <Resource Include="Resources\LearnableMoves\LearnableMoves152-200.txt" />
+    <Resource Include="Resources\LearnableMoves\LearnableMoves051_100.txt" />
+    <Resource Include="Resources\LearnableMoves\LearnableMoves001_050.txt" />
+    <Resource Include="Resources\Icons\IconPC.png" />
+    <Resource Include="Resources\Icons\IconRows.png" />
+    <Resource Include="Resources\Trainers\WorldManagerMale.png" />
+    <Resource Include="Resources\Trainers\WorldManagerFemale.png" />
+    <Resource Include="Resources\Icons\IconBoxPokemon.png" />
+    <Resource Include="Resources\Icons\IconPokemon.png" />
+    <Resource Include="Resources\Pokemon\SpindaSpotBottomRight.png" />
+    <Resource Include="Resources\Pokemon\SpindaSpotBottomLeft.png" />
+    <Resource Include="Resources\Pokemon\SpindaSpotTopRight.png" />
+    <Resource Include="Resources\Pokemon\SpindaSpotTopLeft.png" />
+    <Resource Include="Resources\GameTypes\AnyPhysical.png" />
+    <Resource Include="Resources\Icons\IconManageSaves.png" />
+    <Resource Include="Resources\Icons\IconEditNickname.png" />
+    <Resource Include="Resources\Icons\IconBox.png" />
+    <Resource Include="Resources\Icons\IconReload.png" />
+    <Resource Include="Resources\Icons\IconHelp.png" />
+    <Resource Include="Resources\Icons\IconExplorer.png" />
+    <Resource Include="Resources\Icons\IconCredits.png" />
+    <Resource Include="Resources\Icons\IconControls.png" />
+    <Resource Include="Resources\Icons\IconAbout.png" />
+    <Resource Include="Resources\UI\Wallpapers\WallpaperDefault.png" />
+    <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldSpecial.png" />
+    <Resource Include="Resources\GameTypes\PokemonBoxPhysical.png" />
+    <SplashScreen Include="Resources\Splash.png" />
+    <Resource Include="Resources\UI\Pokemon\PokedexRRegistered.png" />
+    <Resource Include="Resources\UI\Pokemon\PokedexCheckRegistered.png" />
+    <Resource Include="Resources\UI\Pokemon\PokedexPokeballLiving.png" />
+    <Resource Include="Resources\UI\Pokemon\PokedexEyeSeen.png" />
+    <Resource Include="Resources\UI\Pokemon\PokedexPokeballOwned.png" />
+    <Resource Include="Resources\LumBerry.png" />
+    <Resource Include="Resources\UI\Pokemon\BoxPokemonHeldMail.png" />
+    <Resource Include="Resources\Pokemon\XD001FrontSprite.png" />
+    <Resource Include="Resources\Pokemon\XD001BoxSprite.png" />
+    <Resource Include="Resources\UI\Wallpapers\XD\WallpaperXDSeafloor.png" />
+    <Resource Include="Resources\UI\Wallpapers\XD\WallpaperXDPolkadot.png" />
+    <Resource Include="Resources\UI\Wallpapers\XD\WallpaperXDForest.png" />
+    <Resource Include="Resources\UI\Wallpapers\XD\WallpaperXDDesert.png" />
+    <Resource Include="Resources\UI\Wallpapers\XD\WallpaperXDCity.png" />
+    <Resource Include="Resources\UI\Wallpapers\XD\WallpaperXDCave.png" />
+    <Resource Include="Resources\UI\Wallpapers\XD\WallpaperXDVolcano.png" />
+    <Resource Include="Resources\UI\Wallpapers\XD\WallpaperXDTiles.png" />
+    <Resource Include="Resources\UI\Mail\WoodMail.png" />
+    <Resource Include="Resources\UI\Mail\WaveMail.png" />
+    <Resource Include="Resources\UI\Mail\TropicMail.png" />
+    <Resource Include="Resources\UI\Mail\ShadowMail.png" />
+    <Resource Include="Resources\UI\Mail\RetroMail.png" />
+    <Resource Include="Resources\UI\Mail\OrangeMail.png" />
+    <Resource Include="Resources\UI\Mail\MechMail.png" />
+    <Resource Include="Resources\UI\Mail\HarborMail.png" />
+    <Resource Include="Resources\UI\Mail\GlitterMail.png" />
+    <Resource Include="Resources\UI\Mail\FabMail.png" />
+    <Resource Include="Resources\UI\Mail\DreamMail.png" />
+    <Resource Include="Resources\UI\Mail\BeadMail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

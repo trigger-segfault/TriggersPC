@@ -1,0 +1,24 @@
+﻿<Window x:Class="PokemonManager.Windows.SelectGameTypeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:PokemonManager.Windows"
+        Title="Select Game Type" Height="189" Width="270" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" Icon="/TriggersPC;component/Resources/Empty.png" ShowInTaskbar="False">
+    <Grid>
+        <Label Margin="10,10,10,0" VerticalAlignment="Top" Height="57" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0">
+            <TextBox TextWrapping="Wrap" Text="Please select which game this save belongs to. Trigger's PC is not able to determine it on its own." FontWeight="Bold" BorderThickness="0"/>
+        </Label>
+        <Button HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="90" Height="70" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="#FF007ACC" Click="OnGameType1Clicked">
+            <Grid>
+                <Image x:Name="imageGame1" Height="48" Width="48" Source="/TriggersPC;component/Resources/GameTypes/RubyPhysical.png" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                <Label x:Name="labelGame1" Content="Ruby" Margin="0,0,0,4" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="White"/>
+            </Grid>
+        </Button>
+        <Button HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="90" Height="70" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="#FF007ACC" Click="OnGameType2Clicked">
+            <Grid>
+                <Image x:Name="imageGame2" Height="48" Width="48" Source="/TriggersPC;component/Resources/GameTypes/SapphirePhysical.png" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                <Label x:Name="labelGame2" Content="Sapphire" Margin="0,0,0,4" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="White"/>
+            </Grid>
+        </Button>
+    </Grid>
+</Window>

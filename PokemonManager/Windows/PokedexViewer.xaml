@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="PokemonManager.Windows.PokedexViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="335" Width="490">
+    <Grid Background="#FF286496">
+        <Grid x:Name="gridStats" HorizontalAlignment="Left" Height="154" Margin="235,10,0,10" VerticalAlignment="Top" Width="237">
+            <Rectangle Fill="#FFF4F4F5" Stroke="Black" RadiusY="2" RadiusX="2"/>
+            <Label x:Name="labelPokedexName" Content="Dexter" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="10,2,0,0" FontSize="14"/>
+            <StackPanel x:Name="stackPanelStats" HorizontalAlignment="Left" Height="113" Margin="10,31,0,0" VerticalAlignment="Top" Width="217"/>
+        </Grid>
+        <ListView x:Name="listViewPokemon" HorizontalAlignment="Left" Margin="10,37,0,10" Width="220"/>
+        <ComboBox x:Name="comboBoxViewType" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="220" SelectionChanged="OnViewTypeChanged">
+            <ComboBoxItem Content="All Pokémon"/>
+            <ComboBoxItem Content="Owned Pokémon"/>
+            <ComboBoxItem Content="Seen Pokémon"/>
+            <ComboBoxItem Content="Missing Pokémon"/>
+            <ComboBoxItem Content="Living Dex"/>
+        </ComboBox>
+        <Grid x:Name="gridPokemonInfo" HorizontalAlignment="Left" Height="156" Margin="235,169,0,10" VerticalAlignment="Top" Width="237" Visibility="Hidden">
+            <Image x:Name="imageTrainer" Margin="0" Stretch="None" Height="74" Width="60"/>
+            <Grid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100">
+                <Rectangle Fill="#FFE4EEF1" Margin="0" Stroke="Black" RadiusY="2" RadiusX="2"/>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</UserControl>

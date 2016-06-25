@@ -1,0 +1,26 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PokemonManager.Windows"
+        mc:Ignorable="d" x:Class="PokemonManager.Windows.ChangeNicknameWindow"
+        Title="Change Nickname" Height="161" Width="240" ResizeMode="NoResize" Icon="/TriggersPC;component/Resources/Empty.png" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <Grid>
+        <TextBox x:Name="textBoxName" MaxLength="10" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" Text="BLISSEY" VerticalAlignment="Top" TextChanged="OnNicknameChanged" PreviewKeyDown="OnEnterPressed"/>
+        <Button Content="Rename" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" IsDefault="True" Background="#FF007ACC" Foreground="White" FontWeight="Bold" Click="OKClicked" FontSize="11" Focusable="False" IsTabStop="False"/>
+        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Background="#FF007ACC" Foreground="White" FontWeight="Bold" FontSize="11" IsCancel="True" Focusable="False" IsTabStop="False"/>
+        <GroupBox Header="Special Characters" Margin="10,38,10,0" VerticalAlignment="Top" Height="46">
+            <StackPanel Height="30" Width="202" Orientation="Horizontal">
+                <Button Content="♂" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="OnMaleButtonClicked" Focusable="False" IsTabStop="False"/>
+                <Button Content="♀" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Focusable="False" IsTabStop="False" Click="OnFemaleButtonClicked"/>
+                <Button x:Name="buttonDots" Content="…" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Focusable="False" IsTabStop="False" Click="OnDotDotDotButtonClicked"/>
+                <Button x:Name="buttonQuotes1" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Focusable="False" IsTabStop="False" Click="OnOpenQuotesButtonClicked"/>
+                <Button x:Name="buttonQuotes2" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Focusable="False" IsTabStop="False" Click="OnCloseQuotesButtonClicked"/>
+                <Button x:Name="buttonSingleQuote1" Content="'" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Focusable="False" IsTabStop="False" Click="OnOpenSingleQuoteButtonClicked"/>
+                <Button x:Name="buttonSingleQuote2" Content="'" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Focusable="False" IsTabStop="False" Click="OnCloseSingleQuoteButtonClicked"/>
+            </StackPanel>
+        </GroupBox>
+
+    </Grid>
+</Window>

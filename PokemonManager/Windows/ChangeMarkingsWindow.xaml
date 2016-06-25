@@ -1,0 +1,21 @@
+﻿<Window x:Class="PokemonManager.Windows.ChangeMarkingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:PokemonManager.Windows"
+        Title="Change Markings" Height="112" Width="202" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False" Icon="/TriggersPC;component/Resources/Empty.png">
+    <Grid>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" FontSize="11" IsDefault="True" Click="OKClicked" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False"/>
+        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontSize="11" IsCancel="True" FontWeight="Bold" Foreground="White" Background="#FF007ACC" Focusable="False" IsTabStop="False"/>
+        <Rectangle Fill="#FFF8F8F8" HorizontalAlignment="Left" Height="22" Margin="46,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="100" RadiusX="2" RadiusY="2"/>
+        <Rectangle x:Name="circleHitBox" Fill="Red" HorizontalAlignment="Left" Height="22" Margin="61,12,0,0" VerticalAlignment="Top" Width="18" StrokeThickness="0" MouseEnter="OnMarkingMouseEnter" MouseLeave="OnMarkingMouseLeave" PreviewMouseDown="OnMarkingClicked" Opacity="0"/>
+        <Rectangle x:Name="squareHitBox" Fill="Blue" HorizontalAlignment="Left" Height="22" Margin="79,12,0,0" VerticalAlignment="Top" Width="18" StrokeThickness="0" Opacity="0" PreviewMouseDown="OnMarkingClicked" MouseLeave="OnMarkingMouseLeave" MouseEnter="OnMarkingMouseEnter"/>
+        <Rectangle x:Name="triangleHitBox" Fill="Lime" HorizontalAlignment="Left" Height="22" Margin="97,12,0,0" VerticalAlignment="Top" Width="18" StrokeThickness="0" Opacity="0" MouseLeave="OnMarkingMouseLeave" MouseEnter="OnMarkingMouseEnter" PreviewMouseDown="OnMarkingClicked"/>
+        <Rectangle x:Name="heartHitBox" Fill="Magenta" HorizontalAlignment="Left" Height="22" Margin="115,12,0,0" VerticalAlignment="Top" Width="18" StrokeThickness="0" Opacity="0" MouseLeave="OnMarkingMouseLeave" MouseEnter="OnMarkingMouseEnter" PreviewMouseDown="OnMarkingClicked"/>
+        <Label x:Name="markCircle" Content="●" HorizontalAlignment="Left" Margin="60,5,0,0" VerticalAlignment="Top" FontSize="17" HorizontalContentAlignment="Center" Foreground="#FFC8C8C8" IsHitTestVisible="False" Tag=""/>
+        <Label x:Name="markSquare" Content="◼" HorizontalAlignment="Left" Margin="78,9,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="#FFC8C8C8" IsHitTestVisible="False" Tag=""/>
+        <Label x:Name="markTriangle" Content="▲" HorizontalAlignment="Left" Margin="96,9,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="#FFC8C8C8" IsHitTestVisible="False" Tag=""/>
+        <Label x:Name="markHeart" Content="♥" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="#FFC8C8C8" IsHitTestVisible="False" Tag=""/>
+
+    </Grid>
+</Window>

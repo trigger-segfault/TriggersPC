@@ -1,0 +1,22 @@
+﻿<Window x:Class="PokemonManager.Windows.SpriteCustomizationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Pokémon Sprite Settings" Height="470" Width="340" Icon="/TriggersPC;component/Resources/Icons/IconPokemon.png" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" UseLayoutRounding="True" Closing="OnWindowClosing">
+    <Grid>
+        <Button Content="Close" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontSize="11" IsCancel="True" FontWeight="Bold" Foreground="White" Background="#FF007ACC" Focusable="False" IsTabStop="False"/>
+        <Border BorderBrush="#FF828790" BorderThickness="1" Margin="10,34,10,94">
+            <ScrollViewer Margin="0">
+                <StackPanel x:Name="stackPanelList"/>
+            </ScrollViewer>
+        </Border>
+        <Button Content="Reload" HorizontalAlignment="Right" Margin="0,0,90,10" VerticalAlignment="Bottom" Width="75" FontSize="11" FontWeight="Bold" Foreground="White" Background="#FF007ACC" Focusable="False" IsTabStop="False" Click="OnRefreshClicked"/>
+        <Button Content="Set RSE" HorizontalAlignment="Left" Margin="10,0,0,62" VerticalAlignment="Bottom" Width="75" FontSize="11" FontWeight="Bold" Foreground="White" Background="#FF007ACC" Focusable="False" IsTabStop="False" Click="OnSetRSEClicked"/>
+        <Button Content="Set FRLG" HorizontalAlignment="Left" Margin="10,0,0,36" VerticalAlignment="Bottom" Width="75" FontSize="11" FontWeight="Bold" Foreground="White" Background="#FF007ACC" Focusable="False" IsTabStop="False" Click="OnSetFRLGClicked"/>
+        <Button Content="Set Custom" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" FontSize="11" FontWeight="Bold" Foreground="White" Background="#FF007ACC" Focusable="False" IsTabStop="False" Click="OnSetCustomClicked"/>
+        <CheckBox x:Name="checkBoxDifferentShiny" Content="Different Shiny Sprites" HorizontalAlignment="Left" Margin="169,0,0,65" VerticalAlignment="Bottom" Click="OnDifferentShinyChecked"/>
+        <CheckBox x:Name="checkBoxShowShiny" Content="Show Shiny Sprites" HorizontalAlignment="Left" Margin="169,0,0,39" VerticalAlignment="Bottom" Click="OnShowShinyChecked" IsEnabled="False"/>
+        <Label Content="RSE" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="64" HorizontalContentAlignment="Center" Padding="1,2,2,1"/>
+        <Label Content="FRLG" HorizontalAlignment="Left" Margin="74,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="64" HorizontalContentAlignment="Center" Padding="1,2,2,1"/>
+        <Label Content="Custom" HorizontalAlignment="Left" Margin="138,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="64" HorizontalContentAlignment="Center" Padding="1,2,2,1"/>
+    </Grid>
+</Window>

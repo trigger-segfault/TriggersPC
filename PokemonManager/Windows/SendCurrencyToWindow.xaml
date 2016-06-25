@@ -1,0 +1,19 @@
+﻿<Window x:Class="PokemonManager.Windows.SendCurrencyToWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:PokemonManager.Windows"
+        Title="Send Currency To" Height="222" Width="240" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False" Loaded="OnLoaded" Icon="/TriggersPC;component/Resources/Empty.png">
+    <Grid>
+        <local:ComboBoxGameSaves x:Name="comboBoxGame" Margin="10,10,10,0" VerticalAlignment="Top" SelectionChanged="GameChanged" Focusable="False" IsTabStop="False"/>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" FontSize="11" IsDefault="True" Click="OKClicked" IsTabStop="False" Focusable="False" Background="#FF007ACC" Foreground="White" FontWeight="Bold"/>
+        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontSize="11" IsCancel="True" Background="#FF007ACC" Foreground="White" Focusable="False" IsTabStop="False" FontWeight="Bold"/>
+        <local:NumericUpDown x:Name="upDownCurrencyCount" Margin="11,111,9,0" VerticalAlignment="Top" Width="Auto" ValueChanged="OnValueChanged"/>
+        <Label x:Name="labelCurrencyType" Content="Poke Dollars" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="11,37,0,0"/>
+        <Label x:Name="labelName1" Content="EMERALD's" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="11,63,0,0"/>
+        <Label x:Name="labelName2" Content="RUBY's" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="11,85,0,0"/>
+        <Label x:Name="labelCurrency1" Content="$9,999,999,999" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="128,63,0,0"/>
+        <Label x:Name="labelCurrency2" Content="$9,999,999,999" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="128,85,0,0"/>
+
+    </Grid>
+</Window>

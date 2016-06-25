@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="PokemonManager.Windows.NumericUpDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:themes="http://schemas.xceed.com/wpf/xaml/toolkit/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" Height="22" Width="224">
+    
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="ControlNormalBorderKey" EndPoint="0,20" MappingMode="Absolute" StartPoint="0,0">
+            <GradientStop Color="#ABADB3" Offset="0.05" />
+            <GradientStop Color="#E2E3EA" Offset="0.07" />
+            <GradientStop Color="#E3E9EF" Offset="1" />
+        </LinearGradientBrush>
+    </UserControl.Resources>
+    <xctk:ButtonSpinner x:Name="spinner" Padding="0" Background="White" HorizontalContentAlignment="Stretch" BorderBrush="{StaticResource ControlNormalBorderKey}" BorderThickness="1" Spin="OnSpinnerSpin">
+        <TextBox x:Name="textBox" TextWrapping="Wrap" Text="0" PreviewTextInput="OnTextInput" TextChanged="OnTextChanged" BorderThickness="0" Padding="2" HorizontalContentAlignment="Right" Margin="0" TabIndex="0" LostFocus="OnFocusLost"/>
+    </xctk:ButtonSpinner>
+</UserControl>
+

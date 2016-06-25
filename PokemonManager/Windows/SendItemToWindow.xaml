@@ -1,0 +1,16 @@
+﻿<Window x:Class="PokemonManager.Windows.SendItemToWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:PokemonManager.Windows"
+        Title="Send Item To" Height="183" Width="240" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False" Loaded="OnLoaded" Icon="/TriggersPC;component/Resources/Empty.png">
+    <Grid>
+        <local:ComboBoxGameSaves x:Name="comboBoxGame" Margin="10,10,10,0" VerticalAlignment="Top" SelectionChanged="GameChanged" Focusable="False" IsTabStop="False"/>
+        <ComboBox x:Name="comboBoxPocket" Margin="10,37,10,0" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" SelectionChanged="PocketChanged" Focusable="False" IsTabStop="False"/>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" FontSize="11" IsDefault="True" Click="OKClicked" Background="#FF007ACC" Foreground="White" FontWeight="Bold" Focusable="False" IsTabStop="False"/>
+        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontSize="11" IsCancel="True" FontWeight="Bold" Foreground="White" Background="#FF007ACC" Focusable="False" IsTabStop="False"/>
+
+        <local:NumericUpDown x:Name="upDownItemCount" Margin="10,64,10,0" VerticalAlignment="Top" Width="Auto" ValueChanged="OnValueChanged" Minimum="0"/>
+
+    </Grid>
+</Window>

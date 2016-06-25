@@ -1,0 +1,15 @@
+﻿<Window x:Class="PokemonManager.Windows.EVTrainingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PokemonManager.Windows"
+        Title="EV Training" Height="206" Width="270" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/TriggersPC;component/Resources/Empty.png">
+    <Grid>
+        <local:NumericUpDown x:Name="numericLevel" Margin="78,94,10,0" Width="Auto" VerticalAlignment="Top" ValueChanged="OnLevelChanged" Maximum="99" Minimum="95" Value="95" />
+        <Label x:Name="labelMax" Content="Level" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,3"/>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" FontSize="11" IsDefault="True" Click="OKClicked" Background="#FF007ACC" Foreground="White" FontWeight="Bold" Focusable="False" IsTabStop="False"/>
+        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontSize="11" IsCancel="True" FontWeight="Bold" Foreground="White" Background="#FF007ACC" Focusable="False" IsTabStop="False"/>
+        <Label Margin="15,10,10,0" VerticalAlignment="Top" Height="79">
+            <TextBlock TextWrapping="Wrap" Text="Level a Pokémon near or at Lv 100 down to a minimum of 95 to allow the continuation of their EV Training." FontWeight="Bold"/>
+        </Label>
+    </Grid>
+</Window>

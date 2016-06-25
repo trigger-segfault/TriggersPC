@@ -1,0 +1,195 @@
+﻿<Window x:Class="PokemonManager.Windows.PokeManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PokemonManager.Windows"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        Title="Trigger's PC" Height="641.737" Width="510.115" Loaded="OnWindowLoaded" MinWidth="510" MinHeight="588" Icon="/TriggersPC;component/Resources/App.ico" Closing="OnWindowClosing" WindowStartupLocation="Manual">
+    <Window.Resources>
+        <Style x:Key="SubMenuItem" TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Foreground" Value="Black" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="Gray" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Save" CanExecute="SaveCanExecute" Executed="OnSaveClicked" />
+    </Window.CommandBindings>
+
+    <Window.InputBindings>
+        <KeyBinding Command="ApplicationCommands.Save" Key="S" Modifiers="Ctrl" />
+    </Window.InputBindings>
+    <Grid>
+        <TabControl x:Name="tabControl" Margin="0,58,0,0" Background="#FFEEEEEE" SelectionChanged="OnTabControlSelectionChanged">
+            <TabItem x:Name="tabTrainerInfo" Header="Trainer">
+                <local:TrainerInfoViewer x:Name="trainerInfo" Margin="0" Height="Auto" Width="Auto"/>
+            </TabItem>
+            <TabItem x:Name="tabPokemon" Header="Pokemon">
+                <local:PokemonTab x:Name="pokemonViewer" Margin="0" Height="Auto" Width="Auto"/>
+            </TabItem>
+            <TabItem x:Name="tabItems" Header="Items">
+                <local:InventoryViewer x:Name="inventoryViewer" Margin="0" Height="Auto" Width="Auto"/>
+            </TabItem>
+            <TabItem x:Name="tabDecorations" Header="Decorations">
+                <local:DecorationInventoryViewer x:Name="decorationInventoryViewer" Margin="0" Height="Auto" Width="Auto"/>
+            </TabItem>
+            <TabItem x:Name="tabSecretBases" Header="Secret Bases">
+                <local:SecretBaseViewer x:Name="secretBaseManager" Width="Auto" Height="Auto" />
+            </TabItem>
+            <TabItem x:Name="tabMailbox" Header="Mailbox">
+                <local:MailViewerTab x:Name="mailViewer" Margin="0" Height="Auto" Width="Auto"/>
+            </TabItem>
+            <TabItem x:Name="tabDexViewer" Header="Pokédex">
+                <local:PokedexViewer x:Name="dexViewer" Margin="0" Height="Auto" Width="Auto"/>
+            </TabItem>
+            <TabItem x:Name="tabEventViewer" Header="Events">
+                <local:EventViewerTab x:Name="eventViewer" Margin="0" Height="Auto" Width="Auto"/>
+            </TabItem>
+        </TabControl>
+        <Menu Height="23" VerticalAlignment="Top" Background="#FF007ACC" Foreground="White" FontWeight="Bold">
+            <MenuItem Header="File">
+                <MenuItem Header="Save Changes" Style="{StaticResource SubMenuItem}" Click="OnSaveClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconSave.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Reload Saves" Style="{StaticResource SubMenuItem}" Click="OnReloadSavesClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconReload.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator Width="167"/>
+                <MenuItem Header="Close" Style="{StaticResource SubMenuItem}" Click="OnCloseClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconClose.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Games">
+                <MenuItem Foreground="Black" Header="Manage Saves" FontWeight="Normal" Click="OnManageSavesClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconManageSaves.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Edit Nickname" Style="{StaticResource SubMenuItem}" Click="OnGiveNicknameClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconEditNickname.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="menuItemEditTrainer" Header="Edit Trainer" Style="{StaticResource SubMenuItem}" Click="OnEditTrainerClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Trainers/WorldFireRedLeafGreenMale.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem x:Name="menuItemManageBoxes" Header="Manage Your PC" Style="{StaticResource SubMenuItem}" Click="OnManageBoxesClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconPC.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Search">
+                <MenuItem Header="Search Pokémon" Style="{StaticResource SubMenuItem}" Click="OnSearchPokemonClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconPokemon.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Startup Checks" Style="{StaticResource SubMenuItem}">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconSearchGoto.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="menuItemStartupMirageIsland" Header="Mirage Island" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="OnMirageIslandChecked"/>
+                    <MenuItem x:Name="menuItemStartupShinyEggs" Header="Shiny Eggs" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="OnShinyEggsChecked"/>
+                    <MenuItem x:Name="menuItemStartupPokerus" Header="Pokérus Strains" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="OnStartupPokerusChecked"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Check Mirage Island" Style="{StaticResource SubMenuItem}" Click="OnMirageScanClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconMirageIsland.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Find Shiny Eggs" Style="{StaticResource SubMenuItem}" Click="OnEggShininessScanClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconEgg.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Find Pokérus Strains" Style="{StaticResource SubMenuItem}" Click="OnPokerusScanClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconPokerus.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Settings">
+                <MenuItem Header="Pokémon Sprites" Style="{StaticResource SubMenuItem}">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconPokemon.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="menuItemUseRSEFrontSprites" Header="Use RSE Sprites" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="UseFrontSpritesChecked" Tag="RSE"/>
+                    <MenuItem x:Name="menuItemUseFRLGFrontSprites" Header="Use FRLG Sprites" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="UseFrontSpritesChecked" Tag="FRLG"/>
+                    <MenuItem x:Name="menuItemUseCustomFrontSprites" Header="Use Custom Sprites" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="UseFrontSpritesChecked" Tag="Custom"/>
+                    <MenuItem x:Name="menuItemUseSelectionFrontSprites" Header="Use Selection" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="UseFrontSpritesChecked" Tag="Selection"/>
+                    <MenuItem Header="Edit Selection..." Style="{StaticResource SubMenuItem}" Click="OnEditFrontSpritesSelectionClicked"/>
+                </MenuItem>
+                <MenuItem Header="Box Sprites" Style="{StaticResource SubMenuItem}">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconBoxPokemon.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="menuItemUseGen3BoxSprites" Header="Use Gen III Sprites" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="UseBoxSpritesChecked" Tag="3"/>
+                    <MenuItem x:Name="menuItemUseGen6BoxSprites" Header="Use Gen VI Sprites" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="UseBoxSpritesChecked" Tag="6"/>
+                </MenuItem>
+                <MenuItem Header="Pokémon Box Rows" Style="{StaticResource SubMenuItem}">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconRows.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="menuItemBoxRows1" Header="1 Box Row" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="OnBoxRowClicked" Tag="1"/>
+                    <MenuItem x:Name="menuItemBoxRows2" Header="2 Box Rows" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="OnBoxRowClicked" Tag="2"/>
+                    <MenuItem x:Name="menuItemBoxRows3" Header="3 Box Rows" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="OnBoxRowClicked" Tag="3" IsChecked="True"/>
+                    <MenuItem x:Name="menuItemDoubleBoxRows" Header="Duplicate Box Rows" Style="{StaticResource SubMenuItem}" Click="OnDuplicateBoxRowsChecked" IsCheckable="True"/>
+                </MenuItem>
+                <MenuItem x:Name="menuItemVolume" Header="Volume : 100%" Style="{StaticResource SubMenuItem}" Click="OnVolumeClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconVolumeOn.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem x:Name="menuItemRevealEggs" Header="Show Egg Species in Box" IsCheckable="True"  Style="{StaticResource SubMenuItem}" Click="OnRevealEggsChecked"/>
+                <MenuItem x:Name="menuItemMysteryEggs" Header="Mystery Eggs" IsCheckable="True"  Style="{StaticResource SubMenuItem}" Click="OnMysteryEggsChecked"/>
+                <MenuItem x:Name="menuItemAutoSortItems" Header="Auto-Sort Your PC Items" IsCheckable="True"  Style="{StaticResource SubMenuItem}" Click="OnAutoSortItemsChecked"/>
+                <MenuItem x:Name="menuItemForceSave" Header="Always Save All Games" IsCheckable="True"  Style="{StaticResource SubMenuItem}" Click="OnForceSaveChecked"/>
+                <MenuItem x:Name="menuItemMakeBackups" Header="Make Backups" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="OnMakeBackupsChecked" IsChecked="True" Visibility="Collapsed"/>
+                <MenuItem x:Name="menuItemCloseConfirmation" Header="Close Confirmation" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="OnCloseConfirmationChecked" IsChecked="True"/>
+                <MenuItem x:Name="menuItemTossConfirmation" Header="Toss Confirmation" IsCheckable="True" IsChecked="True" Style="{StaticResource SubMenuItem}" Click="OnTossConfirmationChecked"/>
+                <MenuItem x:Name="menuItemReleaseConfirmation" Header="Release Confirmation" IsCheckable="True" IsChecked="True" Style="{StaticResource SubMenuItem}" Click="OnReleaseConfirmationChecked"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About" Style="{StaticResource SubMenuItem}" Click="OnAboutClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconAbout.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Controls" Style="{StaticResource SubMenuItem}" Click="OnControlsClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconControls.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Credits" Style="{StaticResource SubMenuItem}" Click="OnCreditsClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconCredits.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <Rectangle Fill="#FFEEEEEE" Height="35" Stroke="#00000000" VerticalAlignment="Top" Margin="0,23,0,0"/>
+        <ComboBox x:Name="comboBoxGenerations" Margin="0,29,232,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="153" SelectionChanged="OnGenerationsSelectionChanged" SelectedIndex="0" IsTabStop="False" Focusable="False" >
+            <System:String>Generation III</System:String>
+        </ComboBox>
+        <local:ComboBoxGameSaves x:Name="comboBoxGameSaves" Margin="0,29,10,0" SelectionChanged="OnGameSelectionChanged" HorizontalAlignment="Right" Width="208" VerticalAlignment="Top" IsTabStop="False" Focusable="False"/>
+        <Button x:Name="buttonSave" Content="Save" Command="ApplicationCommands.Save" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" Width="75" Background="#FF007ACC" Foreground="White" FontWeight="Bold" IsTabStop="False" Focusable="False"/>
+    </Grid>
+</Window>

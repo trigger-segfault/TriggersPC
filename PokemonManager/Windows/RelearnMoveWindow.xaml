@@ -1,0 +1,40 @@
+﻿<Window x:Class="PokemonManager.Windows.RelearnMoveWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:PokemonManager.Windows"
+        Title="Move Relearner" Height="439" Width="388" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False" SnapsToDevicePixels="True" UseLayoutRounding="True" Icon="/TriggersPC;component/Resources/Empty.png">
+    <Grid>
+        <Button x:Name="buttonTeachMove" Content="Teach Move" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="100" FontSize="11" IsDefault="True" Click="OKClicked" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False" IsEnabled="False"/>
+        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" FontSize="11" IsCancel="True" FontWeight="Bold" Foreground="White" Background="#FF007ACC" Focusable="False" IsTabStop="False"/>
+        <ListView x:Name="listViewMoves" Height="240" Margin="10,28,10,0" VerticalAlignment="Top" SelectionChanged="OnMoveSelectionChanged" SelectionMode="Single"/>
+        <Label Content="Type" HorizontalAlignment="Left" Margin="31,2,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="133,2,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+        <Label Content="PP" HorizontalAlignment="Left" Margin="295,2,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+        <Grid Margin="10,273,10,0">
+            <Rectangle Fill="#FFF8F8F8" Height="56" Margin="111,2,0,0" Stroke="Black" VerticalAlignment="Top" RadiusX="2" RadiusY="2"/>
+            <Label Margin="111,2,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="2" Height="56">
+                <TextBox x:Name="textBlockMoveDescription" TextWrapping="Wrap" Text="Description" BorderThickness="0" IsReadOnlyCaretVisible="True" Background="#00000000" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </Label>
+            <CheckBox x:Name="checkBoxContestMode" Content="Contest Mode" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnContestModeChecked"/>
+            <Grid x:Name="gridAttackMoveStats" HorizontalAlignment="Left" Height="58" Margin="0" VerticalAlignment="Top" Width="106">
+                <Rectangle Fill="#FFF8F8F8" HorizontalAlignment="Left" Height="56" Margin="0,2,0,-2" Stroke="Black" VerticalAlignment="Top" Width="106" RadiusX="2" RadiusY="2"/>
+                <Label Content="Power" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                <Label Content="Accuracy" HorizontalAlignment="Left" Margin="0,17,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                <Label Content="Type" HorizontalAlignment="Left" Margin="0,34,0,-4" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                <Label x:Name="labelMoveAccuracy" Content="100" HorizontalAlignment="Left" Margin="66,17,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" HorizontalContentAlignment="Right" Width="40"/>
+                <Label x:Name="labelMovePower" Content="95" HorizontalAlignment="Left" Margin="66,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" HorizontalContentAlignment="Right" Width="40"/>
+                <Label x:Name="labelMoveCategory" Content="Special" HorizontalAlignment="Left" Margin="26,34,0,-4" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" HorizontalContentAlignment="Right" Width="80"/>
+            </Grid>
+            <Grid x:Name="gridContestMoveStats" HorizontalAlignment="Left" Height="58" Margin="0" VerticalAlignment="Top" Width="106" Visibility="Hidden">
+                <Rectangle Fill="#FFF8F8F8" HorizontalAlignment="Left" Height="56" Margin="0,2,0,-2" Stroke="Black" VerticalAlignment="Top" Width="106" RadiusX="2" RadiusY="2"/>
+                <Label Content="Appeal" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" Margin="0,2,0,0"/>
+                <Label Content="Jam" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5"/>
+                <Label x:Name="labelMoveAppeal" Content="2" HorizontalAlignment="Left" Margin="66,2,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" HorizontalContentAlignment="Right" Width="40"/>
+                <Label x:Name="labelMoveJam" Content="1" HorizontalAlignment="Left" Margin="66,28,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="5,5" HorizontalContentAlignment="Right" Width="40"/>
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</Window>
