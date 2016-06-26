@@ -18,7 +18,7 @@
                             <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow">
                                 <Run Text="Special thanks to"/>
                                 <Hyperlink NavigateUri="https://projectpokemon.org/forums/member.php?35481" RequestNavigate="OnRequestNavigate"><Run Text="HaxAras"/></Hyperlink>
-                                <Run Text="for dedication to testing, bug reporting, and suggestions early in the tool's developement. Without him Trigger's PC wouldn't be half of what it is now."/>
+                                <Run Text="for dedication to testing, bug reporting, and suggestions early in the tool's development. Without him Trigger's PC wouldn't be half of what it is now."/>
                             </TextBlock>
                         </Label>
                     </Grid>
@@ -63,7 +63,7 @@
                         <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label3}"/>
 
                         <Label x:Name="label3" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
-                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Trigger's PC Icon Pokéball found"/><Run Text=" "/><Hyperlink NavigateUri="http://www.giantbomb.com/poke-ball/3055-425/" RequestNavigate="OnRequestNavigate"><Run Text="Here"/></Hyperlink><Run Text=" "/><Run Text="."/></TextBlock>
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Trigger's PC Icon Pokéball found"/><Run Text=" "/><Hyperlink NavigateUri="http://www.giantbomb.com/poke-ball/3055-425/" RequestNavigate="OnRequestNavigate"><Run Text="here"/></Hyperlink><Run Text=" "/><Run Text="."/></TextBlock>
                         </Label>
                     </Grid>
                 </Grid>
@@ -123,7 +123,7 @@
                         <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label9}"/>
 
                         <Label x:Name="label9" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"  Width="Auto" Padding="10,5">
-                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Source code for loading Pokemon Box game based off of"/><Run Text=" "/><Hyperlink NavigateUri="https://github.com/VitHuang/PokemonBoxSaveEditor" RequestNavigate="OnRequestNavigate"><Run Text="PokémonBoxSaveEditor"/></Hyperlink><Run Text=" "/><Run Text="."/></TextBlock>
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Source code for loading Pokémon Box game based off of"/><Run Text=" "/><Hyperlink NavigateUri="https://github.com/VitHuang/PokemonBoxSaveEditor" RequestNavigate="OnRequestNavigate"><Run Text="PokémonBoxSaveEditor"/></Hyperlink><Run Text=" "/><Run Text="."/></TextBlock>
                         </Label>
                     </Grid>
                 </Grid>

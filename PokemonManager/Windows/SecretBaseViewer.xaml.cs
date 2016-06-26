@@ -317,18 +317,15 @@ namespace PokemonManager.Windows {
 					if (IsGBAGame) {
 						bool result = SecretBaseEditTrainerWindow.Show(Window.GetWindow(this), newSecretBase, false);
 						if (result) {
-							GBAGameSave.SecretBaseManager.AddSecretBase(newSecretBase);
+							newSecretBase = GBAGameSave.SecretBaseManager.AddSecretBase(newSecretBase);
 							AddListViewItems();
-							for (int i = 0; i < GBAGameSave.SecretBaseManager.SharedSecretBases.Count; i++) {
-								if (GBAGameSave.SecretBaseManager.SharedSecretBases[i].LocationID == newSecretBase.LocationID) {
-									listViewSecretBases.SelectedIndex = i + 2;
-									break;
-								}
-							}
+							listViewSecretBases.SelectedIndex = 2 + GBAGameSave.SecretBaseManager.SharedSecretBases.IndexOf(newSecretBase);
 						}
 					}
 					else {
-
+						newSecretBase = PokeManager.AddSecretBase(newSecretBase);
+						AddListViewItems();
+						listViewSecretBases.SelectedIndex = PokeManager.SecretBases.IndexOf(newSecretBase);
 					}
 				}
 			}

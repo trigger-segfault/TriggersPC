@@ -398,57 +398,95 @@ namespace PokemonManager.Windows {
 					if (pocket.Inventory.IsDecorationInUse(i, pocket.PocketType))
 						continue;
 				}
-
-				ListViewItem listViewItem = new ListViewItem();
-				listViewItem.Tag = pocket[i];
-				listViewItem.SnapsToDevicePixels = true;
-				listViewItem.UseLayoutRounding = true;
-				DockPanel dockPanel = new DockPanel();
-				dockPanel.Width = 170;
-				
-				Image image = new Image();
-				image.Source = ItemDatabase.GetDecorationImageFromID(pocket[i].ID);
-				image.Width = 18;
-				image.Height = 18;
-				image.Margin = new Thickness(0, 0, 0, 0);
-				image.VerticalAlignment = VerticalAlignment.Center;
-				image.HorizontalAlignment = HorizontalAlignment.Left;
-
-				TextBlock itemName = new TextBlock();
-				itemName.VerticalAlignment = VerticalAlignment.Center;
-				itemName.Text = pocket[i].DecorationData.Name;
-				itemName.TextTrimming = TextTrimming.CharacterEllipsis;
-				itemName.Margin = new Thickness(4, 0, 0, 0);
-				itemName.Padding = new Thickness(5, 0, 5, 0);
-
-				TextBlock itemX = new TextBlock();
-				itemX.VerticalAlignment	= VerticalAlignment.Center;
-				itemX.HorizontalAlignment = HorizontalAlignment.Right;
-				itemX.TextAlignment = TextAlignment.Right;
-				itemX.Text = "x";
-				itemX.Width = Double.NaN;
-				itemX.MinWidth = 10;
-
-				TextBlock itemCount = new TextBlock();
-				itemCount.VerticalAlignment	= VerticalAlignment.Center;
-				itemCount.HorizontalAlignment = HorizontalAlignment.Right;
-				itemCount.TextAlignment = TextAlignment.Right;
-				itemCount.Width = 30;
-				itemCount.Text = countLeft.ToString();
-
-				listViewItem.ToolTip = pocket[i].DecorationData.Description;
-				listViewItem.Content = dockPanel;
-				listViewDecorations.Items.Add(listViewItem);
-				dockPanel.Children.Add(image);
-				dockPanel.Children.Add(itemName);
-
-				DockPanel.SetDock(image, Dock.Left);
-				
-				if (pocket.MaxStackSize == 0) {
-					dockPanel.Children.Add(itemCount);
-					dockPanel.Children.Add(itemX);
-					DockPanel.SetDock(itemCount, Dock.Right);
+				AddDecorationListViewItem(pocket[i], countLeft);
+			}
+			/*if (pocket.MaxStackSize == 0) {
+				List<int> decorations = new List<int>();
+				for (int i = 0; i <= 120; i++)
+					decorations.Add(0);
+				for (int i = -1; i < PokeManager.NumGameSaves; i++) {
+					IGameSave gameSave = PokeManager.GetGameSaveAt(i);
+					if (gameSave.Inventory != null && gameSave.Inventory.Decorations != null) {
+						DecorationPocket newPocket = gameSave.Inventory.Decorations[pocket.PocketType];
+						for (int j = 0; j < newPocket.SlotsUsed; j++) {
+							if (gameSave.Inventory.Decorations.IsDecorationInUse(j, pocket.PocketType))
+								continue;
+							decorations[newPocket[j].ID] += (int)newPocket[j].Count;
+						}
+					}
 				}
+				for (int i = 1; i <= 120; i++) {
+					if (decorations[i] == 0)
+						continue;
+					int countLeft = decorations[i];
+					foreach (PlacedDecoration decoration in secretBase.PlacedDecorations) {
+						if (decoration.ID == i)
+							countLeft--;
+					}
+					if (countLeft <= 0)
+						continue;
+					AddDecorationListViewItem(new Decoration((byte)i, (uint)decorations[i], null), countLeft);
+				}
+			}
+			else {
+				for (byte i = 0; i < pocket.SlotsUsed; i++) {
+					if (pocket.Inventory.IsDecorationInUse(i, pocket.PocketType))
+						continue;
+					AddDecorationListViewItem(pocket[i]);
+				}
+			}*/
+		}
+
+		private void AddDecorationListViewItem(Decoration decoration, int countLeft = 1) {
+			ListViewItem listViewItem = new ListViewItem();
+			listViewItem.Tag = decoration;
+			listViewItem.SnapsToDevicePixels = true;
+			listViewItem.UseLayoutRounding = true;
+			DockPanel dockPanel = new DockPanel();
+			dockPanel.Width = 170;
+				
+			Image image = new Image();
+			image.Source = ItemDatabase.GetDecorationImageFromID(decoration.ID);
+			image.Width = 18;
+			image.Height = 18;
+			image.Margin = new Thickness(0, 0, 0, 0);
+			image.VerticalAlignment = VerticalAlignment.Center;
+			image.HorizontalAlignment = HorizontalAlignment.Left;
+
+			TextBlock itemName = new TextBlock();
+			itemName.VerticalAlignment = VerticalAlignment.Center;
+			itemName.Text = decoration.DecorationData.Name;
+			itemName.TextTrimming = TextTrimming.CharacterEllipsis;
+			itemName.Margin = new Thickness(4, 0, 0, 0);
+			itemName.Padding = new Thickness(5, 0, 5, 0);
+
+			TextBlock itemX = new TextBlock();
+			itemX.VerticalAlignment	= VerticalAlignment.Center;
+			itemX.HorizontalAlignment = HorizontalAlignment.Right;
+			itemX.TextAlignment = TextAlignment.Right;
+			itemX.Text = "x";
+			itemX.Width = Double.NaN;
+			itemX.MinWidth = 10;
+
+			TextBlock itemCount = new TextBlock();
+			itemCount.VerticalAlignment	= VerticalAlignment.Center;
+			itemCount.HorizontalAlignment = HorizontalAlignment.Right;
+			itemCount.TextAlignment = TextAlignment.Right;
+			itemCount.Width = 30;
+			itemCount.Text = countLeft.ToString();
+
+			listViewItem.ToolTip = decoration.DecorationData.Description;
+			listViewItem.Content = dockPanel;
+			listViewDecorations.Items.Add(listViewItem);
+			dockPanel.Children.Add(image);
+			dockPanel.Children.Add(itemName);
+
+			DockPanel.SetDock(image, Dock.Left);
+				
+			if (pocket.MaxStackSize == 0) {
+				dockPanel.Children.Add(itemCount);
+				dockPanel.Children.Add(itemX);
+				DockPanel.SetDock(itemCount, Dock.Right);
 			}
 		}
 
