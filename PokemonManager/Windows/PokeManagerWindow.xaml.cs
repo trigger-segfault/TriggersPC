@@ -703,7 +703,7 @@ namespace PokemonManager.Windows {
 					for (int j = 0; j < (gameSave as ManagerGameSave).NumPokePCRows; j++) {
 						foreach (IPokemon pokemon in (gameSave as ManagerGameSave).GetPokePCRow(j)) {
 							PokerusStrain strain = new PokerusStrain(pokemon.PokerusStrain);
-							if (pokemon.PokerusStrain != 0 &&
+							if (pokemon.PokerusStrain != 0 && pokemon.PokerusStatus == PokerusStatuses.Infected &&
 								!PokeManager.PokerusStrains.Contains(strain) &&
 								!foundStrains.Contains(strain)) {
 									foundStrains.Add(strain);
@@ -714,7 +714,7 @@ namespace PokemonManager.Windows {
 				else {
 					foreach (IPokemon pokemon in gameSave.PokePC) {
 						PokerusStrain strain = new PokerusStrain(pokemon.PokerusStrain);
-						if (pokemon.PokerusStrain != 0 &&
+						if (pokemon.PokerusStrain != 0 && pokemon.PokerusStatus == PokerusStatuses.Infected &&
 							!PokeManager.PokerusStrains.Contains(strain) &&
 							!foundStrains.Contains(strain)) {
 							foundStrains.Add(strain);

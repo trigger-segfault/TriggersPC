@@ -121,6 +121,7 @@
     <Compile Include="PokemonStructures\BoxPokeBox.cs" />
     <Compile Include="PokemonStructures\BoxPokePC.cs" />
     <Compile Include="PokemonStructures\ColosseumDaycare.cs" />
+    <Compile Include="PokemonStructures\Events\BikeEventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\RegiDollEventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\EventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\PokemonEventDistribution.cs" />

@@ -384,7 +384,7 @@ namespace PokemonManager.Windows {
 
 		private void FillListViewItems() {
 			listViewDecorations.Items.Clear();
-			for (byte i = 0; i < pocket.SlotsUsed; i++) {
+			/*for (byte i = 0; i < pocket.SlotsUsed; i++) {
 				int countLeft = (int)pocket[i].Count;
 				if (pocket.MaxStackSize == 0) {
 					foreach (PlacedDecoration decoration in secretBase.PlacedDecorations) {
@@ -399,8 +399,8 @@ namespace PokemonManager.Windows {
 						continue;
 				}
 				AddDecorationListViewItem(pocket[i], countLeft);
-			}
-			/*if (pocket.MaxStackSize == 0) {
+			}*/
+			if (pocket.MaxStackSize == 0) {
 				List<int> decorations = new List<int>();
 				for (int i = 0; i <= 120; i++)
 					decorations.Add(0);
@@ -434,7 +434,7 @@ namespace PokemonManager.Windows {
 						continue;
 					AddDecorationListViewItem(pocket[i]);
 				}
-			}*/
+			}
 		}
 
 		private void AddDecorationListViewItem(Decoration decoration, int countLeft = 1) {

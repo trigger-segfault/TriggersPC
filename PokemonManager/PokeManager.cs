@@ -1141,9 +1141,19 @@ namespace PokemonManager {
 			PokeManager.eventMap = new Dictionary<string, EventDistribution>();
 			PokeManager.completedEvents = new Dictionary<string,List<uint>>();
 
+			BikeEventDistribution bike;
 			TicketEventDistribution ticket;
 			PokemonEventDistribution pokemon;
 			RegiDollEventDistribution regi;
+
+			bike = new BikeEventDistribution("ACRO MACH BIKE [RSE]");
+			bike.SmallSprite = ItemDatabase.GetItemImageFromID(272);
+			bike.BigSprite = bike.SmallSprite;
+			bike.Title = "Acro Bike & Mach Bike";
+			bike.Description = "Own both the Acro Bike and Mach Bike in order to overcome any obstacle.";
+			bike.Requirements = "You must beat the Elite Four in order to receive this bike.";
+			bike.AllowedGames = GameTypeFlags.Ruby | GameTypeFlags.Sapphire | GameTypeFlags.Emerald;
+			RegisterEvent(bike);
 
 			ticket = new TicketEventDistribution("EON TICKET [R]");
 			ticket.TicketType = TicketTypes.EonTicket;
