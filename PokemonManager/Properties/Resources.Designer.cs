@@ -733,6 +733,16 @@ namespace PokemonManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconDefaults {
+            get {
+                object obj = ResourceManager.GetObject("IconDefaults", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IconEditNickname {
             get {
                 object obj = ResourceManager.GetObject("IconEditNickname", resourceCulture);

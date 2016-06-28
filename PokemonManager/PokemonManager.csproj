@@ -1411,6 +1411,7 @@
     <Content Include="Resources\Audio\Evolution.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Icons\IconDefaults.png" />
     <Resource Include="Resources\Icons\IconPokerus.png" />
     <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerFlowerBox.png" />
     <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerCarpetBox.png" />

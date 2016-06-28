@@ -162,7 +162,17 @@ namespace PokemonManager.Windows {
 
 			this.loaded = true;
 
-			LoadGame(-1);
+			if (PokeManager.Settings.DefaultStartupSize.Width != 0 && PokeManager.Settings.DefaultStartupSize.Height != 0) {
+				this.Width = PokeManager.Settings.DefaultStartupSize.Width;
+				this.Height = PokeManager.Settings.DefaultStartupSize.Height;
+			}
+
+			PokeManager.IsReloading = true;
+			LoadGame(PokeManager.Settings.IsValidDefaultGame ? PokeManager.Settings.DefaultGame : -1);
+			PokeManager.IsReloading = false;
+
+			if (((TabItem)tabControl.Items[PokeManager.Settings.DefaultStartupTab]).Visibility == Visibility.Visible)
+				Dispatcher.BeginInvoke((Action)(() => tabControl.SelectedIndex = PokeManager.Settings.DefaultStartupTab));
 		}
 
 		private void OnWindowLoaded(object sender, RoutedEventArgs e) {
@@ -302,17 +312,22 @@ namespace PokemonManager.Windows {
 			if (PokemonSearchWindow != null)
 				PokemonSearchWindow.Close();
 
-			comboBoxGameSaves.SelectedIndex = 0;
-			LoadGame(-1);
+			loaded = false;
+			comboBoxGameSaves.SelectedGameIndex = PokeManager.Settings.IsValidDefaultGame ? PokeManager.Settings.DefaultGame : -1;
+			loaded = true;
+			LoadGame(PokeManager.Settings.IsValidDefaultGame ? PokeManager.Settings.DefaultGame : -1);
 		}
 		public void ReloadGames() {
+			PokeManager.IsReloading = true;
 			if (PokemonSearchWindow != null)
 				PokemonSearchWindow.Close();
 			pokemonViewer.Reload();
 			loaded = false;
 			comboBoxGameSaves.ReloadGameSaves();
+			comboBoxGameSaves.SelectedGameIndex = PokeManager.Settings.IsValidDefaultGame ? PokeManager.Settings.DefaultGame : -1;
 			loaded = true;
-			LoadGame(-1);
+			LoadGame(PokeManager.Settings.IsValidDefaultGame ? PokeManager.Settings.DefaultGame : -1);
+			PokeManager.IsReloading = false;
 		}
 		public void FinishActions() {
 			this.pokemonViewer.FinishActions();
@@ -593,7 +608,7 @@ namespace PokemonManager.Windows {
 		private void OnTabControlSelectionChanged(object sender, SelectionChangedEventArgs e) {
 			if (selectedTab != tabControl.SelectedIndex) {
 				selectedTab = tabControl.SelectedIndex;
-				if (selectedTab == 5) {
+				if (selectedTab == 6) {
 					dexViewer.RefreshUI();
 				}
 			}
@@ -896,6 +911,20 @@ namespace PokemonManager.Windows {
 			else {
 				TriggerMessageBox.Show(this, "No new Pokérus Strains found", "Pokérus Strain Results");
 			}
+		}
+
+		private void OnSetCurrentDefaultsClicked(object sender, RoutedEventArgs e) {
+			PokeManager.Settings.DisableChangesWhileLoading = true;
+			PokeManager.Settings.DefaultStartupSize = new Size(Width, Height);
+			PokeManager.Settings.DefaultStartupTab = tabControl.SelectedIndex;
+			PokeManager.Settings.DefaultGame = gameIndex;
+			PokeManager.Settings.DefaultBoxRow1 = pokemonViewer.CurrentRow1;
+			PokeManager.Settings.DefaultBoxGame2 = pokemonViewer.CurrentGame2;
+			PokeManager.Settings.DefaultBoxRow2 = pokemonViewer.CurrentRow2;
+			PokeManager.Settings.DefaultBoxGame3 = pokemonViewer.CurrentGame3;
+			PokeManager.Settings.DefaultBoxRow3 = pokemonViewer.CurrentRow3;
+			PokeManager.Settings.DisableChangesWhileLoading = false;
+			PokeManager.SaveSettings();
 		}
 	}
 }

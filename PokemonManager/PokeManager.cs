@@ -79,6 +79,15 @@ namespace PokemonManager {
 		private bool revealEggs;
 
 		private bool autoSortItems;
+		
+		private int defaultStartupTab;
+		private Size defaultStartupSize;
+		private int defaultGame;
+		private int defaultBoxRow1;
+		private int defaultBoxGame2;
+		private int defaultBoxRow2;
+		private int defaultBoxGame3;
+		private int defaultBoxRow3;
 
 		public PokeManagerSettings() {
 			this.managerNickname = "Your PC";
@@ -102,6 +111,116 @@ namespace PokemonManager {
 			this.startupPokerus = false;
 			this.revealEggs = false;
 			this.autoSortItems = false;
+
+			this.defaultStartupTab = 0;
+			this.defaultStartupSize = new Size();
+			this.defaultGame = -1;
+			this.defaultBoxRow1 = 0;
+			this.defaultBoxGame2 = -1;
+			this.defaultBoxRow2 = 0;
+			this.defaultBoxGame3 = -1;
+			this.defaultBoxRow3 = 0;
+		}
+
+		public bool IsValidDefaultGame {
+			get { return defaultGame < PokeManager.NumGameSaves; }
+		}
+		public bool IsValidDefaultBox1 {
+			get {
+				if (defaultGame == -1)
+					return defaultBoxRow1 < PokeManager.ManagerGameSave.NumPokePCRows;
+				else
+					return defaultGame < PokeManager.NumGameSaves;
+			}
+		}
+		public bool IsValidDefaultBox2 {
+			get {
+				if (defaultBoxGame2 == -1)
+					return defaultBoxRow2 < PokeManager.ManagerGameSave.NumPokePCRows;
+				else
+					return defaultBoxGame2 < PokeManager.NumGameSaves;
+			}
+		}
+		public bool IsValidDefaultBox3 {
+			get {
+				if (defaultBoxGame3 == -1)
+					return defaultBoxRow3 < PokeManager.ManagerGameSave.NumPokePCRows;
+				else
+					return defaultBoxGame3 < PokeManager.NumGameSaves;
+			}
+		}
+
+		public int DefaultBoxRow1 {
+			get { return defaultBoxRow1; }
+			set {
+				defaultBoxRow1 = value;
+				if (!disableChangesWhileLoading) {
+					PokeManager.SaveSettings();
+				}
+			}
+		}
+		public int DefaultBoxGame2 {
+			get { return defaultBoxGame2; }
+			set {
+				defaultBoxGame2 = value;
+				if (!disableChangesWhileLoading) {
+					PokeManager.SaveSettings();
+				}
+			}
+		}
+		public int DefaultBoxRow2 {
+			get { return defaultBoxRow2; }
+			set {
+				defaultBoxRow2 = value;
+				if (!disableChangesWhileLoading) {
+					PokeManager.SaveSettings();
+				}
+			}
+		}
+		public int DefaultBoxGame3 {
+			get { return defaultBoxGame3; }
+			set {
+				defaultBoxGame3 = value;
+				if (!disableChangesWhileLoading) {
+					PokeManager.SaveSettings();
+				}
+			}
+		}
+		public int DefaultBoxRow3 {
+			get { return defaultBoxRow3; }
+			set {
+				defaultBoxRow3 = value;
+				if (!disableChangesWhileLoading) {
+					PokeManager.SaveSettings();
+				}
+			}
+		}
+		public int DefaultGame {
+			get { return defaultGame; }
+			set {
+				defaultGame = value;
+				if (!disableChangesWhileLoading) {
+					PokeManager.SaveSettings();
+				}
+			}
+		}
+		public int DefaultStartupTab {
+			get { return defaultStartupTab; }
+			set {
+				defaultStartupTab = value;
+				if (!disableChangesWhileLoading) {
+					PokeManager.SaveSettings();
+				}
+			}
+		}
+		public Size DefaultStartupSize {
+			get { return defaultStartupSize; }
+			set {
+				defaultStartupSize = value;
+				if (!disableChangesWhileLoading) {
+					PokeManager.SaveSettings();
+				}
+			}
 		}
 
 		public bool RevealEggs {
@@ -366,6 +485,8 @@ namespace PokemonManager {
 		private static List<SharedSecretBase> secretBases;
 
 		private static List<PokerusStrain> pokerusStrains;
+
+		public static bool IsReloading { get; set; }
 
 		public static void Initialize(PokeManagerWindow managerWindow) {
 			PokeManager.managerWindow = managerWindow;
@@ -1632,11 +1753,13 @@ namespace PokemonManager {
 			managerWindow.RefreshUI();
 		}
 		public static void Reload() {
+			IsReloading = true;
 			DropAll();
 			ClearSelectedPokemon();
 			managerWindow.FinishActions();
 			LoadPokeManager();
 			managerWindow.Reload();
+			IsReloading = false;
 		}
 		public static void FinishActions() {
 			DropAll();
@@ -1772,10 +1895,12 @@ namespace PokemonManager {
 			}
 		}
 		public static void ReloadEverything() {
+			IsReloading = true;
 			DropAll();
 			ClearSelectedPokemon();
 			LoadPokeManager();
 			managerWindow.Reload();
+			IsReloading = false;
 		}
 
 		#endregion
@@ -2775,6 +2900,30 @@ namespace PokemonManager {
 				element = doc.GetElementsByTagName("AutoSortYourPCItems");
 				if (element.Count != 0) settings.AutoSortItems = bool.Parse(element[0].InnerText);
 
+				element = doc.GetElementsByTagName("DefaultStartupSize");
+				if (element.Count != 0) settings.DefaultStartupSize = Size.Parse(element[0].InnerText);
+
+				element = doc.GetElementsByTagName("DefaultStartupTab");
+				if (element.Count != 0) settings.DefaultStartupTab = int.Parse(element[0].InnerText);
+
+				element = doc.GetElementsByTagName("DefaultGame");
+				if (element.Count != 0) settings.DefaultGame = int.Parse(element[0].InnerText);
+
+				element = doc.GetElementsByTagName("DefaultBoxRow1");
+				if (element.Count != 0) settings.DefaultBoxRow1 = int.Parse(element[0].InnerText);
+
+				element = doc.GetElementsByTagName("DefaultBoxGame2");
+				if (element.Count != 0) settings.DefaultBoxGame2 = int.Parse(element[0].InnerText);
+
+				element = doc.GetElementsByTagName("DefaultBoxRow2");
+				if (element.Count != 0) settings.DefaultBoxRow2 = int.Parse(element[0].InnerText);
+
+				element = doc.GetElementsByTagName("DefaultBoxGame3");
+				if (element.Count != 0) settings.DefaultBoxGame3 = int.Parse(element[0].InnerText);
+
+				element = doc.GetElementsByTagName("DefaultBoxRow3");
+				if (element.Count != 0) settings.DefaultBoxRow3 = int.Parse(element[0].InnerText);
+
 				settings.DisableChangesWhileLoading = false;
 				#endregion
 
@@ -2930,6 +3079,38 @@ namespace PokemonManager {
 
 				element = doc.CreateElement("AutoSortYourPCItems");
 				element.AppendChild(doc.CreateTextNode(settings.AutoSortItems.ToString()));
+				setting.AppendChild(element);
+
+				element = doc.CreateElement("DefaultStartupSize");
+				element.AppendChild(doc.CreateTextNode(settings.DefaultStartupSize.ToString()));
+				setting.AppendChild(element);
+
+				element = doc.CreateElement("DefaultStartupTab");
+				element.AppendChild(doc.CreateTextNode(settings.DefaultStartupTab.ToString()));
+				setting.AppendChild(element);
+
+				element = doc.CreateElement("DefaultGame");
+				element.AppendChild(doc.CreateTextNode(settings.DefaultGame.ToString()));
+				setting.AppendChild(element);
+
+				element = doc.CreateElement("DefaultBoxRow1");
+				element.AppendChild(doc.CreateTextNode(settings.DefaultBoxRow1.ToString()));
+				setting.AppendChild(element);
+
+				element = doc.CreateElement("DefaultBoxGame2");
+				element.AppendChild(doc.CreateTextNode(settings.DefaultBoxGame2.ToString()));
+				setting.AppendChild(element);
+
+				element = doc.CreateElement("DefaultBoxRow2");
+				element.AppendChild(doc.CreateTextNode(settings.DefaultBoxRow2.ToString()));
+				setting.AppendChild(element);
+
+				element = doc.CreateElement("DefaultBoxGame3");
+				element.AppendChild(doc.CreateTextNode(settings.DefaultBoxGame3.ToString()));
+				setting.AppendChild(element);
+
+				element = doc.CreateElement("DefaultBoxRow3");
+				element.AppendChild(doc.CreateTextNode(settings.DefaultBoxRow3.ToString()));
 				setting.AppendChild(element);
 				#endregion
 

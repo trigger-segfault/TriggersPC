@@ -1084,6 +1084,7 @@ namespace PokemonManager.Windows {
 			PokemonSelectedEventArgs args = new PokemonSelectedEventArgs();
 			master.OnPokemonSelected(args);
 
+			PokeManager.DropAll();
 			PokeManager.ClearSelectedPokemon();
 			ManagerPokePC pokePC = PokeManager.ManagerGameSave.PokePC as ManagerPokePC;
 			for (int i = 0; i < pokePC.NumBoxes; i++) {
@@ -1098,10 +1099,12 @@ namespace PokemonManager.Windows {
 			RefreshUI();
 		}
 		private void OnContextMenuEditBoxClicked(object sender, RoutedEventArgs e) {
+			PokeManager.DropAll();
 			PokeManager.ClearSelectedPokemon();
 			EditBoxWindow.ShowDialog(Window.GetWindow(this), (IPokeBox)pokeContainer);
 		}
 		private void OnContextMenuSelectAllClicked(object sender, RoutedEventArgs e) {
+			PokeManager.DropAll();
 			PokeManager.ClearSelectedPokemon();
 			foreach (IPokemon pokemon in pokeContainer) {
 				PokeManager.SelectPokemon(pokemon);
@@ -1109,6 +1112,8 @@ namespace PokemonManager.Windows {
 			PokeManager.RefreshUI();
 		}
 		private void OnContextMenuReleaseAllClicked(object sender, RoutedEventArgs e) {
+			PokeManager.DropAll();
+			PokeManager.ClearSelectedPokemon();
 			MessageBoxResult result = TriggerMessageBox.Show(Window.GetWindow(this), "Are you sure you want to release every Pokémon in this box?", "Release Box", MessageBoxButton.YesNo);
 			if (result == MessageBoxResult.Yes) {
 				PokeManager.ClearSelectedPokemon();

@@ -148,6 +148,7 @@ namespace PokemonManager.Windows {
 
 				index++;
 			}
+			labelResults.Content = "Results: " + index.ToString();
 		}
 
 		private void OnTooltipOpening(object sender, ToolTipEventArgs e) {

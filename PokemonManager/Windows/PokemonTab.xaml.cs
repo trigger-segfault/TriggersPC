@@ -36,9 +36,18 @@ namespace PokemonManager.Windows {
 			boxViewer1.AddSlave(boxViewer3);
 			boxViewer1.SetAsMaster();
 			boxViewer1.SetFocus();
-			boxViewer1.LoadUI(-1, 0);
-			boxViewer2.LoadUI(-1, 0);
-			boxViewer3.LoadUI(-1, 0);
+			if (PokeManager.Settings.IsValidDefaultBox1)
+				boxViewer1.LoadUI(PokeManager.Settings.DefaultGame, PokeManager.Settings.DefaultBoxRow1);
+			else
+				boxViewer1.LoadUI(-1, 0);
+			if (PokeManager.Settings.IsValidDefaultBox2)
+				boxViewer2.LoadUI(PokeManager.Settings.DefaultBoxGame2, PokeManager.Settings.DefaultBoxRow2);
+			else
+				boxViewer2.LoadUI(-1, 0);
+			if (PokeManager.Settings.IsValidDefaultBox3)
+				boxViewer3.LoadUI(PokeManager.Settings.DefaultBoxGame3, PokeManager.Settings.DefaultBoxRow3);
+			else
+				boxViewer3.LoadUI(-1, 0);
 			boxViewer1.PokemonViewer = pokemonViewer;
 			boxViewer2.PokemonViewer = pokemonViewer;
 			boxViewer3.PokemonViewer = pokemonViewer;
@@ -61,7 +70,10 @@ namespace PokemonManager.Windows {
 
 		public void LoadGame(IGameSave gameSave) {
 			this.gameSave = gameSave;
-			boxViewer1.LoadUI(gameSave.GameIndex, 0);
+			if (PokeManager.IsReloading && PokeManager.Settings.IsValidDefaultBox1)
+				boxViewer1.LoadUI(gameSave.GameIndex, PokeManager.Settings.DefaultBoxRow1);
+			else
+				boxViewer1.LoadUI(gameSave.GameIndex, 0);
 
 			OnGameSwitch(boxViewer1);
 			UpdateBoxViewerRows();
@@ -83,9 +95,18 @@ namespace PokemonManager.Windows {
 			boxViewer1.loaded = true;
 			boxViewer2.loaded = true;
 			boxViewer3.loaded = true;
-			boxViewer1.LoadUI(-1, 0);
-			boxViewer2.LoadUI(-1, 0);
-			boxViewer3.LoadUI(-1, 0);
+			if (PokeManager.Settings.IsValidDefaultBox1)
+				boxViewer1.LoadUI(PokeManager.Settings.DefaultGame, PokeManager.Settings.DefaultBoxRow1);
+			else
+				boxViewer1.LoadUI(-1, 0);
+			if (PokeManager.Settings.IsValidDefaultBox2)
+				boxViewer2.LoadUI(PokeManager.Settings.DefaultBoxGame2, PokeManager.Settings.DefaultBoxRow2);
+			else
+				boxViewer2.LoadUI(-1, 0);
+			if (PokeManager.Settings.IsValidDefaultBox3)
+				boxViewer3.LoadUI(PokeManager.Settings.DefaultBoxGame3, PokeManager.Settings.DefaultBoxRow3);
+			else
+				boxViewer3.LoadUI(-1, 0);
 
 			//OnGameSwitch(boxViewer1);
 
@@ -115,9 +136,18 @@ namespace PokemonManager.Windows {
 			boxViewer1.loaded = true;
 			boxViewer2.loaded = true;
 			boxViewer3.loaded = true;
-			boxViewer1.LoadUI(-1, 0);
-			boxViewer2.LoadUI(-1, 0);
-			boxViewer3.LoadUI(-1, 0);
+			if (PokeManager.Settings.IsValidDefaultBox1)
+				boxViewer1.LoadUI(PokeManager.Settings.DefaultGame, PokeManager.Settings.DefaultBoxRow1);
+			else
+				boxViewer1.LoadUI(-1, 0);
+			if (PokeManager.Settings.IsValidDefaultBox2)
+				boxViewer2.LoadUI(PokeManager.Settings.DefaultBoxGame2, PokeManager.Settings.DefaultBoxRow2);
+			else
+				boxViewer2.LoadUI(-1, 0);
+			if (PokeManager.Settings.IsValidDefaultBox3)
+				boxViewer3.LoadUI(PokeManager.Settings.DefaultBoxGame3, PokeManager.Settings.DefaultBoxRow3);
+			else
+				boxViewer3.LoadUI(-1, 0);
 
 			//OnGameSwitch(boxViewer1);
 
@@ -528,6 +558,23 @@ namespace PokemonManager.Windows {
 				}
 			}
 			boxViewer1.GotoPokemon(pokemon);
+		}
+
+
+		public int CurrentRow1 {
+			get { return GetRow(boxViewer1); }
+		}
+		public int CurrentGame2 {
+			get { return GetGameIndex(boxViewer2); }
+		}
+		public int CurrentRow2 {
+			get { return GetRow(boxViewer2); }
+		}
+		public int CurrentGame3 {
+			get { return GetGameIndex(boxViewer3); }
+		}
+		public int CurrentRow3 {
+			get { return GetRow(boxViewer3); }
 		}
 	}
 }

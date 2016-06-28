@@ -152,6 +152,11 @@
                     <MenuItem x:Name="menuItemBoxRows3" Header="3 Box Rows" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="OnBoxRowClicked" Tag="3" IsChecked="True"/>
                     <MenuItem x:Name="menuItemDoubleBoxRows" Header="Duplicate Box Rows" Style="{StaticResource SubMenuItem}" Click="OnDuplicateBoxRowsChecked" IsCheckable="True"/>
                 </MenuItem>
+                <MenuItem Header="Set Current Defaults" Style="{StaticResource SubMenuItem}" Click="OnSetCurrentDefaultsClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconDefaults.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem x:Name="menuItemVolume" Header="Volume : 100%" Style="{StaticResource SubMenuItem}" Click="OnVolumeClicked">
                     <MenuItem.Icon>
                         <Image Source="/TriggersPC;component/Resources/Icons/IconVolumeOn.png"/>

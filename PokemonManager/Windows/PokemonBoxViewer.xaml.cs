@@ -88,6 +88,10 @@ namespace PokemonManager.Windows {
 		}
 
 		public void GotoPokemon(IPokemon pokemon) {
+			if (pokemon.PokeContainer == null || pokemon.ContainerIndex == -1) {
+				gotoPokemon = null;
+				return;
+			}
 			if (pokemon.PokeContainer.Type == ContainerTypes.Party) {
 				if (containerMode != ContainerTypes.Party) {
 					containerMode = ContainerTypes.Party;
@@ -199,7 +203,9 @@ namespace PokemonManager.Windows {
 			if (pokePC != null) {
 				if (GameSave is ManagerGameSave) {
 					this.pokePC = (GameSave as ManagerGameSave).GetPokePCRow(rowIndex);
+					loaded = false;
 					comboBoxRows.SelectedIndex = rowIndex;
+					loaded = true;
 					comboBoxRows.Visibility = Visibility.Visible;
 					buttonParty.Visibility = Visibility.Hidden;
 				}
