@@ -52,6 +52,28 @@ namespace PokemonManager.Windows {
 		private bool HasSelection {
 			get { return listViewItems.SelectedItems.Count > 1; }
 		}
+		public void GotoDecoration(byte decorationID) {
+			int index = -1;
+			for (int i = 0; i < pocket.SlotsUsed; i++) {
+				if (pocket[i].ID == decorationID) {
+					index = i;
+					break;
+				}
+			}
+			listViewItems.SelectedIndex = index;
+			// Hackish thing to make sure the list view is always scrolled at the bottom when adding a new box
+			//http://stackoverflow.com/questions/211971/scroll-wpf-listview-to-specific-line
+			/*VirtualizingStackPanel vsp =  
+					(VirtualizingStackPanel)typeof(ItemsControl).InvokeMember("_itemsHost",
+				BindingFlags.Instance | BindingFlags.GetField | BindingFlags.NonPublic, null,
+				listViewItems, null);
+			double scrollHeight = vsp.ScrollOwner.ScrollableHeight;
+			double offset = scrollHeight * index / listViewItems.Items.Count;
+			vsp.SetVerticalOffset(offset);*/
+
+			listViewItems.ScrollIntoView(listViewItems.SelectedItem);
+			((Control)listViewItems.SelectedItem).Focus();
+		}
 
 		public void LoadPocket(DecorationPocket pocket) {
 			this.pocket = pocket;

@@ -293,6 +293,8 @@ namespace PokemonManager.Windows {
 					(PokemonSearchWindow as WindowSearchPokemonSettings).RefreshUI();
 				else if (PokemonSearchWindow is GamePokemonSearchResultsWindow)
 					(PokemonSearchWindow as GamePokemonSearchResultsWindow).RefreshUI();
+				else if (PokemonSearchWindow is ItemSearchResultsWindow)
+					(PokemonSearchWindow as ItemSearchResultsWindow).RefreshUI();
 			}
 		}
 
@@ -303,16 +305,18 @@ namespace PokemonManager.Windows {
 					(PokemonSearchWindow as WindowSearchPokemonSettings).RefreshUI();
 				else if (PokemonSearchWindow is GamePokemonSearchResultsWindow)
 					(PokemonSearchWindow as GamePokemonSearchResultsWindow).RefreshUI();
+				else if (PokemonSearchWindow is ItemSearchResultsWindow)
+					(PokemonSearchWindow as ItemSearchResultsWindow).RefreshUI();
 			}
 		}
 		public void Reload() {
 			UpdateSettingsMenuItems();
-
 			pokemonViewer.Reload();
 			if (PokemonSearchWindow != null)
 				PokemonSearchWindow.Close();
 
 			loaded = false;
+			comboBoxGameSaves.ReloadGameSaves();
 			comboBoxGameSaves.SelectedGameIndex = PokeManager.Settings.IsValidDefaultGame ? PokeManager.Settings.DefaultGame : -1;
 			loaded = true;
 			LoadGame(PokeManager.Settings.IsValidDefaultGame ? PokeManager.Settings.DefaultGame : -1);
@@ -421,6 +425,8 @@ namespace PokemonManager.Windows {
 					tabDecorations.Visibility = (gameSave.Inventory.Decorations != null ? Visibility.Visible : Visibility.Collapsed);
 					if (tabControl.SelectedItem != null && ((TabItem)tabControl.SelectedItem).Visibility != Visibility.Visible || (tabControl.SelectedIndex == 7 && eventCount == 0))
 						Dispatcher.BeginInvoke((Action)(() => tabControl.SelectedIndex = 0));
+					if (tabControl.SelectedIndex == 6)
+						dexViewer.RefreshUI();
 				}
 			}
 			catch (Exception ex) {
@@ -869,6 +875,7 @@ namespace PokemonManager.Windows {
 
 			menuItemForceSave.IsChecked = PokeManager.Settings.AlwaysSaveAllSaves;
 			menuItemMysteryEggs.IsChecked = PokeManager.Settings.MysteryEggs;
+			menuItemKeepMissingFiles.IsChecked = PokeManager.Settings.KeepMissingFiles;
 
 			menuItemStartupMirageIsland.IsChecked = PokeManager.Settings.StartupMirageIslandCheck;
 			menuItemStartupShinyEggs.IsChecked = PokeManager.Settings.StartupShinyEggsCheck;
@@ -925,6 +932,51 @@ namespace PokemonManager.Windows {
 			PokeManager.Settings.DefaultBoxRow3 = pokemonViewer.CurrentRow3;
 			PokeManager.Settings.DisableChangesWhileLoading = false;
 			PokeManager.SaveSettings();
+		}
+
+		private void OnKeepMissingFilesChecked(object sender, RoutedEventArgs e) {
+			PokeManager.Settings.KeepMissingFiles = menuItemKeepMissingFiles.IsChecked;
+		}
+
+		private void OnSearchItemsClicked(object sender, RoutedEventArgs e) {
+			if (PokemonSearchWindow != null && !(PokemonSearchWindow is ItemSearchResultsWindow)) {
+				PokemonSearchWindow.Close();
+				PokemonSearchWindow = null;
+			}
+
+			if (PokemonSearchWindow != null) {
+				PokemonSearchWindow.Focus();
+				((ItemSearchResultsWindow)PokemonSearchWindow).SetDecorationMode(false);
+			}
+			else
+				PokemonSearchWindow = ItemSearchResultsWindow.Show(this, false);
+		}
+
+		private void OnSearchDecorationsClicked(object sender, RoutedEventArgs e) {
+			if (PokemonSearchWindow != null && !(PokemonSearchWindow is ItemSearchResultsWindow)) {
+				PokemonSearchWindow.Close();
+				PokemonSearchWindow = null;
+			}
+
+			if (PokemonSearchWindow != null) {
+				PokemonSearchWindow.Focus();
+				((ItemSearchResultsWindow)PokemonSearchWindow).SetDecorationMode(true);
+			}
+			else
+				PokemonSearchWindow = ItemSearchResultsWindow.Show(this, true);
+		}
+
+		public void GotoItem(int gameIndex, ItemTypes pocket, ushort itemID) {
+			if (this.gameIndex != gameIndex)
+				LoadGame(gameIndex);
+			Dispatcher.BeginInvoke((Action)(() => tabControl.SelectedIndex = 2));
+			inventoryViewer.GotoItem(pocket, itemID);
+		}
+		public void GotoDecoration(int gameIndex, DecorationTypes pocket, byte decorationID) {
+			if (this.gameIndex != gameIndex)
+				LoadGame(gameIndex);
+			Dispatcher.BeginInvoke((Action)(() => tabControl.SelectedIndex = 3));
+			decorationInventoryViewer.GotoDecoration(pocket, decorationID);
 		}
 	}
 }

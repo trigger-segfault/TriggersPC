@@ -3,6 +3,7 @@ using PokemonManager.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -43,6 +44,28 @@ namespace PokemonManager.Windows {
 		}
 		public void RefreshUI() {
 			gridSortButton.Visibility = (pocket.IsOrdered || pocket.PocketType == ItemTypes.KeyItems ? Visibility.Hidden : Visibility.Visible);
+		}
+		public void GotoItem(ushort itemID) {
+			int index = -1;
+			for (int i = 0; i < pocket.SlotsUsed; i++) {
+				if (pocket[i].ID == itemID) {
+					index = i;
+					break;
+				}
+			}
+			listViewItems.SelectedIndex = index;
+			// Hackish thing to make sure the list view is always scrolled at the bottom when adding a new box
+			//http://stackoverflow.com/questions/211971/scroll-wpf-listview-to-specific-line
+			/*VirtualizingStackPanel vsp =  
+					(VirtualizingStackPanel)typeof(ItemsControl).InvokeMember("_itemsHost",
+				BindingFlags.Instance | BindingFlags.GetField | BindingFlags.NonPublic, null,
+				listViewItems, null);
+			double scrollHeight = vsp.ScrollOwner.ScrollableHeight;
+			double offset = scrollHeight * index / listViewItems.Items.Count;
+			vsp.SetVerticalOffset(offset);*/
+
+			listViewItems.ScrollIntoView(listViewItems.SelectedItem);
+			((Control)listViewItems.SelectedItem).Focus();
 		}
 
 		public void LoadPocket(ItemPocket pocket) {

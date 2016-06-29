@@ -89,6 +89,8 @@ namespace PokemonManager {
 		private int defaultBoxGame3;
 		private int defaultBoxRow3;
 
+		private bool keepMissingFiles;
+
 		public PokeManagerSettings() {
 			this.managerNickname = "Your PC";
 			this.useFRLGSprites = false;
@@ -120,6 +122,18 @@ namespace PokemonManager {
 			this.defaultBoxRow2 = 0;
 			this.defaultBoxGame3 = -1;
 			this.defaultBoxRow3 = 0;
+
+			this.keepMissingFiles = false;
+		}
+
+		public bool KeepMissingFiles {
+			get { return keepMissingFiles; }
+			set {
+				keepMissingFiles = value;
+				if (!disableChangesWhileLoading) {
+					PokeManager.SaveSettings();
+				}
+			}
 		}
 
 		public bool IsValidDefaultGame {
@@ -467,6 +481,7 @@ namespace PokemonManager {
 
 		// Gen 3 Saves
 		private static List<GameSaveFileInfo> gameSaveFiles;
+		private static List<GameSaveFileInfo> missingGameSaveFiles;
 		private static ManagerGameSave managerGameSave;
 
 		// Events
@@ -2854,6 +2869,7 @@ namespace PokemonManager {
 
 			PokeManager.settings = new PokeManagerSettings();
 			PokeManager.gameSaveFiles = new List<GameSaveFileInfo>();
+			PokeManager.missingGameSaveFiles = new List<GameSaveFileInfo>();
 			if (File.Exists(path)) {
 
 				XmlDocument doc = new XmlDocument();
@@ -2959,6 +2975,9 @@ namespace PokemonManager {
 				element = doc.GetElementsByTagName("DefaultBoxRow3");
 				if (element.Count != 0) settings.DefaultBoxRow3 = int.Parse(element[0].InnerText);
 
+				element = doc.GetElementsByTagName("KeepMissingFiles");
+				if (element.Count != 0) settings.KeepMissingFiles = bool.Parse(element[0].InnerText);
+
 				settings.DisableChangesWhileLoading = false;
 				#endregion
 
@@ -2976,7 +2995,8 @@ namespace PokemonManager {
 					bool livingDex = false;
 					if (saveList[i].Attributes["LivingDex"] != null)
 						bool.TryParse(saveList[i].Attributes["LivingDex"].Value, out livingDex);
-					gameSaveFiles.Add(new GameSaveFileInfo(filePath, gameType, nickname, japanese, livingDex));
+					if (filePath != "")
+						gameSaveFiles.Add(new GameSaveFileInfo(filePath, gameType, nickname, japanese, livingDex));
 				}
 
 				List<string> missingFiles = new List<string>();
@@ -2995,21 +3015,22 @@ namespace PokemonManager {
 						}
 					}
 					else {
+						missingGameSaveFiles.Add(gameSaveFile);
 						missingFiles.Add(gameSaveFile.FilePath);
 						gameSavesToRemove.Add(gameSaveFile);
 					}
 				}
-				if (missingFiles.Count > 0) {
+				if (missingFiles.Count > 0 && !settings.KeepMissingFiles) {
 					string list = "";
 					foreach (string file in missingFiles)
 						list += "\n" + file;
-					TriggerMessageBox.Show(managerWindow, "The following game files no longer exist and have been removed from your collection\n" + list, "Missing Files");
+					TriggerMessageBox.Show(managerWindow, "The following game files no longer exist and have been removed from your list\n" + list, "Missing Files");
 				}
 				if (errorFiles.Count > 0) {
 					string list = "";
 					foreach (string file in errorFiles)
 						list += "\n" + file;
-					TriggerMessageBox.Show(managerWindow, "The following game files no had errors when loading and have been removed from your collection\n" + list, "Error Loading");
+					TriggerMessageBox.Show(managerWindow, "The following game files no had errors when loading and have been removed from your list\n" + list, "Error Loading");
 				}
 				foreach (GameSaveFileInfo gameSaveFile in gameSavesToRemove)
 					gameSaveFiles.Remove(gameSaveFile);
@@ -3147,6 +3168,10 @@ namespace PokemonManager {
 				element = doc.CreateElement("DefaultBoxRow3");
 				element.AppendChild(doc.CreateTextNode(settings.DefaultBoxRow3.ToString()));
 				setting.AppendChild(element);
+
+				element = doc.CreateElement("KeepMissingFiles");
+				element.AppendChild(doc.CreateTextNode(settings.KeepMissingFiles.ToString()));
+				setting.AppendChild(element);
 				#endregion
 
 				#region SaveFiles
@@ -3161,6 +3186,17 @@ namespace PokemonManager {
 					listSave.SetAttribute("LivingDex", gameSaveFile.IsLivingDex.ToString());
 					listSave.SetAttribute("FilePath", gameSaveFile.FilePath);
 					saveFiles.AppendChild(listSave);
+				}
+				if (settings.KeepMissingFiles) {
+					foreach (GameSaveFileInfo gameSaveFile in missingGameSaveFiles) {
+						XmlElement listSave = doc.CreateElement("SaveFile");
+						listSave.SetAttribute("GameType", gameSaveFile.GameType.ToString());
+						listSave.SetAttribute("Nickname", gameSaveFile.Nickname);
+						listSave.SetAttribute("Japanese", gameSaveFile.IsJapanese.ToString());
+						listSave.SetAttribute("LivingDex", gameSaveFile.IsLivingDex.ToString());
+						listSave.SetAttribute("FilePath", gameSaveFile.FilePath);
+						saveFiles.AppendChild(listSave);
+					}
 				}
 				#endregion
 
@@ -3219,9 +3255,9 @@ namespace PokemonManager {
 			return -2;
 		}
 
-		public static GameSaveFileInfo MakeNewGameSaveFileInfo(string filePath, GameTypes gameType = GameTypes.Any) {
-			IGameSave gameSave = LoadGameSave(filePath, gameType);
-			GameSaveFileInfo gameSaveFile = new GameSaveFileInfo(filePath, gameSave.GameType);
+		public static GameSaveFileInfo MakeNewGameSaveFileInfo(string filePath, GameTypes gameType, bool japanese) {
+			IGameSave gameSave = LoadGameSave(filePath, gameType, japanese);
+			GameSaveFileInfo gameSaveFile = new GameSaveFileInfo(filePath, gameSave.GameType, "", japanese);
 			gameSaveFile.GameSave = gameSave;
 			return gameSaveFile;
 		}

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:PokemonManager.Windows"
-        Title="Send Pokéblock To" Height="134" Width="240" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False" Icon="/TriggersPC;component/Resources/Empty.png" Loaded="OnWindowLoaded">
+        Title="Send Pokéblock To" Height="123" Width="240" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False" Icon="/TriggersPC;component/Resources/Empty.png" Loaded="OnWindowLoaded">
     <Grid>
         <local:ComboBoxGameSaves x:Name="comboBoxGame" Margin="10,10,10,0" VerticalAlignment="Top" SelectionChanged="GameChanged" Focusable="False" IsTabStop="False"/>
         <Button Content="OK" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" FontSize="11" IsDefault="True" Click="OKClicked" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False"/>

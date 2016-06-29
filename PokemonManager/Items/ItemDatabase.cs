@@ -295,7 +295,7 @@ namespace PokemonManager.Items {
 		public static DecorationData GetDecorationAt(int index) {
 			if (index >= 0 && index < decorationList.Count)
 				return decorationList[index];
-			return decorationList[0];
+			return null;
 		}
 		public static DecorationData GetDecorationTypeAt(int index, DecorationTypes decorationType) {
 			for (int i = 1; i < gen3ItemList.Count; i++) {

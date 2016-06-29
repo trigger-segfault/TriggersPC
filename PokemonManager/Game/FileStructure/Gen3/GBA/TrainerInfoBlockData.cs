@@ -119,6 +119,10 @@ namespace PokemonManager.Game.FileStructure {
 					return raw[27] == 185;
 				else
 					return raw[25] == 1 && raw[26] == 218;
+				/*if (GameCode == GameCodes.FireRedLeafGreen)
+					return raw[27] != 0;
+				else
+					return raw[25] != 0 && raw[26] != 0;*/
 			}
 			set {
 				if (GameCode == GameCodes.FireRedLeafGreen) {

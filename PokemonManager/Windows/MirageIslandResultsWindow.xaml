@@ -1,9 +1,9 @@
 ﻿<Window x:Class="PokemonManager.Windows.GamePokemonSearchResultsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Mirage Island Results" Height="380" Width="280" ResizeMode="NoResize" Icon="/TriggersPC;component/Resources/Icons/IconMirageIsland.png" Closing="OnWindowClosing" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+        Title="Mirage Island Results" Height="380" Width="280" ResizeMode="NoResize" Icon="/TriggersPC;component/Resources/Icons/IconSearch.png" Closing="OnWindowClosing" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <Grid>
-        <ListView x:Name="listViewGameSaves" Margin="10,11,10,47" SelectionChanged="OnSelectionChanged"/>
+        <ListView x:Name="listViewGameSaves" Margin="10,11,10,47" SelectionChanged="OnSelectionChanged" SelectionMode="Single"/>
         <Button Content="Close" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False" IsCancel="True" Click="OnCloseClicked"/>
         <Button Content="See Results" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="90" Click="OnSeeResultsClicked" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False"/>
 

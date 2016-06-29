@@ -1,0 +1,13 @@
+﻿<Window x:Class="PokemonManager.Windows.ItemSearchResultsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Search Items" Height="400" Width="320" ResizeMode="NoResize" Icon="/TriggersPC;component/Resources/Icons/IconSearch.png" Closing="OnWindowClosing" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <Grid>
+        <ListView x:Name="listViewResults" Margin="10,37,10,47" SelectionChanged="OnSelectionChanged" SelectionMode="Single"/>
+        <Button Content="Close" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False" IsCancel="True" Click="OnCloseClicked"/>
+        <Button x:Name="buttonSeeResults" Content="See Results" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="86" Click="OnSeeResultsClicked" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False"/>
+        <ComboBox x:Name="comboBoxItems" Margin="10,10,10,0" VerticalAlignment="Top" SelectionChanged="OnItemSelectionChanged"/>
+        <Button x:Name="buttonRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="106,0,0,10" VerticalAlignment="Bottom" Width="70" Click="OnRefreshClicked" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False"/>
+
+    </Grid>
+</Window>

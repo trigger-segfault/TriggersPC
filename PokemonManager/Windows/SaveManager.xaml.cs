@@ -108,6 +108,7 @@ namespace PokemonManager.Windows {
 			listViewItem.ContextMenuOpening += OnContextMenuOpening;
 			listViewItem.Content = stackPanel;
 			listViewItem.Tag = gameSaveFile;
+			listViewItem.ToolTip = gameSaveFile.FilePath;
 		}
 
 		private void OnAddSaveClicked(object sender, RoutedEventArgs e) {
@@ -119,10 +120,10 @@ namespace PokemonManager.Windows {
 			if (result.HasValue && result.Value) {
 				string filePath = fileDialog.FileName;
 
-				filePath = System.IO.Path.GetFullPath(filePath).ToLower();
+				filePath = System.IO.Path.GetFullPath(filePath);
 				foreach (ListViewItem item in gameSaves) {
 					GameSaveFileInfo save = item.Tag as GameSaveFileInfo;
-					if (filePath == System.IO.Path.GetFullPath(save.FilePath).ToLower()) {
+					if (filePath.ToLower() == System.IO.Path.GetFullPath(save.FilePath).ToLower()) {
 						TriggerMessageBox.Show(this, "This game save already exists", "Already Exists");
 						return;
 					}
@@ -131,11 +132,16 @@ namespace PokemonManager.Windows {
 				try {
 					FileInfo fileInfo = new FileInfo(filePath);
 					GameSaveFileInfo gameSaveFile;
-					GameTypes? gameType = GameTypes.Any;
+					GameTypes gameType = GameTypes.Any;
+					bool isJapanese = false;
 					if (fileInfo.Length == 131072 || fileInfo.Length == 65536 || fileInfo.Length == 139264) {
-						gameType = SelectGameTypeFullWindow.ShowDialog(this);
+						var results = SelectGameTypeFullWindow.ShowDialog(this, false);
+						if (results != null) {
+							gameType = results.GameType;
+							isJapanese= results.IsJapanese;
+						}
 					}
-					gameSaveFile = PokeManager.MakeNewGameSaveFileInfo(filePath, gameType.HasValue ? gameType.Value : GameTypes.Any);
+					gameSaveFile = PokeManager.MakeNewGameSaveFileInfo(filePath, gameType, isJapanese);
 					
 					ListViewItem listViewItem = new ListViewItem();
 					FillListViewItem(gameSaveFile, listViewItem);
@@ -144,15 +150,20 @@ namespace PokemonManager.Windows {
 					listViewGameSaves.SelectedIndex = listViewGameSaves.Items.Count - 1;
 					// Hackish thing to make sure the list view is always scrolled at the bottom when adding a new box
 					//http://stackoverflow.com/questions/211971/scroll-wpf-listview-to-specific-line
-					VirtualizingStackPanel vsp =  
+					/*VirtualizingStackPanel vsp =  
 					(VirtualizingStackPanel)typeof(ItemsControl).InvokeMember("_itemsHost",
 						BindingFlags.Instance | BindingFlags.GetField | BindingFlags.NonPublic, null,
 						listViewGameSaves, null);
 					double scrollHeight = vsp.ScrollOwner.ScrollableHeight;
-					vsp.SetVerticalOffset(vsp.ScrollOwner.ScrollableHeight * 2);
+					vsp.SetVerticalOffset(vsp.ScrollOwner.ScrollableHeight * 2);*/
+
+					listViewGameSaves.ScrollIntoView(listViewGameSaves.SelectedItem);
+					((Control)listViewGameSaves.SelectedItem).Focus();
 				}
 				catch (Exception ex) {
-					TriggerMessageBox.Show(this, "Error loading game save file\n\nException:\n" + ex.Message, "Read Error");
+					MessageBoxResult result2 = TriggerMessageBox.Show(this, "Error loading game save file. Would you like to see the error?", "Read Error");
+					if (result2 == MessageBoxResult.Yes)
+						ErrorMessageBox.Show(ex);
 				}
 			}
 
@@ -201,8 +212,9 @@ namespace PokemonManager.Windows {
 			if ((selectedGameSave.GameSave.GameType == GameTypes.Ruby || selectedGameSave.GameSave.GameType == GameTypes.Sapphire ||
 				selectedGameSave.GameSave.GameType == GameTypes.FireRed || selectedGameSave.GameType == GameTypes.LeafGreen ||
 				selectedGameSave.GameSave.GameType == GameTypes.Emerald) && selectedGameSave.GameSave is GBAGameSave) {
-				var gameType = SelectGameTypeFullWindow.ShowDialog(this);
-				if (gameType.HasValue && gameType.Value != GameTypes.Any) {
+				var results = SelectGameTypeFullWindow.ShowDialog(this, selectedGameSave.IsJapanese);
+				if (results != null) {
+					GameTypes gameType = results.GameType;
 					MessageBoxResult result = MessageBoxResult.Yes;
 					bool reloadNeeded = false;
 					if (((selectedGameSave.GameSave.GameType == GameTypes.Ruby || selectedGameSave.GameSave.GameType == GameTypes.Sapphire) && (gameType != GameTypes.Ruby && gameType != GameTypes.Sapphire)) ||
@@ -213,17 +225,20 @@ namespace PokemonManager.Windows {
 							reloadNeeded = true;
 					}
 					if (result == MessageBoxResult.Yes) {
-						selectedGameSave.GameType = gameType.Value;
-						((GBAGameSave)selectedGameSave.GameSave).GameType = gameType.Value;
+						selectedGameSave.GameType = gameType;
+						selectedGameSave.IsJapanese = results.IsJapanese;
+						selectedGameSave.GameSave.IsJapanese = results.IsJapanese;
+						((GBAGameSave)selectedGameSave.GameSave).GameType = gameType;
 						FillListViewItem(selectedGameSave, gameSaves[selectedIndex]);
 						if (reloadNeeded) {
 							try {
 								PokeManager.ReloadGameSave(selectedGameSave);
 							}
 							catch (Exception ex) {
-								TriggerMessageBox.Show(this, "Error loading save after changing game type, this may not be the correct game type for it.", "Load Error");
+								result = TriggerMessageBox.Show(this, "Error loading save after changing game type, this may not be the correct game type for it. Would you like to see the error?", "Load Error", MessageBoxButton.YesNo);
+								if (result == MessageBoxResult.Yes)
+									ErrorMessageBox.Show(ex);
 							}
-
 						}
 					}
 				}

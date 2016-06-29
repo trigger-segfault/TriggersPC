@@ -27,8 +27,10 @@ namespace PokemonManager.Windows {
 		All,
 		Owned,
 		Seen,
-		Missing,
-		Living
+		Living,
+		SeenMissing,
+		OwnedMissing,
+		LivingMissing
 	}
 
 	public partial class PokedexViewer : UserControl {
@@ -118,20 +120,37 @@ namespace PokemonManager.Windows {
 						}
 					}
 				}
+				loaded = false;
 				comboBoxViewType.Items.Clear();
-				viewMode = PokedexViewModes.All;
-				if (gameSave.GameType == GameTypes.Colosseum || gameSave.GameType == GameTypes.XD) {
-					loaded = false;
-					for (int i = 0; i < ColosseumComboNames.Length && gameSave.GameType == GameTypes.Colosseum; i++)
-						comboBoxViewType.Items.Add(ColosseumComboNames[i]);
-					for (int i = 0; i < XDComboNames.Length && gameSave.GameType == GameTypes.XD; i++)
-						comboBoxViewType.Items.Add(XDComboNames[i]);
+				AddViewTypeComboBoxItem("All Pokémon", PokedexViewModes.All);
+				if (gameSave.GameType == GameTypes.Colosseum || gameSave.GameType == GameTypes.XD)
+					AddViewTypeComboBoxItem("Registered Pokémon", PokedexViewModes.Owned);
+				else
+					AddViewTypeComboBoxItem("Owned Pokémon", PokedexViewModes.Owned);
+				if (gameSave.GameType != GameTypes.Any && gameSave.GameType != GameTypes.XD) {
+					AddViewTypeComboBoxItem("Seen Pokémon", PokedexViewModes.Seen);
+					if (viewMode == PokedexViewModes.Seen)
+						viewMode = PokedexViewModes.All;
+				}
+				AddViewTypeComboBoxItem("Living Pokémon", PokedexViewModes.Living);
+				if (gameSave.GameType == GameTypes.Colosseum || gameSave.GameType == GameTypes.XD)
+					AddViewTypeComboBoxItem("Missing Registered Pokémon", PokedexViewModes.OwnedMissing);
+				else
+					AddViewTypeComboBoxItem("Missing Owned Pokémon", PokedexViewModes.OwnedMissing);
+				if (gameSave.GameType != GameTypes.Any && gameSave.GameType != GameTypes.XD) {
+					AddViewTypeComboBoxItem("Missing Seen Pokémon", PokedexViewModes.SeenMissing);
+					if (viewMode == PokedexViewModes.SeenMissing)
+						viewMode = PokedexViewModes.All;
+				}
+				AddViewTypeComboBoxItem("Missing Living Pokémon", PokedexViewModes.LivingMissing);
+				if (viewMode == PokedexViewModes.All)
 					comboBoxViewType.SelectedIndex = 0;
-					loaded = true;
+				loaded = true;
+				if (gameSave.GameType == GameTypes.Colosseum || gameSave.GameType == GameTypes.XD) {
 					this.labelPokedexName.Content = "Strategy Memo";
 
 					AddStat("Pokémon Living", livingCount.ToString());
-					AddStat("Pokémon Registed", gameSave.PokemonOwned.ToString());
+					AddStat("Pokémon Registered", gameSave.PokemonOwned.ToString());
 					if (gameSave.GameType == GameTypes.Colosseum)
 						AddStat("Pokémon Seen", gameSave.PokemonSeen.ToString());
 					AddSeparator();
@@ -145,11 +164,6 @@ namespace PokemonManager.Windows {
 					}
 				}
 				else {
-					loaded = false;
-					for (int i = 0; i < GBAComboNames.Length; i++)
-						comboBoxViewType.Items.Add(GBAComboNames[i]);
-					comboBoxViewType.SelectedIndex = 0;
-					loaded = true;
 					if (gameSave.HasNationalPokedex)
 						this.labelPokedexName.Content = "National Pokédex";
 					else
@@ -181,14 +195,19 @@ namespace PokemonManager.Windows {
 						AddStat("Pokémon Seen", seen.ToString());
 					string oakStatus = "Get Working";
 					if (livingCount == 386 && unownCount == 28)
-						oakStatus = "Living Pokédex";
+						oakStatus = "Living Pokédex!";
 					else if (owned == 386)
-						oakStatus = "Complete" + (unownCount == 28 ? "+" : "");
-					else if (owned > 300)
+						oakStatus = "Complete" + (unownCount == 28 ? "+" : "") + "!";
+					else if (owned >= 360)
+						oakStatus = "Final Stretch";
+					else if (owned >= 300)
 						oakStatus = "Almost There";
-					else if (owned > 150)
+					else if (owned >= 200)
+						oakStatus = "Getting There";
+					else if (owned >= 100)
 						oakStatus = "Some Progress";
-					AddStat("Oak's Opinion", oakStatus);
+					AddStat("Oak's Opinion        " + oakStatus, "");
+
 					AddSeparator();
 					if (gameSave.GameType == GameTypes.Ruby || gameSave.GameType == GameTypes.Sapphire || gameSave.GameType == GameTypes.Emerald) {
 						AddStat("Hoenn Owned", hoennOwned.ToString());
@@ -237,7 +256,7 @@ namespace PokemonManager.Windows {
 			labelValue.Padding = new Thickness(5, 4, 5, 4);
 			labelValue.Content = value;
 			labelValue.FontWeight = FontWeights.Bold;
-			labelValue.Margin = new Thickness(115, 0, 0, 0);
+			labelValue.Margin = new Thickness(130, 0, 0, 0);
 			grid.Children.Add(labelValue);
 
 			stackPanelStats.Children.Add(grid);
@@ -267,10 +286,12 @@ namespace PokemonManager.Windows {
 							living = deoxysLivingFlags[j];
 					}
 
-					if ((viewMode == PokedexViewModes.Missing && seen) ||
-						(viewMode == PokedexViewModes.Owned && !owned) ||
-						(viewMode == PokedexViewModes.Seen && (!seen || owned)) ||
-						(viewMode == PokedexViewModes.Living && !living)) {
+					if ((viewMode == PokedexViewModes.Owned && !owned) ||
+						(viewMode == PokedexViewModes.Seen && !seen) ||
+						(viewMode == PokedexViewModes.Living && !living) ||
+						(viewMode == PokedexViewModes.SeenMissing && seen) ||
+						(viewMode == PokedexViewModes.OwnedMissing && owned) ||
+						(viewMode == PokedexViewModes.LivingMissing && living)) {
 						continue;
 					}
 
@@ -349,14 +370,24 @@ namespace PokemonManager.Windows {
 		public void LoadGameSave(IGameSave gameSave) {
 			this.gameSave = gameSave;
 
-			RefreshUI();
+			//RefreshUI();
 		}
 
 		private void OnViewTypeChanged(object sender, SelectionChangedEventArgs e) {
 			if (loaded && comboBoxViewType.SelectedIndex != -1) {
-				viewMode = (PokedexViewModes)(comboBoxViewType.SelectedIndex + (gameSave.GameType == GameTypes.XD && comboBoxViewType.SelectedIndex >= 2 ? 1 : 0));
+				viewMode = (PokedexViewModes)((ComboBoxItem)comboBoxViewType.SelectedItem).Tag;//(PokedexViewModes)(comboBoxViewType.SelectedIndex + (gameSave.GameType == GameTypes.XD && comboBoxViewType.SelectedIndex >= 2 ? 1 : 0));
 				FillPokedex();
 			}
+		}
+
+		private void AddViewTypeComboBoxItem(string name, PokedexViewModes viewType) {
+			ComboBoxItem comboBoxItem = new ComboBoxItem();
+			comboBoxItem.Content = name;
+			comboBoxItem.Tag = viewType;
+			comboBoxViewType.Items.Add(comboBoxItem);
+
+			if (viewType == viewMode)
+				comboBoxViewType.SelectedItem = comboBoxItem;
 		}
 	}
 }

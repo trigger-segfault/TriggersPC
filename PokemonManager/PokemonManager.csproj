@@ -134,6 +134,9 @@
     <Compile Include="Windows\AdvancedSendSingleToWindow.xaml.cs">
       <DependentUpon>AdvancedSendSingleToWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ItemSearchResultsWindow.xaml.cs">
+      <DependentUpon>ItemSearchResultsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\EVTrainingWindow.xaml.cs">
       <DependentUpon>EVTrainingWindow.xaml</DependentUpon>
     </Compile>
@@ -433,6 +436,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AdvancedSendSingleToWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ItemSearchResultsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

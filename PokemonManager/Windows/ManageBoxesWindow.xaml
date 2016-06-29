@@ -7,7 +7,7 @@
     <Grid>
         <local:ComboBoxPCRows x:Name="comboBoxRows" VerticalAlignment="Top" Margin="10,10,176,0" SelectionChanged="OnRowSelectionChanged"/>
         <Button Content="Close" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" FontSize="11" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False" IsCancel="True"/>
-        <ListView x:Name="listViewBoxes" Margin="10,37,176,10" SelectionChanged="OnBoxSelectionChanged"/>
+        <ListView x:Name="listViewBoxes" Margin="10,37,176,10" SelectionChanged="OnBoxSelectionChanged" SelectionMode="Single"/>
         <Button Content="Add Box" HorizontalAlignment="Right" Margin="0,0,92,10" VerticalAlignment="Bottom" Width="75" FontSize="11" Click="OnAddBox" Foreground="White" FontWeight="Bold" Background="#FF007ACC" Focusable="False" IsTabStop="False"/>
         <local:PokeBoxControl x:Name="pokeBoxControl" Margin="0,64,10,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
         <local:PokemonViewerSmall x:Name="pokemonViewer" Margin="0,213,30,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>

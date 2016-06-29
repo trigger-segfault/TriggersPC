@@ -24,7 +24,6 @@ namespace PokemonManager.Windows {
 		private DecorationTypes currentPocket;
 		private int previousPocketIndex;
 		private DecorationTypes previousPocket;
-		private SecretBaseViewer secretBaseManager;
 
 		private Dictionary<DecorationTypes, DecorationViewerTab> tabs;
 
@@ -32,6 +31,16 @@ namespace PokemonManager.Windows {
 			InitializeComponent();
 
 			this.tabs = new Dictionary<DecorationTypes, DecorationViewerTab>();
+		}
+		public void GotoDecoration(DecorationTypes pocket, byte decorationID) {
+			int index = 0;
+			foreach (object item in tabControlPockets.Items) {
+				if (((TabItem)item).Content == tabs[pocket])
+					break;
+				index++;
+			}
+			Dispatcher.BeginInvoke((Action)(() => tabControlPockets.SelectedIndex = index));
+			tabs[pocket].GotoDecoration(decorationID);
 		}
 
 		public void LoadInventory(Inventory inventory) {

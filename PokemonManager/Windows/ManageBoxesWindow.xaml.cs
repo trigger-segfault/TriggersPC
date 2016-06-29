@@ -148,12 +148,15 @@ namespace PokemonManager.Windows {
 
 			// Hackish thing to make sure the list view is always scrolled at the bottom when adding a new box
 			//http://stackoverflow.com/questions/211971/scroll-wpf-listview-to-specific-line
-			VirtualizingStackPanel vsp =  
+			/*VirtualizingStackPanel vsp =  
 				(VirtualizingStackPanel)typeof(ItemsControl).InvokeMember("_itemsHost",
 				BindingFlags.Instance | BindingFlags.GetField | BindingFlags.NonPublic, null,
 				listViewBoxes, null);
 			double scrollHeight = vsp.ScrollOwner.ScrollableHeight;
-			vsp.SetVerticalOffset(vsp.ScrollOwner.ScrollableHeight * 2);
+			vsp.SetVerticalOffset(vsp.ScrollOwner.ScrollableHeight * 2);*/
+
+			listViewBoxes.ScrollIntoView(listViewBoxes.SelectedItem);
+			((Control)listViewBoxes.SelectedItem).Focus();
 		}
 		private void OnEditBox(object sender, RoutedEventArgs e) {
 			if (selectedBox != null) {

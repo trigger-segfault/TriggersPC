@@ -73,19 +73,19 @@ namespace PokemonManager.Game.FileStructure.Gen3.GBA {
 		public bool NationalPokedexBUnlocked {
 			get {
 				if (parent.GameCode == GameCodes.RubySapphire)
-					return raw[934] == 64;
+					return ByteHelper.GetBit(raw, 934, 5);
 				else if (parent.GameCode == GameCodes.Emerald)
-					return raw[1026] == 64;
+					return ByteHelper.GetBit(raw, 1026, 5);
 				else
-					return raw[104] == 1;
+					return ByteHelper.GetBit(raw, 104, 0);
 			}
 			set {
 				if (parent.GameCode == GameCodes.RubySapphire)
-					raw[934] = (byte)(value ? 64 : 0);
+					ByteHelper.SetBit(raw, 934, 5, value);
 				else if (parent.GameCode == GameCodes.Emerald)
-					raw[1026] = (byte)(value ? 64 : 0);
+					ByteHelper.SetBit(raw, 1026, 5, value);
 				else
-					raw[104] = (byte)(value ? 1 : 0);
+					ByteHelper.SetBit(raw, 104, 0, value);
 			}
 		}
 		public bool NationalPokedexCUnlocked {

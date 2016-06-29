@@ -320,12 +320,16 @@ namespace PokemonManager.Windows {
 							newSecretBase = GBAGameSave.SecretBaseManager.AddSecretBase(newSecretBase);
 							AddListViewItems();
 							listViewSecretBases.SelectedIndex = 2 + GBAGameSave.SecretBaseManager.SharedSecretBases.IndexOf(newSecretBase);
+							listViewSecretBases.ScrollIntoView(listViewSecretBases.SelectedItem);
+							((Control)listViewSecretBases.SelectedItem).Focus();
 						}
 					}
 					else {
 						newSecretBase = PokeManager.AddSecretBase(newSecretBase);
 						AddListViewItems();
 						listViewSecretBases.SelectedIndex = PokeManager.SecretBases.IndexOf(newSecretBase);
+						listViewSecretBases.ScrollIntoView(listViewSecretBases.SelectedItem);
+						((Control)listViewSecretBases.SelectedItem).Focus();
 					}
 				}
 			}
@@ -491,6 +495,8 @@ namespace PokemonManager.Windows {
 									newSecretBase = GBAGameSave.SecretBaseManager.AddSecretBase(newSecretBase);
 									AddListViewItems();
 									listViewSecretBases.SelectedIndex = 2 + GBAGameSave.SecretBaseManager.SharedSecretBases.IndexOf(newSecretBase);
+									listViewSecretBases.ScrollIntoView(listViewSecretBases.SelectedItem);
+									((Control)listViewSecretBases.SelectedItem).Focus();
 									/*for (int i = 0; i < GBAGameSave.SecretBaseManager.SharedSecretBases.Count; i++) {
 										if (GBAGameSave.SecretBaseManager.SharedSecretBases[i] == newSecretBase) {
 											listViewSecretBases.SelectedIndex = i + 2;
@@ -503,6 +509,8 @@ namespace PokemonManager.Windows {
 								newSecretBase = PokeManager.AddSecretBase(newSecretBase);
 								AddListViewItems();
 								listViewSecretBases.SelectedIndex = PokeManager.SecretBases.IndexOf(newSecretBase);
+								listViewSecretBases.ScrollIntoView(listViewSecretBases.SelectedItem);
+								((Control)listViewSecretBases.SelectedItem).Focus();
 								/*for (int i = 0; i < PokeManager.SecretBases.Count; i++) {
 									if (PokeManager.SecretBases[i] == newSecretBase) {
 										 = i;

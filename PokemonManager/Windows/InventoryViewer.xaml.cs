@@ -42,6 +42,16 @@ namespace PokemonManager.Windows {
 				pair.Value.RefreshUI();
 			}
 		}
+		public void GotoItem(ItemTypes pocket, ushort itemID) {
+			int index = 0;
+			foreach (object item in tabControlPockets.Items) {
+				if (((TabItem)item).Content == tabs[pocket])
+					break;
+				index++;
+			}
+			Dispatcher.BeginInvoke((Action)(() => tabControlPockets.SelectedIndex = index));
+			tabs[pocket].GotoItem(itemID);
+		}
 
 		public void LoadGameSave(Inventory inventory) {
 			this.inventory = inventory;

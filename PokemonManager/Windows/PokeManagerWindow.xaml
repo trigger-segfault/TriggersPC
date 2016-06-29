@@ -100,6 +100,16 @@
                         <Image Source="/TriggersPC;component/Resources/Icons/IconPokemon.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="Search Items" Style="{StaticResource SubMenuItem}" Click="OnSearchItemsClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconItem.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Search Decorations" Style="{StaticResource SubMenuItem}" Click="OnSearchDecorationsClicked">
+                    <MenuItem.Icon>
+                        <Image Source="/TriggersPC;component/Resources/Icons/IconDecoration.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="Startup Checks" Style="{StaticResource SubMenuItem}">
                     <MenuItem.Icon>
                         <Image Source="/TriggersPC;component/Resources/Icons/IconSearchGoto.png"/>
@@ -166,6 +176,8 @@
                 <MenuItem x:Name="menuItemRevealEggs" Header="Show Egg Species in Box" IsCheckable="True"  Style="{StaticResource SubMenuItem}" Click="OnRevealEggsChecked"/>
                 <MenuItem x:Name="menuItemMysteryEggs" Header="Mystery Eggs" IsCheckable="True"  Style="{StaticResource SubMenuItem}" Click="OnMysteryEggsChecked"/>
                 <MenuItem x:Name="menuItemAutoSortItems" Header="Auto-Sort Your PC Items" IsCheckable="True"  Style="{StaticResource SubMenuItem}" Click="OnAutoSortItemsChecked"/>
+                <Separator/>
+                <MenuItem x:Name="menuItemKeepMissingFiles" Header="Keep Missing Save Files" IsCheckable="True"  Style="{StaticResource SubMenuItem}" Click="OnKeepMissingFilesChecked"/>
                 <MenuItem x:Name="menuItemForceSave" Header="Always Save All Games" IsCheckable="True"  Style="{StaticResource SubMenuItem}" Click="OnForceSaveChecked"/>
                 <MenuItem x:Name="menuItemMakeBackups" Header="Make Backups" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="OnMakeBackupsChecked" IsChecked="True" Visibility="Collapsed"/>
                 <MenuItem x:Name="menuItemCloseConfirmation" Header="Close Confirmation" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="OnCloseConfirmationChecked" IsChecked="True"/>

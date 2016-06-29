@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:PokemonManager.Windows"
-        Title="Select Game Type" Height="266" Width="340" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" Icon="/TriggersPC;component/Resources/Empty.png" ShowInTaskbar="False">
+        Title="Select Game Type" Height="280" Width="340" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" Icon="/TriggersPC;component/Resources/Empty.png" ShowInTaskbar="False">
     <Grid>
         <Label Margin="10,10,10,0" VerticalAlignment="Top" Height="57" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0">
-            <TextBlock TextWrapping="Wrap" Text="Please select which game this save belongs to. Trigger's PC is not able to determine it on its own." FontWeight="Bold"/>
+            <TextBlock TextWrapping="Wrap" FontWeight="Bold"><Run Text="Please select which game this save belongs to. Trigger's PC is not able to determine it on its own."/></TextBlock>
         </Label>
         <Button x:Name="buttonRuby" HorizontalAlignment="Left" Margin="10,0,0,96" VerticalAlignment="Bottom" Width="90" Height="70" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="#FF007ACC" Click="OnButtonClicked">
             <Grid>
@@ -38,5 +38,6 @@
                 <Label x:Name="labelGame5" Content="LeafGreen" Margin="0,0,0,4" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="White"/>
             </Grid>
         </Button>
+        <CheckBox x:Name="checkBoxJapanese" Content="Japanese Game" Margin="108,51,0,0" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Click="OnJapaneseChecked"/>
     </Grid>
 </Window>
