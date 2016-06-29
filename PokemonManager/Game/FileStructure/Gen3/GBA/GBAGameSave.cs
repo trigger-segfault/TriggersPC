@@ -31,8 +31,10 @@ namespace PokemonManager.Game.FileStructure.Gen3.GBA {
 				this.raw = File.ReadAllBytes(filePath);
 				this.saveData = new GBASaveData[2];
 				if (raw.Length == 131072 || raw.Length == 139264) {
-					saveData[0] = new GBASaveData(this, ByteHelper.SubByteArray(0, raw, 57344));
-					saveData[1] = new GBASaveData(this, ByteHelper.SubByteArray(57344, raw, 57344));
+					if (!ByteHelper.CompareBytes(0, ByteHelper.SubByteArray(4092, raw, 4)))
+						saveData[0] = new GBASaveData(this, ByteHelper.SubByteArray(0, raw, 57344));
+					if (!ByteHelper.CompareBytes(0, ByteHelper.SubByteArray(57344 + 4092, raw, 4)))
+						saveData[1] = new GBASaveData(this, ByteHelper.SubByteArray(57344, raw, 57344));
 					is128KbSave = true;
 				}
 				else if (raw.Length == 65536) {
@@ -69,15 +71,17 @@ namespace PokemonManager.Game.FileStructure.Gen3.GBA {
 		}
 		public GBASaveData MostRecentSave {
 			get {
-				if (is128KbSave && this.saveData[0].BlockDataCollection[0].SaveIndex <= saveData[1].BlockDataCollection[0].SaveIndex)
+				if (saveData[0] == null)
 					return saveData[1];
-				else
+				else if (saveData[1] == null)
 					return saveData[0];
+				else
+					return saveData[0].BlockDataCollection[0].SaveIndex > saveData[1].BlockDataCollection[0].SaveIndex ? saveData[0] : saveData[1];
 			}
 		}
 		public GBASaveData LeastRecentSave {
 			get {
-				if (is128KbSave && this.saveData[0].BlockDataCollection[0].SaveIndex > saveData[1].BlockDataCollection[0].SaveIndex)
+				if (is128KbSave && saveData[0].BlockDataCollection[0].SaveIndex > saveData[1].BlockDataCollection[0].SaveIndex)
 					return saveData[1];
 				else
 					return saveData[0];
@@ -402,8 +406,9 @@ namespace PokemonManager.Game.FileStructure.Gen3.GBA {
 		#region Loading/Saving
 
 		private byte[] GetFinalData() {
-			ByteHelper.ReplaceBytes(raw, 0, this.SaveData1.GetFinalData());
-			if (is128KbSave)
+			if (saveData[0] != null)
+				ByteHelper.ReplaceBytes(raw, 0, this.SaveData1.GetFinalData());
+			if (saveData[1] != null)
 				ByteHelper.ReplaceBytes(raw, 57344, this.SaveData2.GetFinalData());
 			return raw;
 		}

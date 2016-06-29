@@ -167,8 +167,9 @@ namespace PokemonManager.Windows {
 				for (int i = 0; i < newPokemonTeam.Count; i++) {
 					if (i == teamIndex)
 						continue;
-					if (pokemon.Personality == newPokemonTeam[i].Personality) {
-						TriggerMessageBox.Show(this, "Cannot use more than one Pokémon with the same personality.", "Duplicate Personalities");
+					if (pokemon.Personality == newPokemonTeam[i].Personality &&
+						PokemonDatabase.GetStartingEvolutionDexID(pokemon.DexID) == PokemonDatabase.GetStartingEvolutionDexID(newPokemonTeam[i].DexID)) {
+						TriggerMessageBox.Show(this, "Cannot use more than one Pokémon with the same personality and family.", "Duplicate Pokémon Detected");
 						return;
 					}
 				}

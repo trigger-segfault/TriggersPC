@@ -180,6 +180,14 @@ namespace PokemonManager.Windows {
 			AddComboBoxItem(comboBoxGender, "Female", (int)Genders.Female);
 			AddComboBoxItem(comboBoxGender, "Genderless", (int)Genders.Genderless);
 
+			comboBoxFamily.Items.Clear();
+			for (ushort i = 1; i <= 386; i++) {
+				PokemonData pokemonData = PokemonDatabase.GetPokemonFromDexID(i);
+				if (pokemonData.FamilyDexID == i)
+					AddComboBoxItem(comboBoxFamily, pokemonData.Name, (int)i);
+			}
+
+
 			ComboBox[] moveComboBoxes = new ComboBox[] { comboBoxMove1, comboBoxMove2, comboBoxMove3, comboBoxMove4 };
 			for (int i = 0; i < 4; i++) {
 				moveComboBoxes[i].Items.Clear();
@@ -316,9 +324,8 @@ namespace PokemonManager.Windows {
 			checkBoxGender.IsChecked = search.GenderEnabled;
 			SetComboBoxToTag(comboBoxGender, (int)search.GenderValue);
 
-			checkBoxHatchCounter.IsChecked = search.HatchCounterEnabled;
-			SetComboBoxToTag(comboBoxHatchCounterComparison, (int)search.HatchCounterComparison);
-			numericHatchCounterValue.Value = (int)search.HatchCounterValue;
+			checkBoxFamily.IsChecked = search.FamilyEnabled;
+			SetComboBoxToTag(comboBoxFamily, (int)search.FamilyValue);
 
 			#endregion
 
@@ -379,6 +386,10 @@ namespace PokemonManager.Windows {
 			SetComboBoxToTag(comboBoxEggMode, (int)search.EggMode);
 			SetComboBoxToTag(comboBoxShinyMode, (int)search.ShinyMode);
 			SetComboBoxToTag(comboBoxShadowMode, (int)search.ShadowMode);
+
+			checkBoxHatchCounter.IsChecked = search.HatchCounterEnabled;
+			SetComboBoxToTag(comboBoxHatchCounterComparison, (int)search.HatchCounterComparison);
+			numericHatchCounterValue.Value = (int)search.HatchCounterValue;
 
 			#endregion
 
@@ -790,6 +801,18 @@ namespace PokemonManager.Windows {
 			search.GenderValue = (Genders)GetComboBoxValue(comboBoxGender);
 			search.GenderEnabled = true;
 			checkBoxGender.IsChecked = true;
+		}
+
+		private void OnFamilyChecked(object sender, RoutedEventArgs e) {
+			if (!loaded) return;
+			search.FamilyEnabled = checkBoxFamily.IsChecked.Value;
+		}
+
+		private void OnFamilyChanged(object sender, SelectionChangedEventArgs e) {
+			if (!loaded) return;
+			search.FamilyValue = (ushort)GetComboBoxValue(comboBoxFamily);
+			search.FamilyEnabled = true;
+			checkBoxFamily.IsChecked = true;
 		}
 	}
 }

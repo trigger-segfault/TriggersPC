@@ -186,10 +186,41 @@ namespace PokemonManager.Windows {
 			MessageBoxResult result = MessageBoxResult.Yes;
 			if (PokeManager.Settings.TossConfirmation)
 				result = TriggerMessageBox.Show(Window.GetWindow(this), "Are you sure you want to delete this message and return the " + selectedMail.MailItemData.Name + " to your inventory?", "Return Mail", MessageBoxButton.YesNo);
-
+			string sentTo = "";
 			if (result == MessageBoxResult.Yes) {
-				PokeManager.ManagerGameSave.Inventory.Items[ItemTypes.Items].AddItem(selectedMail.MailItemID, 1);
-				mailbox.TossMailAt(selectedIndex);
+				if (mailbox.GameSave.Inventory.Items[selectedMail.MailItemData.PocketType].HasRoomForItem(selectedMail.MailItemID, 1)) {
+					mailbox.GameSave.Inventory.Items[selectedMail.MailItemData.PocketType].AddItem(selectedMail.MailItemID, 1);
+					if (mailbox.GameSave.GameType == GameTypes.Any)
+						sentTo = PokeManager.Settings.ManagerNickname;
+					else
+						sentTo = mailbox.GameSave.TrainerName + "'s Bag";
+				}
+				else if (mailbox.GameSave.Inventory.Items.ContainsPocket(ItemTypes.PC) && mailbox.GameSave.Inventory.Items[ItemTypes.PC].HasRoomForItem(selectedMail.MailItemID, 1)) {
+					result = TriggerMessageBox.Show(Window.GetWindow(this), "There is no room in your bag to store " + selectedMail.MailItemData.Name + ". Where would you like to send it?", "No Room", MessageBoxButton.YesNoCancel, "Your PC", "Game's PC");
+
+					if (result == MessageBoxResult.Yes) {
+						PokeManager.ManagerGameSave.Inventory.Items[selectedMail.MailItemData.PocketType].AddItem(selectedMail.MailItemID, 1);
+						sentTo = PokeManager.Settings.ManagerNickname;
+					}
+					else if (result == MessageBoxResult.No) {
+						mailbox.GameSave.Inventory.Items[ItemTypes.PC].AddItem(selectedMail.MailItemID, 1);
+						sentTo = mailbox.GameSave.TrainerName + "'s PC";
+					}
+				}
+				else {
+					result = TriggerMessageBox.Show(Window.GetWindow(this), "There is no room in your bag or PC to store " + selectedMail.MailItemData.Name + ". Would you like to send it to " + PokeManager.Settings.ManagerNickname + "?", "No Room", MessageBoxButton.YesNo);
+					if (result == MessageBoxResult.Yes) {
+						PokeManager.ManagerGameSave.Inventory.Items[selectedMail.MailItemData.PocketType].AddItem(selectedMail.MailItemID, 1);
+						sentTo = PokeManager.Settings.ManagerNickname;
+					}
+					else {
+						result = MessageBoxResult.Cancel;
+					}
+				}
+				if (result != MessageBoxResult.Cancel) {
+					TriggerMessageBox.Show(Window.GetWindow(this), "Returned " + selectedMail.MailItemData.Name + " to " + sentTo, "Mail Returned");
+					mailbox.TossMailAt(selectedIndex);
+				}
 			}
 		}
 

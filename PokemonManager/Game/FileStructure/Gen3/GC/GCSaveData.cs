@@ -134,6 +134,37 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 			}
 		}
 
+		public int SnaggedPokemon {
+			get {
+				if (gameSave.GameType == GameTypes.Colosseum) {
+					int count = 0;
+					for (int i = 0; i < 88; i++) {
+						if (ByteHelper.GetBit(raw, 114812 + i / 8, i % 8))
+							count++;
+					}
+					return count++;
+				}
+				else {
+					return 0;
+				}
+			}
+		}
+		public int PurifiedPokemon {
+			get {
+				if (gameSave.GameType == GameTypes.Colosseum) {
+					int count = 0;
+					for (int i = 0; i < 88; i++) {
+						if (ByteHelper.GetBit(raw, 114416 + i / 8, i % 8))
+							count++;
+					}
+					return count++;
+				}
+				else {
+					return 0;
+				}
+			}
+		}
+
 		public void LoadXD() {
 			this.checksum = new uint[4];
 			this.substructureSizes = new ushort[16];

@@ -20,6 +20,7 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 		private bool loaded;
 		private bool japanese;
 		private GameTypes gameType;
+		private int numSaves;
 
 		#endregion
 
@@ -47,15 +48,20 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 			int start = 24576 + (hasGCIData ? 64 : 0);
 			if (gameType == GameTypes.Colosseum) {
 				this.saveData = new GCSaveData[3];
-				this.saveData[0] = new GCSaveData(this, ByteHelper.SubByteArray(start, data, 122880));
-				this.saveData[1] = new GCSaveData(this, ByteHelper.SubByteArray(start + 122880, data, 122880));
-				this.saveData[2] = new GCSaveData(this, ByteHelper.SubByteArray(start + 122880 * 2, data, 122880));
+				if (!ByteHelper.CompareBytes(255, ByteHelper.SubByteArray(start + 0x1dfec, data, 20)))
+					this.saveData[0] = new GCSaveData(this, ByteHelper.SubByteArray(start, data, 122880));
+				if (!ByteHelper.CompareBytes(255, ByteHelper.SubByteArray(start + 122880 + 0x1dfec, data, 20)))
+					this.saveData[1] = new GCSaveData(this, ByteHelper.SubByteArray(start + 122880, data, 122880));
+				if (!ByteHelper.CompareBytes(255, ByteHelper.SubByteArray(start + 122880 * 2 + 0x1dfec, data, 20)))
+					this.saveData[2] = new GCSaveData(this, ByteHelper.SubByteArray(start + 122880 * 2, data, 122880));
 				PokePC.ApplyGameType(gameType);
 			}
 			else {
 				this.saveData = new GCSaveData[2];
-				this.saveData[0] = new GCSaveData(this, ByteHelper.SubByteArray(start, data, 163840));
-				this.saveData[1] = new GCSaveData(this, ByteHelper.SubByteArray(start + 163840, data, 163840));
+				if (!ByteHelper.CompareBytes(0, ByteHelper.SubByteArray(start + 0x10, data, 16)))
+					this.saveData[0] = new GCSaveData(this, ByteHelper.SubByteArray(start, data, 163840));
+				if (!ByteHelper.CompareBytes(0, ByteHelper.SubByteArray(start + 163840 + 0x10, data, 16)))
+					this.saveData[1] = new GCSaveData(this, ByteHelper.SubByteArray(start + 163840, data, 163840));
 				PokePC.ApplyGameType(gameType);
 			}
 			this.raw = data;
@@ -83,15 +89,22 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 		public GCSaveData MostRecentSave {
 			get {
 				if (gameType == GameTypes.Colosseum) {
-					int maxIndex = 0;
-					if (saveData[1].SaveCount > saveData[0].SaveCount)
+					int maxIndex = -1;
+					if (saveData[0] != null)
+						maxIndex = 0;
+					if (saveData[1] != null && (maxIndex == -1 || saveData[1].SaveCount >= saveData[maxIndex].SaveCount))
 						maxIndex = 1;
-					if (saveData[2].SaveCount > saveData[maxIndex].SaveCount)
+					if (saveData[2] != null && (maxIndex == -1 || saveData[2].SaveCount >= saveData[maxIndex].SaveCount))
 						maxIndex = 2;
 					return saveData[maxIndex];
 				}
 				else {
-					return saveData[0].SaveCount > saveData[1].SaveCount ? saveData[0] : saveData[1];
+					if (saveData[0] == null)
+						return saveData[1];
+					else if (saveData[1] == null)
+						return saveData[0];
+					else
+						return saveData[0].SaveCount > saveData[1].SaveCount ? saveData[0] : saveData[1];
 				}
 			}
 		}
@@ -277,6 +290,12 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 			get { return MostRecentSave.PlayerData.RuisName; }
 			set { }
 		}
+		public int SnaggedPokemon {
+			get { return MostRecentSave.SnaggedPokemon;  }
+		}
+		public int PurifiedPokemon {
+			get { return MostRecentSave.PurifiedPokemon; }
+		}
 
 		#endregion
 
@@ -346,13 +365,18 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 		public void Save(string filePath) {
 			int start = 24576 + (hasGCIData ? 64 : 0);
 			if (gameType == GameTypes.Colosseum) {
-				ByteHelper.ReplaceBytes(raw, start, saveData[0].GetFinalData());
-				ByteHelper.ReplaceBytes(raw, start + 122880, saveData[1].GetFinalData());
-				ByteHelper.ReplaceBytes(raw, start + 122880 * 2, saveData[2].GetFinalData());
+				if (saveData[0] != null)
+					ByteHelper.ReplaceBytes(raw, start, saveData[0].GetFinalData());
+				if (saveData[1] != null)
+					ByteHelper.ReplaceBytes(raw, start + 122880, saveData[1].GetFinalData());
+				if (saveData[2] != null)
+					ByteHelper.ReplaceBytes(raw, start + 122880 * 2, saveData[2].GetFinalData());
 			}
 			else {
-				ByteHelper.ReplaceBytes(raw, start, saveData[0].GetFinalData());
-				ByteHelper.ReplaceBytes(raw, start + 163840, saveData[1].GetFinalData());
+				if (saveData[0] != null)
+					ByteHelper.ReplaceBytes(raw, start, saveData[0].GetFinalData());
+				if (saveData[1] != null)
+					ByteHelper.ReplaceBytes(raw, start + 163840, saveData[1].GetFinalData());
 			}
 			File.WriteAllBytes(filePath, raw);
 		}

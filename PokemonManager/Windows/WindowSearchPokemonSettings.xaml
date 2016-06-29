@@ -13,26 +13,26 @@
                     <ComboBox x:Name="comboBoxSpecies" HorizontalAlignment="Left" Margin="20,31,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnSpeciesChanged">
                         <System:String>Bulbasaur</System:String>
                     </ComboBox>
-                    <ComboBox x:Name="comboBoxHeldItem" HorizontalAlignment="Left" Margin="20,143,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnHeldItemChanged">
+                    <ComboBox x:Name="comboBoxHeldItem" HorizontalAlignment="Left" Margin="20,199,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnHeldItemChanged">
                         <System:String>Lum Berry</System:String>
                     </ComboBox>
-                    <CheckBox x:Name="checkBoxHeldItem" Content="Held Item" HorizontalAlignment="Left" Margin="20,122,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnHeldItemChecked"/>
-                    <CheckBox x:Name="checkBoxNature" Content="Nature" HorizontalAlignment="Left" Margin="20,66,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnNatureChecked"/>
-                    <ComboBox x:Name="comboBoxNature" HorizontalAlignment="Left" Margin="20,87,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnNatureChanged">
+                    <CheckBox x:Name="checkBoxHeldItem" Content="Held Item" HorizontalAlignment="Left" Margin="20,178,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnHeldItemChecked"/>
+                    <CheckBox x:Name="checkBoxNature" Content="Nature" HorizontalAlignment="Left" Margin="20,122,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnNatureChecked"/>
+                    <ComboBox x:Name="comboBoxNature" HorizontalAlignment="Left" Margin="20,143,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnNatureChanged">
                         <System:String>Lax</System:String>
                     </ComboBox>
-                    <CheckBox x:Name="checkBoxAbility" Content="Ability" HorizontalAlignment="Left" Margin="180,66,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnAbilityChecked"/>
-                    <ComboBox x:Name="comboBoxAbility" HorizontalAlignment="Left" Margin="180,87,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnAbilityChanged">
+                    <CheckBox x:Name="checkBoxAbility" Content="Ability" HorizontalAlignment="Left" Margin="180,122,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnAbilityChecked"/>
+                    <ComboBox x:Name="comboBoxAbility" HorizontalAlignment="Left" Margin="180,143,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnAbilityChanged">
                         <System:String>Rock Head</System:String>
                     </ComboBox>
-                    <CheckBox x:Name="checkBoxRibbon" Content="Ribbon" HorizontalAlignment="Left" Margin="180,178,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnRibbonChecked"/>
-                    <ComboBox x:Name="comboBoxPokerus" HorizontalAlignment="Left" Margin="20,199,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnPokerusChanged">
+                    <CheckBox x:Name="checkBoxRibbon" Content="Ribbon" HorizontalAlignment="Left" Margin="180,234,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnRibbonChecked"/>
+                    <ComboBox x:Name="comboBoxPokerus" HorizontalAlignment="Left" Margin="20,255,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnPokerusChanged">
                         <ComboBoxItem Content="None" Tag="None"/>
                         <ComboBoxItem Content="Infected" Tag="Infected"/>
                         <ComboBoxItem Content="Cured" Tag="Cured"/>
                     </ComboBox>
-                    <CheckBox x:Name="checkBoxPokeBall" Content="Poké Ball" HorizontalAlignment="Left" Margin="180,122,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnPokeBallChecked"/>
-                    <ComboBox x:Name="comboBoxPokeBall" HorizontalAlignment="Left" Margin="180,143,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnPokeBallChanged">
+                    <CheckBox x:Name="checkBoxPokeBall" Content="Poké Ball" HorizontalAlignment="Left" Margin="180,178,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnPokeBallChecked"/>
+                    <ComboBox x:Name="comboBoxPokeBall" HorizontalAlignment="Left" Margin="180,199,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnPokeBallChanged">
                         <ComboBoxItem Content="Poké Ball" Tag="4"/>
                         <ComboBoxItem Content="Great Ball" Tag="3"/>
                         <ComboBoxItem Content="Ultra Ball" Tag="2"/>
@@ -46,8 +46,8 @@
                         <ComboBoxItem Content="Luxury Ball" Tag="11"/>
                         <ComboBoxItem Content="Master Ball" Tag="1"/>
                     </ComboBox>
-                    <CheckBox x:Name="checkBoxPokerus" Content="Pokérus" HorizontalAlignment="Left" Margin="20,178,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnPokerusChecked"/>
-                    <ComboBox x:Name="comboBoxRibbon" HorizontalAlignment="Left" Margin="180,199,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnRibbonChanged">
+                    <CheckBox x:Name="checkBoxPokerus" Content="Pokérus" HorizontalAlignment="Left" Margin="20,234,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnPokerusChecked"/>
+                    <ComboBox x:Name="comboBoxRibbon" HorizontalAlignment="Left" Margin="180,255,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnRibbonChanged">
                         <System:String>Cool Normal Rank</System:String>
                         <System:String>Cool Super Rank</System:String>
                         <System:String>Cool Hyper Rank</System:String>
@@ -57,21 +57,17 @@
                         <System:String>Beauty Hyper Rank</System:String>
                         <System:String>Beauty Master Rank</System:String>
                     </ComboBox>
-                    <CheckBox x:Name="checkBoxType" Content="Type" HorizontalAlignment="Left" Margin="180,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnTypeChecked"/>
-                    <ComboBox x:Name="comboBoxType" HorizontalAlignment="Left" Margin="180,31,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnTypeChanged">
+                    <CheckBox x:Name="checkBoxType" Content="Type" HorizontalAlignment="Left" Margin="180,66,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnTypeChecked"/>
+                    <ComboBox x:Name="comboBoxType" HorizontalAlignment="Left" Margin="180,87,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnTypeChanged">
                         <System:String>Normal</System:String>
                     </ComboBox>
-                    <CheckBox x:Name="checkBoxHatchCounter" Content="Hatch Counter" HorizontalAlignment="Left" Margin="180,234,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnHatchCounterChecked"/>
-                    <local:NumericUpDown x:Name="numericHatchCounterValue" Margin="180,282,0,0" Maximum="255" Value="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" ValueChanged="OnHatchCounterValueChanged"/>
-                    <ComboBox x:Name="comboBoxHatchCounterComparison" HorizontalAlignment="Left" Margin="180,255,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnHatchCounterComparisonChanged">
-                        <System:String>Equal To</System:String>
-                        <System:String>Not Equal To</System:String>
-                        <System:String>Greater Than</System:String>
-                        <System:String>Less Than</System:String>
-                    </ComboBox>
-                    <CheckBox x:Name="checkBoxGender" Content="Gender" HorizontalAlignment="Left" Margin="20,234,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnGenderChecked"/>
-                    <ComboBox x:Name="comboBoxGender" HorizontalAlignment="Left" Margin="20,255,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnGenderChanged">
+                    <CheckBox x:Name="checkBoxGender" Content="Gender" HorizontalAlignment="Left" Margin="20,66,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnGenderChecked"/>
+                    <ComboBox x:Name="comboBoxGender" HorizontalAlignment="Left" Margin="20,87,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnGenderChanged">
                         <ComboBoxItem Content="Male" Tag="None"/>
+                    </ComboBox>
+                    <CheckBox x:Name="checkBoxFamily" Content="Family" HorizontalAlignment="Left" Margin="180,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnFamilyChecked"/>
+                    <ComboBox x:Name="comboBoxFamily" HorizontalAlignment="Left" Margin="180,31,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnFamilyChanged">
+                        <System:String>Bulbasaur</System:String>
                     </ComboBox>
                 </Grid>
             </TabItem>
@@ -246,6 +242,14 @@
                         <System:String>Include Eggs</System:String>
                     </ComboBox>
                     <Label Content="Eggs" HorizontalAlignment="Left" Margin="20,66,0,0" VerticalAlignment="Top" FontWeight="Bold" Padding="0,0,5,0"/>
+                    <CheckBox x:Name="checkBoxHatchCounter" Content="Hatch Counter" HorizontalAlignment="Left" Margin="180,66,0,0" VerticalAlignment="Top" FontWeight="Bold" Click="OnHatchCounterChecked"/>
+                    <local:NumericUpDown x:Name="numericHatchCounterValue" Margin="180,114,0,0" Maximum="255" Value="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" ValueChanged="OnHatchCounterValueChanged"/>
+                    <ComboBox x:Name="comboBoxHatchCounterComparison" HorizontalAlignment="Left" Margin="180,87,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0" SelectionChanged="OnHatchCounterComparisonChanged">
+                        <System:String>Equal To</System:String>
+                        <System:String>Not Equal To</System:String>
+                        <System:String>Greater Than</System:String>
+                        <System:String>Less Than</System:String>
+                    </ComboBox>
                 </Grid>
             </TabItem>
             <TabItem Header="Search">

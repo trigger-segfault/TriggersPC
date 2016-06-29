@@ -383,7 +383,7 @@ namespace PokemonManager.Windows {
 					this.tabDecorations.Visibility = Visibility.Collapsed;
 					this.tabSecretBases.Visibility = Visibility.Collapsed;
 					this.eventViewer.LoadEvents(gameSave);
-					if (tabControl.SelectedItem != null && ((TabItem)tabControl.SelectedItem).Visibility != Visibility.Visible || (tabControl.SelectedIndex == 6 && eventCount == 0))
+					if (tabControl.SelectedItem != null && ((TabItem)tabControl.SelectedItem).Visibility != Visibility.Visible || (tabControl.SelectedIndex == 7 && eventCount == 0))
 						Dispatcher.BeginInvoke((Action)(() => tabControl.SelectedIndex = 1));
 
 					pokemonViewer.LoadGame(gameSave);
@@ -419,7 +419,7 @@ namespace PokemonManager.Windows {
 						tabDexViewer.Header = "Pokédex";
 					tabMailbox.Visibility = (gameSave.Mailbox != null ? Visibility.Visible : Visibility.Collapsed);
 					tabDecorations.Visibility = (gameSave.Inventory.Decorations != null ? Visibility.Visible : Visibility.Collapsed);
-					if (tabControl.SelectedItem != null && ((TabItem)tabControl.SelectedItem).Visibility != Visibility.Visible || (tabControl.SelectedIndex == 6 && eventCount == 0))
+					if (tabControl.SelectedItem != null && ((TabItem)tabControl.SelectedItem).Visibility != Visibility.Visible || (tabControl.SelectedIndex == 7 && eventCount == 0))
 						Dispatcher.BeginInvoke((Action)(() => tabControl.SelectedIndex = 0));
 				}
 			}

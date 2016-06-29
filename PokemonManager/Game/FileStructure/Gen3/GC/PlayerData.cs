@@ -49,6 +49,11 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 					// Share Colognes amd cologne case between games so make sure we use one of the game's ID's, We're using Colosseum's IDs
 					if (id >= 1512 && id <= 1515)
 						id -= 970;
+					// Two Key items that are shared between Colosseum and XD
+					if (id == 1501)
+						id -= 1000;
+					if (id == 1505)
+						id -= 975;
 				}
 				ushort count = BigEndian.ToUInt16(raw, index + i * 4 + 2);
 				if (id != 0)
@@ -65,6 +70,11 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 						// Share Colognes and cologne case between games so make sure we use one of the game's ID's, We're using Colosseum's IDs
 						if (id >= 542 && id <= 545)
 							id += 970;
+						// Two Key items that are shared between Colosseum and XD
+						if (id == 501)
+							id += 1000;
+						if (id == 530)
+							id += 975;
 						// Because XD and Colosseum share the same item IDs with different items, XD items are 1000 higher. (I chose 1000 for easy reading)
 						if (id >= 1500)
 							id -= 1000;

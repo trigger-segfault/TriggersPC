@@ -28,6 +28,7 @@ namespace PokemonManager.PokemonStructures {
 		private byte speed;
 		private byte genderRatio;
 		private string pokedexEntry;
+		private ushort familyDexID;
 
 		private Dictionary<byte, PokemonFormData> forms;
 		private List<EvolutionData> evolutions;
@@ -62,6 +63,8 @@ namespace PokemonManager.PokemonStructures {
 			this.evolutions		= null;
 
 			this.learnableMoves	= new List<LearnableMove>();
+
+			this.familyDexID	= this.dexID;
 		}
 
 		private ExperienceGroups GetExperienceGroupFromString(string group) {
@@ -164,6 +167,14 @@ namespace PokemonManager.PokemonStructures {
 		}
 		public byte Speed {
 			get { return speed; }
+		}
+
+		public ushort FamilyDexID {
+			get { return familyDexID; }
+			set { familyDexID = value; }
+		}
+		public PokemonData FamilyPokemonData {
+			get { return PokemonDatabase.GetPokemonFromDexID(familyDexID); }
 		}
 
 		public bool HasEvolutions {

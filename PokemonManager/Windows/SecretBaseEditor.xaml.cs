@@ -49,28 +49,12 @@ namespace PokemonManager.Windows {
 			gameIndex = -1;
 			this.decorationImages = new List<Image>();
 
-			NextSecretBase();
 			imagePlace.Visibility = Visibility.Hidden;
 			rectPlaceMask.Visibility = Visibility.Hidden;
 
 			for (DecorationTypes i = DecorationTypes.Desk; i <= DecorationTypes.Cushion; i++) {
 				comboBoxPockets.Items.Add(ItemDatabase.GetDecorationContainerName(i));
 			}
-		}
-
-		private void NextSecretBase() {
-			/*IGameSave gameSave;
-			do {
-				gameIndex++;
-				if (gameIndex >= PokeManager.NumGameSaves)
-					gameIndex = 0;
-				gameSave = PokeManager.GetGameSaveAt(gameIndex);
-			} while (!(gameSave is GBAGameSave) || ((GBAGameSave)gameSave).SecretBaseLocation == 0);
-			LoadSecretBase(new PlayerSecretBase(gameSave));*/
-			gameIndex++;
-			if (gameIndex >= SecretBaseDatabase.NumLocations)
-				gameIndex = 0;
-			LoadSecretBase(new SharedSecretBase(SecretBaseDatabase.GetLocationAt(gameIndex).ID, null));
 		}
 
 		public static void Show(Window owner, SecretBase secretBase) {
@@ -224,10 +208,6 @@ namespace PokemonManager.Windows {
 				}
 				Grid.SetZIndex(image, zIndex);
 			}
-		}
-
-		private void OnNextClicked(object sender, RoutedEventArgs e) {
-			NextSecretBase();
 		}
 
 		private void SelectPlaceDecoration(byte id) {

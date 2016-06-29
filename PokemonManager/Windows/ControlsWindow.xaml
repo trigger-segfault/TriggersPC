@@ -1,8 +1,19 @@
 ﻿<Window x:Class="PokemonManager.Windows.ControlsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Trigger's PC Controls" Height="418" Width="308" ResizeMode="NoResize" Background="#FF286496" Icon="/TriggersPC;component/Resources/Icons/IconControls.png" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+        Title="Trigger's PC Controls" Height="424" Width="308" ResizeMode="NoResize" Background="#FF286496" Icon="/TriggersPC;component/Resources/Icons/IconControls.png" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <Grid>
+
+        <Rectangle Fill="#FFF4F4F5" Margin="0" StrokeThickness="0" VerticalAlignment="Bottom" Height="41" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
 
         <Image HorizontalAlignment="Right" Height="32" Margin="0,-1,10,0" VerticalAlignment="Top" Width="32" Source="/TriggersPC;component/Resources/UI/Pokemon/BoxPokemonUnknown.png"/>
 

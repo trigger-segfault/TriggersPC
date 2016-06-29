@@ -402,7 +402,7 @@ namespace PokemonManager.Windows {
 		}
 
 		private void OnEditTrainerClicked(object sender, RoutedEventArgs e) {
-			bool result = SecretBaseEditTrainerWindow.Show(Window.GetWindow(this), (SharedSecretBase)secretBase, IsGBAGame);
+			bool result = SecretBaseEditTrainerWindow.Show(Window.GetWindow(this), (SharedSecretBase)secretBase, !IsGBAGame);
 			if (result) {
 				UpdateListViewItems();
 				OnSecretBaseSelected(null, null);

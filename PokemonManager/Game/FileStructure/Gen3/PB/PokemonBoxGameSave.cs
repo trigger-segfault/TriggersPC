@@ -42,8 +42,10 @@ namespace PokemonManager.Game.FileStructure.Gen3.PB {
 			for (int i = 0; start + 0x2000 * (i + 1) <= data.Length; i++) {
 				//blocks.Add(new PokemonBoxBlockData(ByteHelper.SubByteArray(start + 0x2000 * i, data, 0x2E000)));
 			}
-			this.saveData[0] = new PokemonBoxSaveData(this, ByteHelper.SubByteArray(start, data, 0x2E000));
-			this.saveData[1] = new PokemonBoxSaveData(this, ByteHelper.SubByteArray(start + 0x2E000, data, 0x2E000));
+			if (BigEndian.ToSInt32(data, start + 0x8) != 0)
+				this.saveData[0] = new PokemonBoxSaveData(this, ByteHelper.SubByteArray(start, data, 0x2E000));
+			if (BigEndian.ToSInt32(data, start + 0x2E000 + 0x8) != 0)
+				this.saveData[1] = new PokemonBoxSaveData(this, ByteHelper.SubByteArray(start + 0x2E000, data, 0x2E000));
 			PokePC.ApplyGameType(GameTypes.PokemonBox);
 
 			this.raw	= data;
@@ -62,10 +64,17 @@ namespace PokemonManager.Game.FileStructure.Gen3.PB {
 			get { return saveData[1]; }
 		}
 		public PokemonBoxSaveData MostRecentSave {
-			get { return (saveData[0].SaveCount >= saveData[1].SaveCount ? saveData[0] : saveData[1]); }
+			get {
+				if (saveData[0] == null)
+					return saveData[1];
+				else if (saveData[1] == null)
+					return saveData[0];
+				else
+					return (saveData[0].SaveCount > saveData[1].SaveCount ? saveData[0] : saveData[1]);
+			}
 		}
 		public PokemonBoxSaveData LeastRecentSave {
-			get { return (saveData[0].SaveCount < saveData[1].SaveCount ? saveData[0] : saveData[1]); }
+			get { return (saveData[0].SaveCount <= saveData[1].SaveCount ? saveData[0] : saveData[1]); }
 		}
 
 		#endregion
@@ -250,8 +259,10 @@ namespace PokemonManager.Game.FileStructure.Gen3.PB {
 
 		public void Save(string filePath) {
 			int start = 0x2000 + (hasGCIData ? 64 : 0);
-			ByteHelper.ReplaceBytes(raw, start, saveData[0].GetFinalData());
-			ByteHelper.ReplaceBytes(raw, start + 0x2E000, saveData[1].GetFinalData());
+			if (saveData[0] != null)
+				ByteHelper.ReplaceBytes(raw, start, saveData[0].GetFinalData());
+			if (saveData[1] != null)
+				ByteHelper.ReplaceBytes(raw, start + 0x2E000, saveData[1].GetFinalData());
 			
 			File.WriteAllBytes(filePath, raw);
 		}

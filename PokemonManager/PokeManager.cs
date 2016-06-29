@@ -1136,8 +1136,43 @@ namespace PokemonManager {
 			LoadPokeManager();
 
 #if DEBUG
-			
+			GCGameSave pre = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Colosseum Saves\2)Pre-First Pokemon.gci");
+			GCGameSave missed = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Colosseum Saves\2)Post-First Pokemon Missed.gci");
+			GCGameSave snagged = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Colosseum Saves\2)Post-First Pokemon Snagged.gci");
+			GCGameSave pre2 = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Colosseum Saves\3)Pre.gci");
+			GCGameSave missed2 = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Colosseum Saves\3)Failed.gci");
+			GCGameSave snagged2 = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Colosseum Saves\3)Snag.gci");
+			GCGameSave mySave = new GCGameSave(@"C:\Users\Jrob\Documents\Dolphin Emulator\GC\USA\01-GC6E-pokemon_colosseum.gci");
+			//GCGameSave purified = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\ColosseumJapaneseAras.gci");
+			GCGameSave purified = new GCGameSave(@"C:\Users\Jrob\Documents\Dolphin Emulator\GC\USA\Suicune Unpurified.gci");
 
+			byte[] rawPre = pre.MostRecentSave.Raw;
+			byte[] rawMissed = missed.MostRecentSave.Raw;
+			byte[] rawSnagged = snagged.MostRecentSave.Raw;
+			byte[] rawPre2 = pre2.MostRecentSave.Raw;
+			byte[] rawMissed2 = missed2.MostRecentSave.Raw;
+			byte[] rawSnagged2 = snagged2.MostRecentSave.Raw;
+			byte[] rawPur1 = purified.MostRecentSave.Raw;
+			byte[] rawPur2 = purified.LeastRecentSave.Raw;
+
+			var difData1 = FindDifferenceData(rawPre, rawMissed);
+			var difData2 = FindDifferenceData(rawMissed, rawSnagged);
+			var difData3 = FindDifferenceData(rawPre2, rawMissed2);
+			var difData4 = FindDifferenceData(rawMissed2, rawSnagged2);
+			var difData5 = FindDifferenceData(rawPur1, rawPur2);
+
+			for (int i = 0; i < rawMissed.Length - 4; i++) {
+				if (BigEndian.ToUInt32(rawMissed, i) == 3735586821)
+					Console.WriteLine(i);
+				if (BigEndian.ToUInt32(rawSnagged, i) == 1622014653)
+					Console.WriteLine(i);
+				if (BigEndian.ToUInt32(rawSnagged2, i) == 488928609)
+					Console.WriteLine(i);
+			}
+
+			Console.WriteLine(difData1.ToString() + difData2 + difData3 + difData4 + difData5);
+
+			purified.Save(@"C:\Users\Jrob\Documents\Dolphin Emulator\GC\USA\Card A\01-GC6E-pokemon_colosseum.gci");
 #endif
 
 			#region Stuff 2 - Electric Boogaloo

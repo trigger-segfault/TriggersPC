@@ -229,6 +229,10 @@ namespace PokemonManager.PokemonStructures {
 					}
 				}
 			}
+
+			foreach (PokemonData pokemonData in gen3PokemonDexList) {
+				pokemonData.FamilyDexID = GetStartingEvolutionDexID(pokemonData.DexID);
+			}
 		}
 		private static void LoadForms(SQLiteConnection connection) {
 			SQLiteCommand command;
@@ -689,6 +693,37 @@ namespace PokemonManager.PokemonStructures {
 			}
 			bitmap.Unlock();
 			return bitmap;
+		}
+		public static ushort GetStartingEvolutionDexID(ushort dexID) {
+			// Round one
+			bool shouldBreak = false;
+			foreach (PokemonData pokemonData in gen3PokemonDexList) {
+				for (int i = 0; i < pokemonData.NumEvolutions; i++) {
+					EvolutionData evolutionData = pokemonData.GetEvolution(i);
+					if (evolutionData.DexID == dexID) {
+						dexID = pokemonData.DexID;
+						shouldBreak = true;
+						break;
+					}
+				}
+				if (shouldBreak)
+					break;
+			}
+			// Round two
+			shouldBreak = false;
+			foreach (PokemonData pokemonData in gen3PokemonDexList) {
+				for (int i = 0; i < pokemonData.NumEvolutions; i++) {
+					EvolutionData evolutionData = pokemonData.GetEvolution(i);
+					if (evolutionData.DexID == dexID) {
+						dexID = pokemonData.DexID;
+						shouldBreak = true;
+						break;
+					}
+				}
+				if (shouldBreak)
+					break;
+			}
+			return dexID;
 		}
 		public static ushort[] GetMovesLearnedAtLevelRange(IPokemon pokemon, byte startLevel, byte endLevel) {
 			List<ushort> moves = new List<ushort>();

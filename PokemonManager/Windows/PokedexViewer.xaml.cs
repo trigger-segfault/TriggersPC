@@ -1,6 +1,7 @@
 ﻿using PokemonManager.Game;
 using PokemonManager.Game.FileStructure;
 using PokemonManager.Game.FileStructure.Gen3;
+using PokemonManager.Game.FileStructure.Gen3.GC;
 using PokemonManager.Items;
 using PokemonManager.PokemonStructures;
 using PokemonManager.Util;
@@ -134,8 +135,14 @@ namespace PokemonManager.Windows {
 					if (gameSave.GameType == GameTypes.Colosseum)
 						AddStat("Pokémon Seen", gameSave.PokemonSeen.ToString());
 					AddSeparator();
-					AddStat("Shadow Pokémon", "Unknown");
-					AddStat("Purified Pokémon", "Unknown");
+					if (gameSave.GameType == GameTypes.Colosseum) {
+						AddStat("Snagged Pokémon", ((GCGameSave)gameSave).SnaggedPokemon.ToString());
+						AddStat("Purified Pokémon", ((GCGameSave)gameSave).PurifiedPokemon.ToString());
+					}
+					else {
+						AddStat("Snagged Pokémon", "Unknown");
+						AddStat("Purified Pokémon", "Unknown");
+					}
 				}
 				else {
 					loaded = false;

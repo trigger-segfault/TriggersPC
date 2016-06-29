@@ -35,8 +35,17 @@ namespace PokemonManager.Items {
 			get { return raw; }
 		}
 		public string TrainerName {
-			get { return GBACharacterEncoding.GetString(ByteHelper.SubByteArray(18, raw, 7), (mailbox != null && mailbox.GameSave.IsJapanese) ? Languages.Japanese : Languages.English); }
-			set { ByteHelper.ReplaceBytes(raw, 18, GBACharacterEncoding.GetBytes(value, 7, (mailbox != null && mailbox.GameSave.IsJapanese) ? Languages.Japanese : Languages.English)); }
+			get { return GBACharacterEncoding.GetString(ByteHelper.SubByteArray(18, raw, 7), Language); }//(mailbox != null && mailbox.GameSave.IsJapanese) ? Languages.Japanese : Languages.English); }
+			set { ByteHelper.ReplaceBytes(raw, 18, GBACharacterEncoding.GetBytes(value, 7, Language)); }//(mailbox != null && mailbox.GameSave.IsJapanese) ? Languages.Japanese : Languages.English)); }
+		}
+		public Languages Language {
+			get {
+				for (int i = 0; i < 8; i++) {
+					if (raw[18 + i] == 255)
+						return (i <= 5 ? Languages.Japanese : Languages.English);
+				}
+				return Languages.English;
+			}
 		}
 
 		// I have NO idea why the game decided it was time to SOMETIMES use big endian for encoding the trainer ID.

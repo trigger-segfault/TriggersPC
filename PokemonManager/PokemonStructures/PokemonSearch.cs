@@ -153,9 +153,8 @@ namespace PokemonManager.PokemonStructures {
 		public bool GenderEnabled { get; set; }
 		public Genders GenderValue { get; set; }
 
-		public bool HatchCounterEnabled { get; set; }
-		public ComparisonTypes HatchCounterComparison { get; set; }
-		public byte HatchCounterValue { get; set; }
+		public bool FamilyEnabled { get; set; }
+		public ushort FamilyValue { get; set; }
 
 		#endregion
 
@@ -216,6 +215,10 @@ namespace PokemonManager.PokemonStructures {
 		public ShinyModes ShinyMode { get; set; }
 		public ShadowModes ShadowMode { get; set; }
 
+		public bool HatchCounterEnabled { get; set; }
+		public ComparisonTypes HatchCounterComparison { get; set; }
+		public byte HatchCounterValue { get; set; }
+
 		#endregion
 
 		#region Search
@@ -251,6 +254,7 @@ namespace PokemonManager.PokemonStructures {
 			LevelComparison = ComparisonTypes.Equal;
 			FriendshipComparison = ComparisonTypes.Equal;
 			LevelValue = 1;
+			FamilyValue = 1;
 
 			Move1Value = 0;
 			Move2Value = 0;
@@ -386,10 +390,8 @@ namespace PokemonManager.PokemonStructures {
 			if (Search.GenderEnabled)
 				CompareValues(ref valid, pokemon.Gender == Search.GenderValue);
 
-			if (Search.HatchCounterEnabled) {
-				if (pokemon.IsEgg)
-					CompareValues(ref valid, Search.HatchCounterComparison, pokemon.Friendship, Search.HatchCounterValue);
-			}
+			if (Search.FamilyEnabled)
+				CompareValues(ref valid, pokemon.PokemonData.FamilyDexID == Search.FamilyValue);
 
 			#endregion
 
@@ -470,6 +472,11 @@ namespace PokemonManager.PokemonStructures {
 
 			if (Search.ShadowMode != ShadowModes.IncludeShadow)
 				CompareValues(ref valid, pokemon.IsShadowPokemon == (Search.ShadowMode == ShadowModes.OnlyShadow));
+
+			if (Search.HatchCounterEnabled) {
+				if (pokemon.IsEgg)
+					CompareValues(ref valid, Search.HatchCounterComparison, pokemon.Friendship, Search.HatchCounterValue);
+			}
 
 			#endregion
 
