@@ -1077,8 +1077,8 @@ namespace PokemonManager.Windows {
 		}
 		private void OnBoxContextMenuOpening(object sender, ContextMenuEventArgs e) {
 			//((MenuItem)boxContextMenu.Items[0]).IsEnabled = (pokeContainer.GameType != GameTypes.PokemonBox);
-			((MenuItem)boxContextMenu.Items[2]).IsEnabled = (pokeContainer.GameIndex != -1);
-			((MenuItem)boxContextMenu.Items[2]).Header = "Send All To " + PokeManager.Settings.ManagerNickname;
+			//((MenuItem)boxContextMenu.Items[2]).IsEnabled = (pokeContainer.GameIndex != -1);
+			//((MenuItem)boxContextMenu.Items[2]).Header = "Send All To " + PokeManager.Settings.ManagerNickname;
 		}
 		private void OnContextMenuSendBoxTo(object sender, RoutedEventArgs e) {
 			PokemonSelectedEventArgs args = new PokemonSelectedEventArgs();
@@ -1158,7 +1158,8 @@ namespace PokemonManager.Windows {
 		}
 		private void OnContextMenuSendToClicked(object sender, RoutedEventArgs e) {
 			PokemonSelectedEventArgs args = new PokemonSelectedEventArgs();
-			master.OnPokemonSelected(args);
+			if (master != null)
+				master.OnPokemonSelected(args);
 
 			if (pokeContainer[selectedIndex] != null && PokeManager.IsPokemonSelected(pokeContainer[selectedIndex])) {
 				if (PokeManager.SelectionHasShadowPokemon) {
@@ -1625,9 +1626,9 @@ namespace PokemonManager.Windows {
 			MenuItem selectAll = new MenuItem();
 			selectAll.Header = "Select All";
 			selectAll.Click += OnContextMenuSelectAllClicked;
-			MenuItem sendBoxTo = new MenuItem();
-			sendBoxTo.Header = "Send Box To ";
-			sendBoxTo.Click += OnContextMenuSendBoxTo;
+			//MenuItem sendBoxTo = new MenuItem();
+			//sendBoxTo.Header = "Send Box To ";
+			//sendBoxTo.Click += OnContextMenuSendBoxTo;
 			Separator separator = new Separator();
 			MenuItem releaseAll = new MenuItem();
 			releaseAll.Header = "Release All";
@@ -1635,7 +1636,7 @@ namespace PokemonManager.Windows {
 
 			boxContextMenu.Items.Add(edit);
 			boxContextMenu.Items.Add(selectAll);
-			boxContextMenu.Items.Add(sendBoxTo);
+			//boxContextMenu.Items.Add(sendBoxTo);
 			boxContextMenu.Items.Add(separator);
 			boxContextMenu.Items.Add(releaseAll);
 		}

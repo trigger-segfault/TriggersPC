@@ -53,6 +53,8 @@ namespace PokemonManager.Windows {
 			contextMenu.Items.Add(insert);
 			contextMenu.Items.Add(delete);
 
+			selectedIndex = -1;
+
 			boxes = new ObservableCollection<ListViewItem>();
 			PopulateBoxes();
 
@@ -120,6 +122,7 @@ namespace PokemonManager.Windows {
 			stackPanel.Children.Add(name);
 
 			listViewItem.ContextMenu = contextMenu;
+			listViewItem.ContextMenuOpening += OnContextMenuOpening;
 			listViewItem.Content = stackPanel;
 			listViewItem.Tag = pokeBox;
 		}
@@ -127,6 +130,18 @@ namespace PokemonManager.Windows {
 			foreach (ListViewItem listViewItem in boxes) {
 				IPokeBox box = listViewItem.Tag as IPokeBox;
 				((Label)((StackPanel)listViewItem.Content).Children[1]).Content = box.Name;
+			}
+		}
+		private void OnContextMenuOpening(object sender, ContextMenuEventArgs e) {
+			if (selectedIndex != -1) {
+				((MenuItem)contextMenu.Items[0]).IsEnabled = true;
+				((MenuItem)contextMenu.Items[1]).IsEnabled = true;
+				((MenuItem)contextMenu.Items[2]).IsEnabled = true;
+			}
+			else {
+				((MenuItem)contextMenu.Items[0]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[1]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[2]).IsEnabled = false;
 			}
 		}
 
@@ -190,10 +205,7 @@ namespace PokemonManager.Windows {
 				((MenuItem)boxes[0].ContextMenu.Items[2]).IsEnabled = pokePC.NumBoxes > 1;
 				UpdateBoxNames();
 				pokeBoxControl.UnloadBox();
-				if (selectedIndex == boxes.Count)
-					listViewBoxes.SelectedIndex = boxes.Count - 1;
-				else
-					listViewBoxes.SelectedIndex = selectedIndex;
+				selectedIndex = -1;
 			}
 		}
 

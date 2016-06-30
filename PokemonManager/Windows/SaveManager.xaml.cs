@@ -179,13 +179,8 @@ namespace PokemonManager.Windows {
 
 			if (result != MessageBoxResult.Cancel) {
 				gameSaves.RemoveAt(selectedIndex);
-				if (selectedIndex == listViewGameSaves.Items.Count)
-					selectedIndex--;
-				if (selectedIndex != -1)
-					selectedGameSave = gameSaves[selectedIndex].Tag as GameSaveFileInfo;
-				else
-					selectedGameSave = null;
-				listViewGameSaves.SelectedIndex = selectedIndex;
+				selectedIndex = -1;
+				selectedGameSave = null;
 			}
 		}
 		private void OnEditNickname(object sender, RoutedEventArgs e) {
@@ -266,13 +261,26 @@ namespace PokemonManager.Windows {
 		}
 
 		private void OnContextMenuOpening(object sender, ContextMenuEventArgs e) {
-			((MenuItem)contextMenu.Items[1]).IsEnabled = (selectedGameSave.GameType == GameTypes.Ruby    || selectedGameSave.GameType == GameTypes.Sapphire ||
+			if (selectedIndex != -1) {
+				((MenuItem)contextMenu.Items[0]).IsEnabled = true;
+				((MenuItem)contextMenu.Items[1]).IsEnabled = (selectedGameSave.GameType == GameTypes.Ruby    || selectedGameSave.GameType == GameTypes.Sapphire ||
 														  selectedGameSave.GameType == GameTypes.FireRed || selectedGameSave.GameType == GameTypes.LeafGreen ||
 														  selectedGameSave.GameType == GameTypes.Emerald);
-			((MenuItem)contextMenu.Items[2]).IsChecked = selectedGameSave.IsJapanese;
-			((MenuItem)contextMenu.Items[2]).IsEnabled = selectedGameSave.GameType != GameTypes.Colosseum && selectedGameSave.GameType != GameTypes.XD;
-			((MenuItem)contextMenu.Items[3]).IsChecked = selectedGameSave.IsLivingDex;
-			((MenuItem)contextMenu.Items[3]).IsEnabled = selectedGameSave.GameType != GameTypes.Colosseum && selectedGameSave.GameType != GameTypes.XD;
+				((MenuItem)contextMenu.Items[2]).IsChecked = selectedGameSave.IsJapanese;
+				((MenuItem)contextMenu.Items[2]).IsEnabled = selectedGameSave.GameType != GameTypes.Colosseum && selectedGameSave.GameType != GameTypes.XD;
+				((MenuItem)contextMenu.Items[3]).IsChecked = selectedGameSave.IsLivingDex;
+				((MenuItem)contextMenu.Items[3]).IsEnabled = selectedGameSave.GameType != GameTypes.Colosseum && selectedGameSave.GameType != GameTypes.XD;
+				((MenuItem)contextMenu.Items[4]).IsEnabled = true;
+				((MenuItem)contextMenu.Items[6]).IsEnabled = true;
+			}
+			else {
+				((MenuItem)contextMenu.Items[0]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[1]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[2]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[3]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[4]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[6]).IsEnabled = false;
+			}
 		}
 
 		private void CreateContextMenu() {

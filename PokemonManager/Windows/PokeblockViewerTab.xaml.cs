@@ -206,6 +206,9 @@ namespace PokemonManager.Windows {
 							PokeManager.GetGameSaveAt(result.Value).Inventory.Pokeblocks.AddPokeblock(block);
 							blockCase.TossPokeblockAt(blockCase.IndexOf(block));
 						}
+						else {
+							noRoom = true;
+						}
 					}
 					if (noRoom) {
 						TriggerMessageBox.Show(Window.GetWindow(this), "The Pokéblock Case filled up before all of the selection could be sent", "No Room");
@@ -328,6 +331,7 @@ namespace PokemonManager.Windows {
 			dockPanel.Children.Add(blockLv);
 
 			listViewItem.ContextMenu = contextMenu;
+			listViewItem.ContextMenuOpening += OnContextMenuOpening;
 
 
 			DockPanel.SetDock(image, Dock.Left);
@@ -337,20 +341,11 @@ namespace PokemonManager.Windows {
 			UpdateDetails();
 		}
 		public void OnRemoveListViewItem(object sender, PokeblockCaseEventArgs e) {
-			if (selectedIndex >= blockCase.SlotsUsed) {
-				if (blockCase.SlotsUsed == 0) {
-					selectedIndex = -1;
-					listViewItems.SelectedIndex = selectedIndex;
-				}
-				else {
-					selectedIndex--;
-					listViewItems.SelectedIndex = selectedIndex;
-				}
+			if (e.Index == selectedIndex) {
+				selectedBlock = null;
+				selectedIndex = -1;
 			}
 			blockCase.ListViewItems.RemoveAt(e.Index);
-			if (selectedIndex > blockCase.SlotsUsed) {
-				listViewItems.SelectedIndex = selectedIndex;
-			}
 
 			UpdateDetails();
 		}
@@ -367,11 +362,19 @@ namespace PokemonManager.Windows {
 		}
 
 		private void OnContextMenuOpening(object sender, ContextMenuEventArgs e) {
-			if (HasSelection) {
-				
+			if (selectedBlock != null) {
+				((MenuItem)contextMenu.Items[0]).IsEnabled = true;
+				((MenuItem)contextMenu.Items[2]).IsEnabled = true;
+				if (HasSelection) {
+
+				}
+				else {
+
+				}
 			}
 			else {
-
+				((MenuItem)contextMenu.Items[0]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[2]).IsEnabled = false;
 			}
 		}
 

@@ -8,7 +8,7 @@
         <Grid x:Name="gridStats" HorizontalAlignment="Left" Height="154" Margin="235,10,0,10" VerticalAlignment="Top" Width="237">
             <Rectangle Fill="#FFF4F4F5" Stroke="Black" RadiusY="2" RadiusX="2"/>
             <Label x:Name="labelPokedexName" Content="Dexter" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Padding="5" Margin="10,2,0,0" FontSize="14"/>
-            <StackPanel x:Name="stackPanelStats" HorizontalAlignment="Left" Height="113" Margin="10,31,0,0" VerticalAlignment="Top" Width="217"/>
+            <StackPanel x:Name="stackPanelStats" HorizontalAlignment="Left" Height="113" Margin="10,31,0,0" VerticalAlignment="Top" Width="224"/>
         </Grid>
         <ListView x:Name="listViewPokemon" HorizontalAlignment="Left" Margin="10,37,0,10" Width="220"/>
         <ComboBox x:Name="comboBoxViewType" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="220" SelectionChanged="OnViewTypeChanged">

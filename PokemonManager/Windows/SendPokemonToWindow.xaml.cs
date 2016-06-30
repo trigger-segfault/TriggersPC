@@ -168,25 +168,27 @@ namespace PokemonManager.Windows {
 						if (result == MessageBoxResult.Yes)
 							PokeManager.ManagerGameSave.Inventory.Items[e.Pokemon.HeldItemData.PocketType].AddItem(e.Pokemon.HeldItemID, 1);
 					}
-					e.Pokemon.HeldItemID = giveItem.ID;
-					giveItem.Pocket.TossItemAt(giveItem.Pocket.IndexOf(giveItem), 1);
-					PokeManager.RefreshUI();
-					PokeManager.LastGameInDialogIndex = gameIndex;
-					if (result == MessageBoxResult.Yes)
-						Close();
+					if (result == MessageBoxResult.Yes) {
+						e.Pokemon.HeldItemID = giveItem.ID;
+						giveItem.Pocket.TossItemAt(giveItem.Pocket.IndexOf(giveItem), 1);
+						TriggerMessageBox.Show(Window.GetWindow(this), "Gave " + giveItem.ItemData.Name + " to " + e.Pokemon.Nickname, "Gave Item");
+						PokeManager.RefreshUI();
+						PokeManager.LastGameInDialogIndex = gameIndex;
+						DialogResult = true;
+					}
 				}
 			}
 			else if (mode == SendPokemonModes.SendTo && e.Pokemon == null) {
 				PokeManager.PlacePokemon(e.PokeContainer, e.Index);
 				PokeManager.LastGameInDialogIndex = gameIndex;
-				Close();
+				DialogResult = true;
 			}
 			else if (mode == SendPokemonModes.SendFrom && e.Pokemon != null) {
 				if (PokeManager.CanPickupPokemon(e.Pokemon)) {
 					PokeManager.PickupPokemon(e.Pokemon, null);
 					PokeManager.PlacePokemon(container, containerIndex);
 					PokeManager.LastGameInDialogIndex = gameIndex;
-					Close();
+					DialogResult = true;
 				}
 				else if (PokeManager.IsPartyHoldingMail(e.PokeContainer)) {
 					TriggerMessageBox.Show(Window.GetWindow(this), "Cannot send that Pokémon. A Pokémon in your party is holding mail. To remove the mail goto the mailbox tab and click Take Mail From Party", "Can't Send");
@@ -200,7 +202,7 @@ namespace PokemonManager.Windows {
 					PokeManager.PlaceSelection(e.PokeContainer, e.Index);
 					PokeManager.ClearSelectedPokemon();
 					PokeManager.LastGameInDialogIndex = gameIndex;
-					Close();
+					DialogResult = true;
 				}
 				else {
 					TriggerMessageBox.Show(Window.GetWindow(this), "Not enough room in game to store all selected Pokémon", "No Room");

@@ -145,7 +145,7 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 					return count++;
 				}
 				else {
-					return 0;
+					return shadowData.SnaggedPokemon;
 				}
 			}
 		}
@@ -160,7 +160,7 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 					return count++;
 				}
 				else {
-					return 0;
+					return shadowData.PurifiedPokemon;
 				}
 			}
 		}

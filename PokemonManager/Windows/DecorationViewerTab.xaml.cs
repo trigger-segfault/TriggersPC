@@ -284,28 +284,39 @@ namespace PokemonManager.Windows {
 		}
 
 		private void OnContextMenuOpening(object sender, ContextMenuEventArgs e) {
-			if (HasSelection) {
-				selectionIsInUse = -1;
-				selectionMax = 0;
-				foreach (Decoration decoration in SelectedDecorations) {
-					selectionMax = Math.Max(selectionMax, (int)decoration.Count);
-					if (pocket.Inventory.IsDecorationInUse(pocket.IndexOf(decoration), decoration.DecorationData.DecorationType)) {
-						if (selectionIsInUse == -1)
-							selectionIsInUse = 1;
-						else if (selectionIsInUse == 0)
-							selectionIsInUse = 2;
+			if (selectedDecoration != null) {
+				((MenuItem)contextMenu.Items[0]).IsEnabled = true;
+				((MenuItem)contextMenu.Items[3]).IsEnabled = true;
+				((MenuItem)contextMenu.Items[4]).IsEnabled = true;
+				if (HasSelection) {
+					selectionIsInUse = -1;
+					selectionMax = 0;
+					foreach (Decoration decoration in SelectedDecorations) {
+						selectionMax = Math.Max(selectionMax, (int)decoration.Count);
+						if (pocket.Inventory.IsDecorationInUse(pocket.IndexOf(decoration), decoration.DecorationData.DecorationType)) {
+							if (selectionIsInUse == -1)
+								selectionIsInUse = 1;
+							else if (selectionIsInUse == 0)
+								selectionIsInUse = 2;
+						}
+						else {
+							if (selectionIsInUse == -1)
+								selectionIsInUse = 0;
+							else if (selectionIsInUse == 1)
+								selectionIsInUse = 2;
+						}
 					}
-					else {
-						if (selectionIsInUse == -1)
-							selectionIsInUse = 0;
-						else if (selectionIsInUse == 1)
-							selectionIsInUse = 2;
-					}
+					((MenuItem)contextMenu.Items[1]).IsEnabled = selectionIsInUse != 0;
 				}
-				((MenuItem)contextMenu.Items[1]).IsEnabled = selectionIsInUse != 0;
+				else {
+					((MenuItem)contextMenu.Items[1]).IsEnabled = pocket.Inventory.IsDecorationInUse(selectedIndex, pocket.PocketType);
+				}
 			}
 			else {
-				((MenuItem)contextMenu.Items[1]).IsEnabled = pocket.Inventory.IsDecorationInUse(selectedIndex, pocket.PocketType);
+				((MenuItem)contextMenu.Items[0]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[1]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[3]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[4]).IsEnabled = false;
 			}
 			((MenuItem)contextMenu.Items[4]).Visibility = (pocket.MaxStackSize == 0 ? Visibility.Visible : Visibility.Collapsed);
 		}
@@ -404,20 +415,12 @@ namespace PokemonManager.Windows {
 			UpdateDetails();
 		}
 		public void OnRemoveListViewItem(object sender, DecorationPocketEventArgs e) {
-			if (selectedIndex >= pocket.SlotsUsed) {
-				if (pocket.SlotsUsed == 0) {
-					selectedIndex = -1;
-					listViewItems.SelectedIndex = selectedIndex;
-				}
-				else {
-					selectedIndex--;
-					listViewItems.SelectedIndex = selectedIndex;
-				}
+			if (e.Index == selectedIndex) {
+				selectedDecoration = null;
+				selectedIndex = -1;
 			}
 			pocket.ListViewItems.RemoveAt(e.Index);
-			if (selectedIndex > pocket.SlotsUsed) {
-				listViewItems.SelectedIndex = selectedIndex;
-			}
+			
 			UpdateDetails();
 		}
 

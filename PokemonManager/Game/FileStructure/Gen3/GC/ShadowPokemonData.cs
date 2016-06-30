@@ -17,7 +17,10 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 		}
 
 		public bool IsPurified {
-			get { return raw[0] == 128; }
+			get { return ByteHelper.GetBit(raw, 0, 7); }
+		}
+		public bool IsSnagged {
+			get { return ByteHelper.GetBit(raw, 0, 6) || ByteHelper.GetBit(raw, 0, 7); }
 		}
 
 		public byte[] Raw {
@@ -99,6 +102,10 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 			return shadowInfoMap.ContainsKey(personality);
 		}
 
+		public XDShadowPokemonInfo GetAt(int index) {
+			return shadowInfo[index];
+		}
+
 		public override byte[] GetFinalData() {
 			for (int i = 0; i < shadowInfo.Length; i++) {
 				ByteHelper.ReplaceBytes(raw, i * 72, shadowInfo[i].Raw);
@@ -106,5 +113,27 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 
 			return raw;
 		}
+
+		public int SnaggedPokemon {
+			get {
+				int count = 0;
+				foreach (KeyValuePair<uint, XDShadowPokemonInfo> pair in shadowInfoMap) {
+					if (pair.Value.IsSnagged)
+						count++;
+				}
+				return count;
+			}
+		}
+		public int PurifiedPokemon {
+			get {
+				int count = 0;
+				foreach (KeyValuePair<uint, XDShadowPokemonInfo> pair in shadowInfoMap) {
+					if (pair.Value.IsPurified)
+						count++;
+				}
+				return count;
+			}
+		}
+
 	}
 }

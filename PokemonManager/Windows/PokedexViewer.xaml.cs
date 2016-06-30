@@ -154,14 +154,8 @@ namespace PokemonManager.Windows {
 					if (gameSave.GameType == GameTypes.Colosseum)
 						AddStat("Pokémon Seen", gameSave.PokemonSeen.ToString());
 					AddSeparator();
-					if (gameSave.GameType == GameTypes.Colosseum) {
-						AddStat("Snagged Pokémon", ((GCGameSave)gameSave).SnaggedPokemon.ToString());
-						AddStat("Purified Pokémon", ((GCGameSave)gameSave).PurifiedPokemon.ToString());
-					}
-					else {
-						AddStat("Snagged Pokémon", "Unknown");
-						AddStat("Purified Pokémon", "Unknown");
-					}
+					AddStat("Snagged Pokémon", ((GCGameSave)gameSave).SnaggedPokemon.ToString());
+					AddStat("Purified Pokémon", ((GCGameSave)gameSave).PurifiedPokemon.ToString());
 				}
 				else {
 					if (gameSave.HasNationalPokedex)
@@ -195,9 +189,9 @@ namespace PokemonManager.Windows {
 						AddStat("Pokémon Seen", seen.ToString());
 					string oakStatus = "Get Working";
 					if (livingCount == 386 && unownCount == 28)
-						oakStatus = "Living Pokédex!";
+						oakStatus = "It's a Living Pokédex!";
 					else if (owned == 386)
-						oakStatus = "Complete" + (unownCount == 28 ? "+" : "") + "!";
+						oakStatus = "It's Complete!";
 					else if (owned >= 360)
 						oakStatus = "Final Stretch";
 					else if (owned >= 300)
@@ -206,7 +200,7 @@ namespace PokemonManager.Windows {
 						oakStatus = "Getting There";
 					else if (owned >= 100)
 						oakStatus = "Some Progress";
-					AddStat("Oak's Opinion        " + oakStatus, "");
+					AddStat("Oak's Opinion:   " + oakStatus, "");
 
 					AddSeparator();
 					if (gameSave.GameType == GameTypes.Ruby || gameSave.GameType == GameTypes.Sapphire || gameSave.GameType == GameTypes.Emerald) {

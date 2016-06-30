@@ -378,20 +378,11 @@ namespace PokemonManager.Windows {
 			UpdateDetails();
 		}
 		public void OnRemoveListViewItem(object sender, ItemPocketEventArgs e) {
-			if (selectedIndex >= pocket.SlotsUsed) {
-				if (pocket.SlotsUsed == 0) {
-					selectedIndex = -1;
-					listViewItems.SelectedIndex = selectedIndex;
-				}
-				else {
-					selectedIndex--;
-					listViewItems.SelectedIndex = selectedIndex;
-				}
+			if (e.Index == selectedIndex) {
+				selectedItem = null;
+				selectedIndex = -1;
 			}
 			pocket.ListViewItems.RemoveAt(e.Index);
-			if (selectedIndex > pocket.SlotsUsed) {
-				listViewItems.SelectedIndex = selectedIndex;
-			}
 
 			UpdateDetails();
 		}
@@ -473,6 +464,14 @@ namespace PokemonManager.Windows {
 					((MenuItem)contextMenu.Items[5]).IsEnabled = (!selectedItem.ItemData.IsImportant || pocket.GameSave.GameIndex == -1);
 					((MenuItem)contextMenu.Items[6]).IsEnabled = (!selectedItem.ItemData.IsImportant || pocket.GameSave.GameIndex == -1);
 				}
+			}
+			else {
+				((MenuItem)contextMenu.Items[0]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[1]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[2]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[3]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[5]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[6]).IsEnabled = false;
 			}
 		}
 

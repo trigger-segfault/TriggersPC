@@ -1042,8 +1042,9 @@ namespace PokemonManager.Windows {
 			else {
 				Item item = GiveItemWindow.ShowDialog(Window.GetWindow(this), pokemon.GameSave);
 				if (item != null) {
-					item.Pocket.TossItemAt(item.Pocket.IndexOf(item), 1);
 					pokemon.HeldItemID = item.ID;
+					item.Pocket.TossItemAt(item.Pocket.IndexOf(item), 1);
+					TriggerMessageBox.Show(Window.GetWindow(this), "Gave " + item.ItemData.Name + " to " + pokemon.Nickname, "Gave Item");
 					PokeManager.RefreshUI();
 				}
 			}
