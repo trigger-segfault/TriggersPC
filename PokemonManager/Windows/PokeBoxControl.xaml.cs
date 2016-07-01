@@ -736,6 +736,9 @@ namespace PokemonManager.Windows {
 						else if (tag.Control.IsViewingDaycare && PokeManager.HoldPokemon.Pokemon.IsShadowPokemon && tag.Control.pokeContainer.GameType == GameTypes.XD) {
 							TriggerMessageBox.Show(Window.GetWindow(this), "Cannot put Shadow Pokémon in the daycare in XD", "No Shadow Pokémon");
 						}
+						else if (tag.Control.IsViewingDaycare && PokeManager.HoldPokemon.Pokemon.IsEgg) {
+							TriggerMessageBox.Show(Window.GetWindow(this), "Cannot put Eggs in the daycare", "No Eggs");
+						}
 						else {
 							PokeManager.PlacePokemon(tag.Control.pokeContainer, tag.BoxIndex);
 							RefreshUI();
@@ -744,12 +747,22 @@ namespace PokemonManager.Windows {
 							PokeManager.ManagerWindow.RefreshStoredPokemon();
 						}
 					}
+					else if (!PokeManager.CanSwitchShadowPokemon(pkm)) {
+						TriggerMessageBox.Show(Window.GetWindow(this), "Cannot switch with that Pokémon. There is nowhere to safely force drop the Shadow Pokémon", "Nowhere to Drop");
+					}
+					else if (!PokeManager.CanSwitchEgg(pkm)) {
+						TriggerMessageBox.Show(Window.GetWindow(this), "Cannot switch with that Pokémon. There is nowhere to safely force drop the Egg", "Nowhere to Drop");
+					}
 					else if (PokeManager.CanSwitchPokemon(pkm)) {
 						MessageBoxResult daycareResult = MessageBoxResult.OK;
 						bool refreshAll = false;
 						if (tag.Control.IsViewingDaycare) {
 							if (PokeManager.HoldPokemon.Pokemon.IsShadowPokemon && tag.Control.pokeContainer.GameType == GameTypes.XD) {
 								TriggerMessageBox.Show(Window.GetWindow(this), "Cannot put Shadow Pokémon in the daycare in XD", "No Shadow Pokémon");
+								daycareResult = MessageBoxResult.Cancel;
+							}
+							else if (tag.Control.IsViewingDaycare && PokeManager.HoldPokemon.Pokemon.IsEgg) {
+								TriggerMessageBox.Show(Window.GetWindow(this), "Cannot put Eggs in the daycare", "No Eggs");
 								daycareResult = MessageBoxResult.Cancel;
 							}
 							else {
@@ -1026,9 +1039,9 @@ namespace PokemonManager.Windows {
 
 			((MenuItem)contextMenu.Items[0]).Tag = tag;
 			((MenuItem)contextMenu.Items[1]).Tag = tag;
+			//((MenuItem)contextMenu.Items[2]).Tag = tag;
 			((MenuItem)contextMenu.Items[2]).Tag = tag;
-			((MenuItem)contextMenu.Items[3]).Tag = tag;
-			((MenuItem)contextMenu.Items[5]).Tag = tag;
+			((MenuItem)contextMenu.Items[4]).Tag = tag;
 
 			((MenuItem)contextMenu.Items[0]).IsEnabled = true;
 			if (pkm == null) {
@@ -1044,35 +1057,35 @@ namespace PokemonManager.Windows {
 					((MenuItem)contextMenu.Items[0]).Header = "Move";
 			}
 			((MenuItem)contextMenu.Items[1]).IsEnabled = pkm != null;
-			((MenuItem)contextMenu.Items[3]).IsEnabled = true;
-			((MenuItem)contextMenu.Items[2]).IsEnabled = false;
-			((MenuItem)contextMenu.Items[3]).Header = "Send To";
+			((MenuItem)contextMenu.Items[2]).IsEnabled = true;
+			//((MenuItem)contextMenu.Items[2]).IsEnabled = false;
+			((MenuItem)contextMenu.Items[2]).Header = "Send To";
 			if (!IsMovingPokemon) {
 				if (pkm != null) {
-					((MenuItem)contextMenu.Items[2]).Header = (pkm.IsHoldingItem ? "Take Item" : "Give Item");
-					((MenuItem)contextMenu.Items[2]).IsEnabled = !pkm.IsHoldingMail;
+					//((MenuItem)contextMenu.Items[2]).Header = (pkm.IsHoldingItem ? "Take Item" : "Give Item");
+					//((MenuItem)contextMenu.Items[2]).IsEnabled = !pkm.IsHoldingMail;
 				}
 
 				if (pkm == null)
-					((MenuItem)contextMenu.Items[3]).Header = "Send From";
+					((MenuItem)contextMenu.Items[2]).Header = "Send From";
 				else if (PokeManager.IsPokemonSelected(pkm))
-					((MenuItem)contextMenu.Items[3]).Header = "Send All To";
+					((MenuItem)contextMenu.Items[2]).Header = "Send All To";
 				else if (!pkm.IsShadowPokemon)
-					((MenuItem)contextMenu.Items[3]).Header = "Send To";
+					((MenuItem)contextMenu.Items[2]).Header = "Send To";
 				else
-					((MenuItem)contextMenu.Items[3]).IsEnabled = false;
+					((MenuItem)contextMenu.Items[2]).IsEnabled = false;
 			}
 			else {
+				//((MenuItem)contextMenu.Items[2]).IsEnabled = false;
 				((MenuItem)contextMenu.Items[2]).IsEnabled = false;
-				((MenuItem)contextMenu.Items[3]).IsEnabled = false;
 			}
-			((MenuItem)contextMenu.Items[5]).IsEnabled = (pkm != null && !pkm.IsShadowPokemon);
+			((MenuItem)contextMenu.Items[4]).IsEnabled = (pkm != null && !pkm.IsShadowPokemon);
 
 			if (pkm != null && pkm.IsInDaycare) {
 				((MenuItem)contextMenu.Items[0]).IsEnabled = false;
+				//((MenuItem)contextMenu.Items[2]).IsEnabled = false;
 				((MenuItem)contextMenu.Items[2]).IsEnabled = false;
-				((MenuItem)contextMenu.Items[3]).IsEnabled = false;
-				((MenuItem)contextMenu.Items[5]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[4]).IsEnabled = false;
 			}
 		}
 		private void OnBoxContextMenuOpening(object sender, ContextMenuEventArgs e) {
@@ -1599,9 +1612,9 @@ namespace PokemonManager.Windows {
 			MenuItem summary = new MenuItem();
 			summary.Header = "Summary";
 			summary.Click += OnContextMenuSummaryClicked;
-			MenuItem give = new MenuItem();
-			give.Header = "Give";
-			give.Click += OnContextMenuGiveClicked;
+			//MenuItem give = new MenuItem();
+			//give.Header = "Give";
+			//give.Click += OnContextMenuGiveClicked;
 			MenuItem sendTo = new MenuItem();
 			sendTo.Header = "Send To";
 			sendTo.Click += OnContextMenuSendToClicked;
@@ -1612,7 +1625,7 @@ namespace PokemonManager.Windows {
 
 			contextMenu.Items.Add(move);
 			contextMenu.Items.Add(summary);
-			contextMenu.Items.Add(give);
+			//contextMenu.Items.Add(give);
 			contextMenu.Items.Add(sendTo);
 			contextMenu.Items.Add(separator);
 			contextMenu.Items.Add(release);

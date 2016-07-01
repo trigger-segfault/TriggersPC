@@ -145,13 +145,29 @@
                         </Label>
                     </Grid>
                 </Grid>
-                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+15, Converter={StaticResource MathConverter}, ElementName=label10}"
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+6, Converter={StaticResource MathConverter}, ElementName=label10}"
                       Width="{Binding ActualWidth, ElementName=listView}">
                     <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label10}">
                         <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label10}"/>
 
                         <Label x:Name="label10" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
                             <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow"><Run Text="Badge sprites posted"/><Run Text=" "/><Hyperlink NavigateUri="http://www.neoseeker.com/forums/24412/t1013210-diamond-trainer-card-contest-ii-theme-ice/" RequestNavigate="OnRequestNavigate"><Run Text="here"/></Hyperlink><Run Text=" "/><Run Text="by GhostMember."/></TextBlock>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid Height="{Binding ActualHeight, ConverterParameter=@VALUE+15, Converter={StaticResource MathConverter}, ElementName=label14}"
+                      Width="{Binding ActualWidth, ElementName=listView}">
+                    <Grid Margin="10,3,10,0" VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=label14}">
+                        <Rectangle Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Margin="0" Height="{Binding ActualHeight, ElementName=label14}"/>
+
+                        <Label x:Name="label14" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
+                            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow">
+                                <Run Text="Magikarp Splash Screen Image made by"/>
+                                <Hyperlink NavigateUri="http://nganlamsong.deviantart.com/" RequestNavigate="OnRequestNavigate"><Run Text="nganlamsong"/></Hyperlink>
+                                <Run Text="and can be viewed"/>
+                                <Hyperlink NavigateUri="http://nganlamsong.deviantart.com/art/129-Magikarp-472821837" RequestNavigate="OnRequestNavigate"><Run Text="here"/></Hyperlink>
+                                <Run Text="."/>
+                            </TextBlock>
                         </Label>
                     </Grid>
                 </Grid>

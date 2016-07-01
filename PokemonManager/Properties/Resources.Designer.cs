@@ -1541,6 +1541,16 @@ namespace PokemonManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MagikarpSplash {
+            get {
+                object obj = ResourceManager.GetObject("MagikarpSplash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MaleSecretBase0 {
             get {
                 object obj = ResourceManager.GetObject("MaleSecretBase0", resourceCulture);

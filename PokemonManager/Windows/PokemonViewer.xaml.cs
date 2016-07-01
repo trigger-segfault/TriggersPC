@@ -738,6 +738,9 @@ namespace PokemonManager.Windows {
 		}
 
 		public void SetCurrentMove(int moveIndex) {
+			if (pokemon == null)
+				return;
+
 			MoveData moveData = null;
 			currentMoveIndex = moveIndex;
 			rectMove1.Stroke = new SolidColorBrush(Color.FromRgb(70, 95, 191));

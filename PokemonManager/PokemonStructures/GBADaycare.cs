@@ -135,6 +135,11 @@ namespace PokemonManager.PokemonStructures {
 				originalPokemon[index] = pkm as GBAPokemon;
 				SetGainedExperience(index, 0);
 
+				if (index == 0 || index == 1) {
+					// Prevent the user from breeding Groudons with Ditto or freezing the game.
+					((GBAGameSave)PokePC.GameSave).ClearDaycareEgg();
+				}
+
 				if ((index == 0 || index == 1) && originalPokemon[0] == null && originalPokemon[1] != null) {
 					finalPokemon[0] = finalPokemon[1];
 					originalPokemon[0] = originalPokemon[1];
@@ -155,6 +160,10 @@ namespace PokemonManager.PokemonStructures {
 		}
 		public void Remove(IPokemon pokemon) {
 			int index = IndexOf(pokemon);
+			if (index == 0 || index == 1) {
+				// Prevent the user from breeding Groudons with Ditto or freezing the game.
+				((GBAGameSave)PokePC.GameSave).ClearDaycareEgg();
+			}
 			if (index != -1) {
 				this[index] = null;
 			}
@@ -259,7 +268,7 @@ namespace PokemonManager.PokemonStructures {
 				if (index == 2)
 					return LittleEndian.ToUInt32(raw, 3488);
 				else if (index == 0 || index == 1)
-					LittleEndian.ToUInt32(raw, 136 + 140 * index);
+					return LittleEndian.ToUInt32(raw, 136 + 140 * index);
 				else
 					throw new ArgumentOutOfRangeException("Daycare index out of range", new Exception());
 			}

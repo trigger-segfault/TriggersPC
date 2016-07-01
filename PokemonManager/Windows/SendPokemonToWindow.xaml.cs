@@ -152,7 +152,10 @@ namespace PokemonManager.Windows {
 
 		private void OnPokemonSelected(object sender, PokemonSelectedEventArgs e) {
 			if (mode == SendPokemonModes.GiveItem && ((PokeBoxControl)sender).IsPickupMode && e.Pokemon != null) {
-				if (e.Pokemon.HeldItemID == giveItem.ID) {
+				if (e.Pokemon.IsEgg) {
+					TriggerMessageBox.Show(this, "Cannot give items to Eggs", "Can't Hold");
+				}
+				else if (e.Pokemon.HeldItemID == giveItem.ID) {
 					TriggerMessageBox.Show(this, e.Pokemon.Nickname + " is already holding " + e.Pokemon.HeldItemData.Name, "Already Holding");
 				}
 				else {
@@ -163,8 +166,6 @@ namespace PokemonManager.Windows {
 					}
 					else if (e.Pokemon.IsHoldingItem) {
 						result = TriggerMessageBox.Show(this, e.Pokemon.Nickname + " is already holding " + e.Pokemon.HeldItemData.Name + ", would you like to switch it with " + giveItem.ItemData.Name + "?", "Switch Items", MessageBoxButton.YesNo);
-						//if (result == MessageBoxResult.Yes)
-						//	result = TriggerMessageBox.Show(this, "If you take the mail from this Pokémon, the message will be removed. If you want to save the mail goto the mailbox tab and withdraw all mail from your party. Are you sure you want to continue?", MessageBoxButton.YesNo);
 						if (result == MessageBoxResult.Yes)
 							PokeManager.ManagerGameSave.Inventory.Items[e.Pokemon.HeldItemData.PocketType].AddItem(e.Pokemon.HeldItemID, 1);
 					}

@@ -1418,6 +1418,7 @@
     <Content Include="Resources\Audio\Evolution.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\MagikarpSplash.png" />
     <Resource Include="Resources\Icons\IconDefaults.png" />
     <Resource Include="Resources\Icons\IconPokerus.png" />
     <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerFlowerBox.png" />
@@ -1543,7 +1544,7 @@
     <Resource Include="Resources\UI\Wallpapers\WallpaperDefault.png" />
     <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldSpecial.png" />
     <Resource Include="Resources\GameTypes\PokemonBoxPhysical.png" />
-    <SplashScreen Include="Resources\Splash.png" />
+    <Resource Include="Resources\Splash.png" />
     <Resource Include="Resources\UI\Pokemon\PokedexRRegistered.png" />
     <Resource Include="Resources\UI\Pokemon\PokedexCheckRegistered.png" />
     <Resource Include="Resources\UI\Pokemon\PokedexPokeballLiving.png" />

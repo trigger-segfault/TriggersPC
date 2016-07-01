@@ -138,6 +138,20 @@ namespace PokemonManager.Game.FileStructure.Gen3.GBA {
 			else
 				NationalPokedexBAndC.SetGameFlag(index, flag);
 		}
+		public void ClearDaycareEgg() {
+			if (GameCode == GameCodes.Emerald) {
+				SetGameFlag(0x86, false);
+				ByteHelper.ReplaceBytes(RivalInfo.Raw, 712, new byte[5]);
+			}
+			else if (GameCode == GameCodes.RubySapphire) {
+				SetGameFlag(0x86, false);
+				ByteHelper.ReplaceBytes(RivalInfo.Raw, 564, new byte[3]);
+			}
+			else if (GameCode == GameCodes.FireRedLeafGreen) {
+				SetGameFlag(0x266, false);
+				ByteHelper.ReplaceBytes(RivalInfo.Raw, 536, new byte[3]);
+			}
+		}
 
 		public bool[] Badges {
 			get {

@@ -249,6 +249,10 @@ namespace PokemonManager.Game.FileStructure.Gen3.GBA {
 
 		#region Misc
 
+		public void ClearDaycareEgg() {
+			MostRecentSave.BlockDataCollection.ClearDaycareEgg();
+		}
+
 		public string RivalName {
 			get { return MostRecentSave.BlockDataCollection.RivalInfo.RivalName; }
 			set {

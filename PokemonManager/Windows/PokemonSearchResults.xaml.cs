@@ -55,7 +55,11 @@ namespace PokemonManager.Windows {
 			MenuItem gotoItem = new MenuItem();
 			gotoItem.Header = "Goto Location";
 			gotoItem.Click += OnGotoClicked;
+			MenuItem sendItem = new MenuItem();
+			sendItem.Header = "Send To";
+			sendItem.Click += OnSendToClicked;
 			contextMenu.Items.Add(gotoItem);
+			contextMenu.Items.Add(sendItem);
 			//pokemonViewer.DisableEditing = true;
 		}
 
@@ -275,6 +279,35 @@ namespace PokemonManager.Windows {
 
 		private void OnClosing(object sender, CancelEventArgs e) {
 			IsClosed = true;
+		}
+		private void OnSendToClicked(object sender, RoutedEventArgs e) {
+			IPokemon pokemon = clickSelection.Tag as IPokemon;
+			if (pokemon.ContainerIndex == -1) {
+				pokemon = pokemon.PokemonFinder.Pokemon;
+				clickSelection.Tag = pokemon;
+			}
+			if (pokemon.IsReleased) {
+				TriggerMessageBox.Show(this, "Cannot send this Pokémon, it has been released", "Released Pokémon");
+			}
+			else if (pokemon.IsMoving) {
+				TriggerMessageBox.Show(this, "Cannot send a Pokémon while it is being moved", "Moving Pokémon");
+			}
+			else if (pokemon.ContainerIndex == -1) {
+				TriggerMessageBox.Show(this, "The Search Results have lost track of " + pokemon.Nickname + " because it has been moved to a different game. This should not happen. Let me know if it does.", "Can't Find Pokémon");
+			}
+			else if (pokemon.IsShadowPokemon) {
+				TriggerMessageBox.Show(this, "Cannot send Shadow Pokémon to other games", "Can't Send");
+			}
+			else if (PokeManager.CanPickupPokemon(pokemon)) {
+				SendPokemonToWindow.ShowSendToDialog(PokeManager.ManagerWindow, pokemon.PokePC.GameIndex, pokemon);
+				PokeManager.RefreshUI();
+			}
+			else if (PokeManager.IsPartyHoldingMail(pokemon.PokeContainer)) {
+				TriggerMessageBox.Show(this, "Cannot send that Pokémon. One of the Pokémon in your party is holding mail. To remove the mail goto the mailbox tab and click Take Mail From Party", "Can't Send");
+			}
+			else {
+				TriggerMessageBox.Show(this, "Cannot send that Pokémon. It is the last valid Pokémon in your party", "Can't Send");
+			}
 		}
 
 		private void OnGotoClicked(object sender, RoutedEventArgs e) {

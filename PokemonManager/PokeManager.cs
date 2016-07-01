@@ -1151,7 +1151,7 @@ namespace PokemonManager {
 			LoadPokeManager();
 
 #if DEBUG
-			GCGameSave pre = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\2 pre.gci");
+			/*GCGameSave pre = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\2 pre.gci");
 			GCGameSave missed = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\2 missed.gci");
 			GCGameSave snagged = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\2 snagged.gci");
 			GCGameSave pre2 = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\3 pre.gci");
@@ -1184,8 +1184,27 @@ namespace PokemonManager {
 
 			Console.WriteLine(difData1.ToString() + difData2 + difData3 + difData4);
 
-			snagged2.Save(@"C:\Users\Jrob\Documents\Dolphin Emulator\GC\USA\Card A\XD.gci");
+			snagged2.Save(@"C:\Users\Jrob\Documents\Dolphin Emulator\GC\USA\Card A\XD.gci");*/
 
+			//GBAGameSave emSave = new GBAGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Real Saves\Emerald - EMERALD.sav");
+			//GBAGameSave emSave = new GBAGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Real Saves\FireRed - RED.sav");
+			/*GBAGameSave emSave = new GBAGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Real Saves\Sapphire - SAPPHIR.sav");
+
+			var blocks1 = emSave.MostRecentSave.BlockDataCollection;
+			var blocks2 = emSave.LeastRecentSave.BlockDataCollection;
+
+			var difData = FindDifferenceData(blocks1, blocks2);
+
+			bool flag1 = blocks1.GetGameFlag(0x86);
+			bool flag2 = blocks2.GetGameFlag(0x86);
+
+			Console.Write(difData.ToString() + flag1 + flag2);
+
+			//emSave.SetGameFlag(0x86, false);
+			//emSave.Save(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Real Saves\Emerald - EMERALD2.sav");
+			//emSave.Save(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Real Saves\FireRed - RED2.sav");
+			emSave.Save(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Real Saves\Sapphire - SAPPHIR2.sav");*/
+			//Environment.Exit(0);
 #endif
 
 			#region Stuff 2 - Electric Boogaloo
@@ -2150,6 +2169,36 @@ namespace PokemonManager {
 			}
 			return false;
 		}
+		public static bool CanSwitchShadowPokemon(IPokemon pokemon) {
+			if (IsHoldingPokemon) {
+				bool needsNewLocation = pokemon.IsShadowPokemon && pokemon.GameSave != holdPokemon.Container.GameSave;
+				for (int i = 0; i < pokemon.PokePC.NumBoxes && needsNewLocation; i++) {
+					for (int j = 0; j < 30 && needsNewLocation; j++) {
+						if (pokemon.PokePC[i][j] == null) {
+							needsNewLocation = false;
+							break;
+						}
+					}
+				}
+				return !needsNewLocation;
+			}
+			return false;
+		}
+		public static bool CanSwitchEgg(IPokemon pokemon) {
+			if (IsHoldingPokemon) {
+				bool needsNewLocation = pokemon.IsEgg && (holdPokemon.Container.GameType == GameTypes.Colosseum || holdPokemon.Container.GameType == GameTypes.XD);
+				for (int i = 0; i < pokemon.PokePC.NumBoxes && needsNewLocation; i++) {
+					for (int j = 0; j < 30 && needsNewLocation; j++) {
+						if (pokemon.PokePC[i][j] == null) {
+							needsNewLocation = false;
+							break;
+						}
+					}
+				}
+				return !needsNewLocation;
+			}
+			return false;
+		}
 		public static void PickupPokemon(IPokemon pokemon, PokeBoxControl holdAdorner) {
 			if (!IsHoldingPokemon && CanPickupPokemon(pokemon)) {
 				selectedPokemon.Clear();
@@ -2163,10 +2212,26 @@ namespace PokemonManager {
 		}
 		public static void SwitchPokemon(IPokemon pokemon) {
 			if (IsHoldingSingle && CanSwitchPokemon(pokemon)) {
+				PokemonLocation originalHoldPokemon = holdPokemon;
 				pokemon.PokeContainer[pokemon.ContainerIndex] = holdPokemon.Pokemon;
 				holdPokemon.Pokemon.IsMoving = false;
 				pokemon.IsMoving = true;
 				holdPokemon = new PokemonLocation(pokemon);
+				holdPokemon.Container = originalHoldPokemon.Container;
+				holdPokemon.Index = originalHoldPokemon.Index;
+				// Try to make the pokemon drop in the current game. It's only required for shadow Pokemon though.
+				bool needsNewLocation = (pokemon.IsShadowPokemon && pokemon.GameSave != holdPokemon.Container.GameSave) ||
+					(pokemon.IsEgg && (holdPokemon.Container.GameType == GameTypes.Colosseum || holdPokemon.Container.GameType == GameTypes.XD));
+				for (int i = 0; i < pokemon.PokePC.NumBoxes && needsNewLocation; i++) {
+					for (int j = 0; j < 30 && needsNewLocation; j++) {
+						if (pokemon.PokePC[i][j] == null) {
+							holdPokemon.Container = pokemon.PokePC[i];
+							holdPokemon.Index = j;
+							needsNewLocation = false;
+							break;
+						}
+					}
+				}
 				if (holdAdorner != null) {
 					holdAdorner.DisableAdorner();
 					holdAdorner.EnableAdorner();

@@ -434,7 +434,7 @@ namespace PokemonManager.Windows {
 					ErrorMessageBox.Show(ex);
 				}
 				else {
-					MessageBoxResult result = TriggerMessageBox.Show(this, "An error occured while displaying this game save. The save may be corrupted or this may have been an error on Trigger's PC's end. If you think this is not a problem with this save then please take a look at the exception and report it. Would you like to view the full exception?", "Load Error", MessageBoxButton.YesNo);
+					MessageBoxResult result = TriggerMessageBox.Show(this, "An error occured while displaying this game save. The save may be corrupted or this may have been an error on Trigger's PC's end. Would you like to view the full exception?", "Load Error", MessageBoxButton.YesNo);
 					if (result == MessageBoxResult.Yes)
 						ErrorMessageBox.Show(ex);
 					LoadGame(-1);
