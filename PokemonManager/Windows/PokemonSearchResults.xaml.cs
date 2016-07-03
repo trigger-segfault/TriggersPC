@@ -195,13 +195,29 @@ namespace PokemonManager.Windows {
 				TextBlock storage = new TextBlock();
 				storage.VerticalAlignment = VerticalAlignment.Center;
 				storage.Text = " (";
-				if (pokemon.PokeContainer.Type == ContainerTypes.Box)
-					storage.Text += "Box " + ((pokemon.PokeContainer as IPokeBox).BoxNumber + 1).ToString() + " " + (pokemon.PokeContainer as IPokeBox).Name.ToString();
-				else if (pokemon.PokeContainer.Type == ContainerTypes.Party)
-					storage.Text += "Party";
-				else if (pokemon.PokeContainer.Type == ContainerTypes.Daycare)
-					storage.Text += "Daycare";
-				storage.Text += " Slot " + (pokemon.PokeContainer.IndexOf(pokemon) + 1).ToString() + ")";
+				int indexOf = pokemon.PokeContainer.IndexOf(pokemon);
+				if (pokemon.PokeContainer.Type == ContainerTypes.Box) {
+					if (pokemon.PokePC is ManagerPokePC)
+						storage.Text += "Row " + (((ManagerPokePC)pokemon.PokePC).RowIndex + 1).ToString() + " \"" + ((ManagerPokePC)pokemon.PokePC).Name + "\" ";
+					storage.Text += "Box " + ((pokemon.PokeContainer as IPokeBox).BoxNumber + 1).ToString() + " \"" + (pokemon.PokeContainer as IPokeBox).Name.ToString() + "\"";
+				}
+				else if (pokemon.PokeContainer.Type == ContainerTypes.Party) {
+					storage.Text += "Party Slot " + (indexOf + 1).ToString();
+				}
+				else if (pokemon.PokeContainer.Type == ContainerTypes.Daycare) {
+					if (indexOf == 2 || pokemon.PokeContainer.NumSlots == 1)
+						storage.Text += "Single Daycare";
+					else
+						storage.Text += "Double Daycare Slot " + (indexOf + 1).ToString();
+				}
+				else if (pokemon.PokeContainer.Type == ContainerTypes.Purifier) {
+					storage.Text += "Purifier Chamber " + (((XDPurificationChamber)pokemon.PokeContainer).ChamberNumber + 1).ToString() + " ";
+					if (indexOf == 0)
+						storage.Text += "Inside";
+					else
+						storage.Text += "Outside Slot " + indexOf.ToString();
+				}
+				storage.Text += ")";
 
 
 				tooltip.Children.Add(gameName);
@@ -295,6 +311,9 @@ namespace PokemonManager.Windows {
 			else if (pokemon.ContainerIndex == -1) {
 				TriggerMessageBox.Show(this, "The Search Results have lost track of " + pokemon.Nickname + " because it has been moved to a different game. This should not happen. Let me know if it does.", "Can't Find Pokémon");
 			}
+			/*else if (pokemon.PokeContainer.Type == ContainerTypes.Purifier) {
+				TriggerMessageBox.Show(this, "Cannot send Pokémon in the Purifier", "Can't Send");
+			}*/
 			else if (pokemon.IsShadowPokemon) {
 				TriggerMessageBox.Show(this, "Cannot send Shadow Pokémon to other games", "Can't Send");
 			}
@@ -325,6 +344,9 @@ namespace PokemonManager.Windows {
 			else if (pokemon.ContainerIndex == -1) {
 				TriggerMessageBox.Show(this, "The Search Results have lost track of " + pokemon.Nickname + " because it has been moved to a different game. This should not happen. Let me know if it does.", "Can't Find Pokémon");
 			}
+			/*else if (pokemon.PokeContainer.Type == ContainerTypes.Purifier) {
+				TriggerMessageBox.Show(this, "Cannot view Pokémon in the Purifier", "Can't Goto");
+			}*/
 			else {
 				PokeManager.ManagerWindow.GotoPokemon(pokemon);
 			}

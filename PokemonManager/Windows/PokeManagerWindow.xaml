@@ -183,6 +183,7 @@
                 <MenuItem x:Name="menuItemCloseConfirmation" Header="Close Confirmation" Style="{StaticResource SubMenuItem}" IsCheckable="True" Click="OnCloseConfirmationChecked" IsChecked="True"/>
                 <MenuItem x:Name="menuItemTossConfirmation" Header="Toss Confirmation" IsCheckable="True" IsChecked="True" Style="{StaticResource SubMenuItem}" Click="OnTossConfirmationChecked"/>
                 <MenuItem x:Name="menuItemReleaseConfirmation" Header="Release Confirmation" IsCheckable="True" IsChecked="True" Style="{StaticResource SubMenuItem}" Click="OnReleaseConfirmationChecked"/>
+                <MenuItem x:Name="menuItemAprilFoolsMode" Header="April Fools Mode" IsCheckable="True" IsChecked="True" Style="{StaticResource SubMenuItem}" Click="OnAprilFoolsModeChecked"/>
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About" Style="{StaticResource SubMenuItem}" Click="OnAboutClicked">

@@ -162,10 +162,24 @@
 
                         <Label x:Name="label14" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="Auto" Padding="10,5">
                             <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow">
-                                <Run Text="Magikarp Splash Screen Image made by"/>
+                                <Run Text="Pokémon Splash Screen Art all made by"/>
                                 <Hyperlink NavigateUri="http://nganlamsong.deviantart.com/" RequestNavigate="OnRequestNavigate"><Run Text="nganlamsong"/></Hyperlink>
-                                <Run Text="and can be viewed"/>
-                                <Hyperlink NavigateUri="http://nganlamsong.deviantart.com/art/129-Magikarp-472821837" RequestNavigate="OnRequestNavigate"><Run Text="here"/></Hyperlink>
+                                <Run Text=". The following works are used:"/>
+                                <Hyperlink NavigateUri="http://nganlamsong.deviantart.com/art/094-Gengar-545407593" RequestNavigate="OnRequestNavigate"><Run Text="Gengar"/></Hyperlink>
+                                <Run Text=","/>
+                                <Hyperlink NavigateUri="http://nganlamsong.deviantart.com/art/100-Voltorb-573379770" RequestNavigate="OnRequestNavigate"><Run Text="Voltorb"/></Hyperlink>
+                                <Run Text=","/>
+                                <Hyperlink NavigateUri="http://nganlamsong.deviantart.com/art/104-Cubone-594721627" RequestNavigate="OnRequestNavigate"><Run Text="Cubone"/></Hyperlink>
+                                <Run Text=","/>
+                                <Hyperlink NavigateUri="http://nganlamsong.deviantart.com/art/125-Electabuzz-479336082" RequestNavigate="OnRequestNavigate"><Run Text="Electabuzz"/></Hyperlink>
+                                <Run Text=","/>
+                                <Hyperlink NavigateUri="http://nganlamsong.deviantart.com/art/129-Magikarp-472821837" RequestNavigate="OnRequestNavigate"><Run Text="Magikarp"/></Hyperlink>
+                                <Run Text=","/>
+                                <Hyperlink NavigateUri="http://nganlamsong.deviantart.com/art/217-Ursaring-390169419" RequestNavigate="OnRequestNavigate"><Run Text="Ursaring"/></Hyperlink>
+                                <Run Text=","/>
+                                <Hyperlink NavigateUri="http://nganlamsong.deviantart.com/art/352-Kecleon-327052822" RequestNavigate="OnRequestNavigate"><Run Text="Kecleon"/></Hyperlink>
+                                <Run Text=", and"/>
+                                <Hyperlink NavigateUri="http://nganlamsong.deviantart.com/art/384-Rayquaza-335455421" RequestNavigate="OnRequestNavigate"><Run Text="Rayquaza"/></Hyperlink>
                                 <Run Text="."/>
                             </TextBlock>
                         </Label>

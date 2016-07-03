@@ -43,5 +43,26 @@
             <Image x:Name="imageDaycareHighlighter" HorizontalAlignment="Left" Height="30" Margin="0" VerticalAlignment="Top" Width="30" IsHitTestVisible="False" Stretch="None" Source="/TriggersPC;component/Resources/UI/Pokemon/BoxSelectorSummaryHover.png"/>
 
         </Grid>
+        <Grid x:Name="gridPurifier">
+            <Image x:Name="imagePurifierWindow" Height="93" Margin="0,28,0,0" VerticalAlignment="Top" Width="114" Stretch="None" Source="/TriggersPC;component/Resources/UI/Pokemon/PurifierWindow.png"/>
+            <Label x:Name="labelChamberNumber" Content="1" Margin="96,35,27,85" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" FontWeight="Bold">
+                <Label.Effect>
+                    <DropShadowEffect Color="Black" Direction="315" ShadowDepth="2" Opacity="1" BlurRadius="1"/>
+                </Label.Effect>
+            </Label>
+            <Button x:Name="buttonPurifierPrevious" Content="❮" HorizontalAlignment="Left" VerticalAlignment="Top" Width="28" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="OnPurifierPreviousClicked" Focusable="False" IsTabStop="False" Margin="32,89,0,0" Foreground="White" FontWeight="Bold" Height="21" Padding="0">
+                <Button.Effect>
+                    <DropShadowEffect Color="Black" Direction="315" ShadowDepth="2" Opacity="1" BlurRadius="1"/>
+                </Button.Effect>
+            </Button>
+            <Button x:Name="buttonPurifierNext" Content="❯" HorizontalAlignment="Left" VerticalAlignment="Top" Width="28" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="OnPurifierNextClicked" Focusable="False" IsTabStop="False" Margin="95,89,0,0" Foreground="White" FontWeight="Bold" Height="21" Padding="0">
+                <Button.Effect>
+                    <DropShadowEffect Color="Black" Direction="315" ShadowDepth="2" Opacity="1" BlurRadius="1"/>
+                </Button.Effect>
+            </Button>
+            <Image x:Name="imagePurifierSelector" HorizontalAlignment="Left" Height="30" Margin="0" VerticalAlignment="Top" Width="30" IsHitTestVisible="False" Stretch="None" Source="/TriggersPC;component/Resources/UI/Pokemon/BoxSelectorSummary.png"/>
+            <Image x:Name="imagePurifierHighlighter" HorizontalAlignment="Left" Height="30" Margin="0" VerticalAlignment="Top" Width="30" IsHitTestVisible="False" Stretch="None" Source="/TriggersPC;component/Resources/UI/Pokemon/BoxSelectorSummaryHover.png"/>
+
+        </Grid>
     </Grid>
 </UserControl>

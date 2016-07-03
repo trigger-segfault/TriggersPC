@@ -96,7 +96,10 @@ namespace PokemonManager.Windows {
 			if (gameSave != null) {
 			loaded = false;
 				BitmapSource trainerImage = null;
-				if (gameSave.GameType == GameTypes.Ruby || gameSave.GameType == GameTypes.Sapphire) {
+				if (PokeManager.IsAprilFoolsMode) {
+					trainerImage = ResourceDatabase.GetImageFromName("YoungsterMale");
+				}
+				else if (gameSave.GameType == GameTypes.Ruby || gameSave.GameType == GameTypes.Sapphire) {
 					trainerImage = ResourceDatabase.GetImageFromName("RubySapphire" + gameSave.TrainerGender.ToString());
 				}
 				else if (gameSave.GameType == GameTypes.Emerald) {

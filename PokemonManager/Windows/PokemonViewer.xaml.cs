@@ -215,6 +215,7 @@ namespace PokemonManager.Windows {
 			buttonInfect.IsEnabled = false;
 
 			buttonEVTraining.IsEnabled = false;
+			buttonFixEReader.IsEnabled = false;
 
 			this.typeHiddenPower.Visibility = Visibility.Hidden;
 			this.labelHiddenPowerDamage.Content = "";
@@ -679,6 +680,21 @@ namespace PokemonManager.Windows {
 				((int)pokemon.HPEV + (int)pokemon.AttackEV + (int)pokemon.DefenseEV +
 				(int)pokemon.SpAttackEV + (int)pokemon.SpDefenseEV + (int)pokemon.SpeedEV) >= 510 && !pokemon.HasEffortRibbon;
 			buttonInfect.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && pokemon.PokerusStatus == PokerusStatuses.None && PokeManager.PokerusStrains.Count > 0;
+
+			buttonFixEReader.IsEnabled = false;
+			if (!DisableEditing && !pokemon.IsInDaycare && !pokemon.IsEgg && pokemon.GameOrigin == GameOrigins.ColosseumXD &&
+				pokemon.HPIV == 0 && pokemon.AttackIV == 0 && pokemon.DefenseIV == 0 &&
+				pokemon.SpAttackIV == 0 && pokemon.SpDefenseIV == 0 && pokemon.SpeedIV == 0) {
+
+				if (pokemon.PokemonData.FamilyDexID == 175 && pokemon.Personality == 3758762247 && pokemon.LevelMet == 20)
+					buttonFixEReader.IsEnabled = true;
+
+				if (pokemon.PokemonData.FamilyDexID == 179 && pokemon.Personality == 2975402766 && pokemon.LevelMet == 37)
+					buttonFixEReader.IsEnabled = true;
+
+				if (pokemon.DexID == 212 && pokemon.Personality == 1727071111 && pokemon.LevelMet == 50)
+					buttonFixEReader.IsEnabled = true;
+			}
 
 			ushort[] validLevelDownDexIDs = new ushort[]{
 				/*Ditto*/ 132, /*Legendary Birds*/ 144, 145, 146, /*Mews*/ 150, 151,
@@ -1259,6 +1275,25 @@ namespace PokemonManager.Windows {
 				PokeManager.ManagerWindow.RefreshSearchResultsUI();
 				TriggerMessageBox.Show(Window.GetWindow(this), pokemon.Nickname + " has been leveled down to Lv " + result.Value, "EV Training");
 			}
+		}
+
+		private void OnFixEReaderClicked(object sender, RoutedEventArgs e) {
+			Random random = new Random((int)DateTime.Now.Ticks);
+			pokemon.Personality = (uint)random.Next();
+			if (pokemon.PokemonData.FamilyDexID == 175)
+				pokemon.IsSecondAbility2 = (random.Next(2) == 1);
+			pokemon.HPIV = (byte)random.Next(32);
+			pokemon.AttackIV = (byte)random.Next(32);
+			pokemon.DefenseIV = (byte)random.Next(32);
+			pokemon.SpAttackIV = (byte)random.Next(32);
+			pokemon.SpDefenseIV = (byte)random.Next(32);
+			pokemon.SpeedIV = (byte)random.Next(32);
+			pokemon.RecalculateStats();
+
+			buttonFixEReader.IsEnabled = false;
+			RefreshUI();
+			PokeManager.ManagerWindow.RefreshSearchResultsUI();
+			TriggerMessageBox.Show(Window.GetWindow(this), pokemon.Nickname + "'s stats have been randomized", "Fix e-Reader Shadow Pokémon");
 		}
 	}
 }

@@ -173,6 +173,9 @@ namespace PokemonManager.Windows {
 
 			if (((TabItem)tabControl.Items[PokeManager.Settings.DefaultStartupTab]).Visibility == Visibility.Visible)
 				Dispatcher.BeginInvoke((Action)(() => tabControl.SelectedIndex = PokeManager.Settings.DefaultStartupTab));
+
+			if (!PokeManager.IsAprilFoolsDay)
+				menuItemAprilFoolsMode.Visibility = Visibility.Collapsed;
 		}
 
 		private void OnWindowLoaded(object sender, RoutedEventArgs e) {
@@ -202,7 +205,7 @@ namespace PokemonManager.Windows {
 				}
 
 				if (gameCount > 0) {
-					TriggerMessageBox.Show(this, "Found " + pkmCount + " Pokémon Eggs that will be shiny when hatched from " + gameCount + " game" + (gameCount != 1 ? "s" : ""), "Egg Shininess Results");
+					TriggerMessageBox.Show(this, "Found " + pkmCount + " Pokémon Egg" + (pkmCount != 1 ? "s" : "") + " that will be shiny when hatched from " + gameCount + " game" + (gameCount != 1 ? "s" : ""), "Egg Shininess Results");
 					PokemonSearchWindow = GamePokemonSearchResultsWindow.Show(this, mirageIslandResults, "Egg Shininess Results");
 				}
 			}
@@ -213,7 +216,7 @@ namespace PokemonManager.Windows {
 					string strainList = "";
 					foreach (PokerusStrain strain in strains)
 						strainList += "\n" + strain.ToString();
-					TriggerMessageBox.Show(this, "Found " + strains.Count + " new Pokérus Strains. The following strains will be added to " +
+					TriggerMessageBox.Show(this, "Found " + strains.Count + " new Pokérus Strain" + (strains.Count != 1 ? "s" : "") + ". The following strains will be added to " +
 						PokeManager.Settings.ManagerNickname + ". Use them to infect other Pokémon\n" + strainList, "Pokérus Strain Results");
 					PokeManager.PokerusStrains.AddRange(strains);
 					PokeManager.PokerusStrains.Sort((strain1, strain2) => (strain1.Order - strain2.Order));
@@ -222,6 +225,9 @@ namespace PokemonManager.Windows {
 						TriggerMessageBox.Show(this, "Congratulations, you have collected all 15 Pokérus Strains!", "Pokérus Collection");
 					}
 				}
+			}
+			if (PokeManager.IsFirstTimeStartingUp) {
+				ControlsWindow.ShowDialog(this);
 			}
 			//SecretBaseViewer sb = new SecretBaseViewer();
 			//sb.Show();
@@ -815,7 +821,7 @@ namespace PokemonManager.Windows {
 			}
 
 			if (gameCount > 0) {
-				TriggerMessageBox.Show(this, "Found " + pkmCount + " Pokémon Eggs that will be shiny when hatched from " + gameCount + " game" + (gameCount != 1 ? "s" : ""), "Egg Shininess Results");
+				TriggerMessageBox.Show(this, "Found " + pkmCount + " Pokémon Egg" + (pkmCount != 1 ? "s" : "") + " that will be shiny when hatched from " + gameCount + " game" + (gameCount != 1 ? "s" : ""), "Egg Shininess Results");
 				PokemonSearchWindow = GamePokemonSearchResultsWindow.Show(this, mirageIslandResults, "Egg Shininess Results");
 			}
 			else {
@@ -883,6 +889,8 @@ namespace PokemonManager.Windows {
 			menuItemRevealEggs.IsChecked = PokeManager.Settings.RevealEggs;
 
 			menuItemAutoSortItems.IsChecked = PokeManager.Settings.AutoSortItems;
+
+			menuItemAprilFoolsMode.IsChecked = PokeManager.Settings.AprilFoolsEnabled;
 		}
 
 		private void OnRevealEggsChecked(object sender, RoutedEventArgs e) {
@@ -905,7 +913,7 @@ namespace PokemonManager.Windows {
 				string strainList = "";
 				foreach (PokerusStrain strain in strains)
 					strainList += "\n" + strain.ToString();
-				TriggerMessageBox.Show(this, "Found " + strains.Count + " new Pokérus Strains. The following strains will be added to " +
+				TriggerMessageBox.Show(this, "Found " + strains.Count + " new Pokérus Strain" + (strains.Count != 1 ? "s" : "") + ". The following strains will be added to " +
 					PokeManager.Settings.ManagerNickname + ". Use them to infect other Pokémon\n" + strainList, "Pokérus Strain Results");
 				PokeManager.PokerusStrains.AddRange(strains);
 				PokeManager.PokerusStrains.Sort((strain1, strain2) => (strain1.Order - strain2.Order));
@@ -977,6 +985,10 @@ namespace PokemonManager.Windows {
 				LoadGame(gameIndex);
 			Dispatcher.BeginInvoke((Action)(() => tabControl.SelectedIndex = 3));
 			decorationInventoryViewer.GotoDecoration(pocket, decorationID);
+		}
+
+		private void OnAprilFoolsModeChecked(object sender, RoutedEventArgs e) {
+			PokeManager.Settings.AprilFoolsEnabled = menuItemAprilFoolsMode.IsChecked;
 		}
 	}
 }

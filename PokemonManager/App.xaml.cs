@@ -36,11 +36,23 @@ namespace PokemonManager {
 
 		private void OnApplicationStartup(object sender, StartupEventArgs e) {
 			SplashScreen screen;
+			string[] pokeSplashes = {
+				"Cubone",
+				"Electabuzz",
+				"Gengar",
+				"Kecleon",
+				"Magikarp",
+				"Rayquaza",
+				"Ursaring",
+				"Voltorb"
+			};
 			Random random = new Random((int)DateTime.Now.Ticks);
-			if ((DateTime.Now.Month == 4 && DateTime.Now.Day == 1) || random.Next(100) == 0)
-				screen = new SplashScreen("Resources/MagikarpSplash.png");
+			if ((DateTime.Now.Month == 4 && DateTime.Now.Day == 1))
+				screen = new SplashScreen("Resources/Splash/SplashMagikarp.png");
+			else if (random.Next(10) == 0)
+				screen = new SplashScreen("Resources/Splash/Splash" + pokeSplashes[random.Next(pokeSplashes.Length)] + ".png");
 			else
-				screen = new SplashScreen("Resources/Splash.png");
+				screen = new SplashScreen("Resources/Splash/Splash.png");
 			screen.Show(true);
 		}
 

@@ -56,7 +56,10 @@ namespace PokemonManager.Windows {
 
 		public void LoadPokemon(IPokemon pokemon) {
 			this.pokemon = pokemon;
-			this.imagePokemon.Source = pokemon.Sprite;
+			if (PokeManager.IsAprilFoolsMode && !pokemon.IsEgg)
+				this.imagePokemon.Source = PokemonDatabase.GetPokemonImageFromDexID(41, pokemon.IsShiny);
+			else
+				this.imagePokemon.Source = pokemon.Sprite;
 			if (pokemon.IsShadowPokemon) {
 				this.rectShadowMask.OpacityMask = new ImageBrush(this.imagePokemon.Source);
 				this.rectShadowMask.Visibility = Visibility.Visible;

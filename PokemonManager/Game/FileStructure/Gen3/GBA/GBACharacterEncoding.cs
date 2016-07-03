@@ -759,6 +759,10 @@ namespace PokemonManager.Game.FileStructure.Gen3.GBA {
 			return codeArray;
 		}
 
+		public static string CheckString(string data, Languages language) {
+			return GetString(GetBytes(data, 50, language), language);
+		}
+
 		public static string[] CreateStringArrayFromCharArray(char[] data) {
 			string[] strArray = new string[data.Length];
 			int index = 0;

@@ -67,7 +67,13 @@ namespace PokemonManager.Windows {
 
 		public PokemonViewer PokemonViewer {
 			get { return pokemonViewer; }
-			set { pokemonViewer = value; }
+			set {
+				pokemonViewer = value;
+				this.pokeBoxControlMaster.PokemonViewer = pokemonViewer;
+				this.pokeBoxControlParty.PokemonViewer = pokemonViewer;
+				foreach (PokeBoxControl slave in slaves)
+					slave.PokemonViewer = pokemonViewer;
+			}
 		}
 
 		public ComboBoxGameSaves ComboBoxGames {
@@ -99,18 +105,27 @@ namespace PokemonManager.Windows {
 					buttonParty.Content = (pokePC.Daycare != null ? "Show Daycare" : "Hide Party");
 					pokeBoxControlParty.Visibility = Visibility.Visible;
 					pokeBoxControlParty.LoadBox(pokePC.Party, gameIndex);
-					pokeBoxControlParty.HighlightPokemon(pokemon);
 				}
+				pokeBoxControlParty.HighlightPokemon(pokemon);
 			}
 			else if (pokemon.PokeContainer.Type == ContainerTypes.Daycare) {
 				if (containerMode != ContainerTypes.Daycare) {
 					containerMode = ContainerTypes.Daycare;
 
-					buttonParty.Content = "Hide Daycare";
+					buttonParty.Content = (pokePC.GameType == GameTypes.XD ? "Show Purifier" : "Hide Daycare");
 					pokeBoxControlParty.Visibility = Visibility.Visible;
 					pokeBoxControlParty.LoadBox(pokePC.Daycare, gameIndex);
-					pokeBoxControlParty.HighlightPokemon(pokemon);
 				}
+				pokeBoxControlParty.HighlightPokemon(pokemon);
+			}
+			else if (pokemon.PokeContainer.Type == ContainerTypes.Purifier) {
+				containerMode = ContainerTypes.Purifier;
+
+				buttonParty.Content = "Hide Purifier";
+				pokeBoxControlParty.ChamberIndex = ((XDPurificationChamber)pokemon.PokeContainer).ChamberNumber;
+				pokeBoxControlParty.Visibility = Visibility.Visible;
+				pokeBoxControlParty.LoadBox(((XDPokePC)pokePC).GetChamber(pokeBoxControlParty.ChamberIndex), gameIndex);
+				pokeBoxControlParty.HighlightPokemon(pokemon);
 			}
 			else {
 				containerMode = ContainerTypes.Box;
@@ -187,6 +202,8 @@ namespace PokemonManager.Windows {
 					pokeBoxControlParty.LoadBox(pokePC.Party, gameIndex);
 				else if (containerMode == ContainerTypes.Daycare)
 					pokeBoxControlParty.LoadBox(pokePC.Daycare, gameIndex);
+				else if (containerMode == ContainerTypes.Purifier)
+					pokeBoxControlParty.LoadBox(((XDPokePC)pokePC).GetChamber(0), gameIndex);
 				gotoPokemon = null;
 				pokeBoxControlMaster.UnhighlightPokemon();
 			}
@@ -228,6 +245,8 @@ namespace PokemonManager.Windows {
 					pokeBoxControlParty.LoadBox(pokePC.Party, gameIndex);
 				else if (containerMode == ContainerTypes.Daycare)
 					pokeBoxControlParty.LoadBox(pokePC.Daycare, gameIndex);
+				else if (containerMode == ContainerTypes.Purifier)
+					pokeBoxControlParty.LoadBox(((XDPokePC)pokePC).GetChamber(0), gameIndex);
 			}
 		}
 		public void RefreshGameSaves() {
@@ -288,6 +307,14 @@ namespace PokemonManager.Windows {
 			}
 			else {
 				buttonParty.IsEnabled = true;
+				if (containerMode == ContainerTypes.Purifier && pokePC.GameType != GameTypes.XD) {
+					containerMode = ContainerTypes.Box;
+					buttonParty.Content = "Show Party";
+					pokeBoxControlParty.Visibility = Visibility.Hidden;
+				}
+				else if (containerMode == ContainerTypes.Daycare && pokePC.GameType == GameTypes.XD) {
+					buttonParty.Content = "Show Purifier";
+				}
 			}
 
 			RefreshUI();
@@ -306,6 +333,8 @@ namespace PokemonManager.Windows {
 				pokeBoxControlParty.LoadBox(pokePC.Party, gameIndex);
 			else if (containerMode == ContainerTypes.Daycare)
 				pokeBoxControlParty.LoadBox(pokePC.Daycare, gameIndex);
+			else if (containerMode == ContainerTypes.Purifier)
+				pokeBoxControlParty.LoadBox(((XDPokePC)pokePC).GetChamber(0), gameIndex);
 			gotoPokemon = null;
 			pokeBoxControlMaster.UnhighlightPokemon();
 		}
@@ -322,6 +351,8 @@ namespace PokemonManager.Windows {
 				pokeBoxControlParty.LoadBox(pokePC.Party, gameIndex);
 			else if (containerMode == ContainerTypes.Daycare)
 				pokeBoxControlParty.LoadBox(pokePC.Daycare, gameIndex);
+			else if (containerMode == ContainerTypes.Purifier)
+				pokeBoxControlParty.LoadBox(((XDPokePC)pokePC).GetChamber(0), gameIndex);
 			gotoPokemon = null;
 			pokeBoxControlMaster.UnhighlightPokemon();
 
@@ -343,8 +374,22 @@ namespace PokemonManager.Windows {
 			}
 			else if (containerMode == ContainerTypes.Party) {
 				if (pokePC.Daycare != null) {
-					buttonParty.Content = "Hide Daycare";
+					if (pokePC.GameType == GameTypes.XD)
+						buttonParty.Content = "Show Purifier";
+					else
+						buttonParty.Content = "Hide Daycare";
 					containerMode = ContainerTypes.Daycare;
+				}
+				else {
+					buttonParty.Content = "Show Party";
+					containerMode = ContainerTypes.Box;
+					pokeBoxControlParty.Visibility = Visibility.Hidden;
+				}
+			}
+			else if (containerMode == ContainerTypes.Daycare) {
+				if (pokePC.GameType == GameTypes.XD) {
+					buttonParty.Content = "Hide Purifier";
+					containerMode = ContainerTypes.Purifier;
 				}
 				else {
 					buttonParty.Content = "Show Party";
@@ -362,17 +407,8 @@ namespace PokemonManager.Windows {
 				pokeBoxControlParty.LoadBox(pokePC.Party, gameIndex);
 			else if (containerMode == ContainerTypes.Daycare)
 				pokeBoxControlParty.LoadBox(pokePC.Daycare, gameIndex);
-		}
-
-		private IPokeContainer PokeBox {
-			get {
-				if (containerMode == ContainerTypes.Daycare)
-					return pokePC.Daycare;
-				else if (containerMode == ContainerTypes.Party)
-					return pokePC.Party;
-				else
-					return pokePC[boxIndex];
-			}
+			else if (containerMode == ContainerTypes.Purifier)
+				pokeBoxControlParty.LoadBox(((XDPokePC)pokePC).GetChamber(0), gameIndex);
 		}
 
 		private void OnBoxMovementKeyDown(object sender, KeyEventArgs e) {
@@ -381,7 +417,7 @@ namespace PokemonManager.Windows {
 					OnPreviousBoxButtonClicked(null, null);
 				else if (e.Key == Key.D || e.Key == Key.Right)
 					OnNextBoxButtonClicked(null, null);
-				else if (pokePC.Party != null && containerMode != ContainerTypes.Daycare && (e.Key == Key.S || e.Key == Key.Down))
+				else if (pokePC.Party != null && /*(containerMode != ContainerTypes.Daycare || (pokePC.GameType == GameTypes.XD && containerMode != ContainerTypes.Purifier)) &&*/ (e.Key == Key.S || e.Key == Key.Down))
 					OnPartyButtonClicked(null, null);
 				else if (pokePC.Party != null && containerMode != ContainerTypes.Box && (e.Key == Key.W || e.Key == Key.Up))
 					HideParty();

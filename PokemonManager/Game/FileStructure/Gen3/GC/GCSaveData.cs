@@ -35,6 +35,7 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 		private ShadowPokemonData shadowData;
 		private StrategyMemoData memoData;
 		private DaycareData daycareData;
+		private PurifierData purifierData;
 
 		private Inventory inventory;
 		private IPokePC pokePC;
@@ -210,6 +211,8 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 			this.memoData = new StrategyMemoData(gameSave, LoadSubstructure(raw, substructureOffsets[id], substructureSizes[id], SubstructureMaxSizes[id]), this);
 			id = 7;
 			this.shadowData = new ShadowPokemonData(gameSave, LoadSubstructure(raw, substructureOffsets[id], substructureSizes[id], SubstructureMaxSizes[id]), this);
+			id = 14;
+			this.purifierData = new PurifierData(gameSave, LoadSubstructure(raw, substructureOffsets[id], substructureSizes[id], SubstructureMaxSizes[id]), this);
 			{ // Flags
 				ushort size = 0;
 				for (int i = 0; i < 5; i++)
@@ -439,6 +442,8 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 			ByteHelper.ReplaceBytes(data, (int)start + (int)substructureOffsets[id], memoData.GetFinalData());
 			id = 7;
 			ByteHelper.ReplaceBytes(data, (int)start + (int)substructureOffsets[id], shadowData.GetFinalData());
+			id = 14;
+			ByteHelper.ReplaceBytes(data, (int)start + (int)substructureOffsets[id], purifierData.GetFinalData());
 
 			ushort[] substructureOffsetsTmp = new ushort[32];
 			for (int i = 0; i < 16; i++)

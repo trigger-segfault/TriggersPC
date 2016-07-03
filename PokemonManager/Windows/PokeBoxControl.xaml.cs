@@ -50,6 +50,14 @@ namespace PokemonManager.Windows {
 
 	public partial class PokeBoxControl : UserControl {
 
+		private Point[] PurifierSlotOffsets = {
+			new Point(1, 1),
+			new Point(1, 0),
+			new Point(2, 1),
+			new Point(1, 2),
+			new Point(0, 1)
+		};
+
 		private PokeBoxControl master;
 		private List<PokeBoxControl> slaves;
 		private UIElement mouseMoveTarget;
@@ -78,6 +86,13 @@ namespace PokemonManager.Windows {
 		private List<Image> daycareSlotImages;
 		private List<Image> daycareSlotCoverImages;
 		private List<Rectangle> daycareClickAreas;
+
+		// Purifier Elements
+		private List<Image> purifierImages;
+		private List<Rectangle> purifierShadowMasks;
+		private List<Image> purifierSlotImages;
+		private List<Rectangle> purifierClickAreas;
+		private int chamberIndex;
 
 		// Box Elements
 		private List<Image> boxImages;
@@ -110,6 +125,7 @@ namespace PokemonManager.Windows {
 			this.imageDaycareSelector.Visibility = Visibility.Hidden;
 			this.imageBoxSelector.Visibility = Visibility.Hidden;
 			this.imagePartySelector.Visibility = Visibility.Hidden;
+			this.imagePurifierSelector.Visibility = Visibility.Hidden;
 			this.pokeContainer = null;
 			this.labelBoxName.Content = "";
 			gridParty.Visibility = Visibility.Hidden;
@@ -131,6 +147,7 @@ namespace PokemonManager.Windows {
 				CreatePickupElement();
 				CreatePartyElements();
 				CreateDaycareElements();
+				CreatePurifierElements();
 				CreateBoxElements();
 				rectEditBox.Opacity = 0;
 			}
@@ -138,6 +155,7 @@ namespace PokemonManager.Windows {
 			this.imageDaycareHighlighter.Visibility = Visibility.Hidden;
 			this.imageBoxHighlighter.Visibility = Visibility.Hidden;
 			this.imagePartyHighlighter.Visibility = Visibility.Hidden;
+			this.imagePurifierHighlighter.Visibility = Visibility.Hidden;
 		}
 
 		#region Master/Slaves
@@ -186,6 +204,7 @@ namespace PokemonManager.Windows {
 				imagePartySelector.Source = ResourceDatabase.GetImageFromName("BoxSelector" + (pickupMode ? "Move" : "Summary") + (summaryMode ? "Hover" : ""));
 				imageBoxSelector.Source = ResourceDatabase.GetImageFromName("BoxSelector" + (pickupMode ? "Move" : "Summary") + (summaryMode ? "Hover" : ""));
 				imageDaycareSelector.Source = ResourceDatabase.GetImageFromName("BoxSelector" + (pickupMode ? "Move" : "Summary") + (summaryMode ? "Hover" : ""));
+				imagePurifierSelector.Source = ResourceDatabase.GetImageFromName("BoxSelector" + (pickupMode ? "Move" : "Summary") + (summaryMode ? "Hover" : ""));
 				if (summaryMode && hoverIndex != -1)
 					pokemonViewer.LoadPokemon(pokeContainer[hoverIndex]);
 			}
@@ -199,6 +218,7 @@ namespace PokemonManager.Windows {
 				imagePartySelector.Source = ResourceDatabase.GetImageFromName("BoxSelector" + (pickupMode ? "Move" : "Summary") + (summaryMode ? "Hover" : ""));
 				imageBoxSelector.Source = ResourceDatabase.GetImageFromName("BoxSelector" + (pickupMode ? "Move" : "Summary") + (summaryMode ? "Hover" : ""));
 				imageDaycareSelector.Source = ResourceDatabase.GetImageFromName("BoxSelector" + (pickupMode ? "Move" : "Summary") + (summaryMode ? "Hover" : ""));
+				imagePurifierSelector.Source = ResourceDatabase.GetImageFromName("BoxSelector" + (pickupMode ? "Move" : "Summary") + (summaryMode ? "Hover" : ""));
 			}
 		}
 		public bool CanChangePickupMode {
@@ -208,6 +228,10 @@ namespace PokemonManager.Windows {
 				foreach (PokeBoxControl slave in slaves)
 					slave.canChangePickupMode = value;
 			}
+		}
+		public int ChamberIndex {
+			get { return chamberIndex; }
+			set { chamberIndex = value; }
 		}
 
 		#endregion
@@ -251,6 +275,9 @@ namespace PokemonManager.Windows {
 		private bool IsViewingDaycare {
 			get { return pokeContainer.Type == ContainerTypes.Daycare; }
 		}
+		private bool IsViewingPurifier {
+			get { return pokeContainer.Type == ContainerTypes.Purifier; }
+		}
 		private IPokeBox PokeBox {
 			get { return pokeContainer as IPokeBox; }
 		}
@@ -273,6 +300,8 @@ namespace PokemonManager.Windows {
 				this.imageBoxHighlighter.Visibility = Visibility.Hidden;
 			if (imagePartyHighlighter.Visibility == Visibility.Visible)
 				this.imagePartyHighlighter.Visibility = Visibility.Hidden;
+			if (imagePurifierHighlighter.Visibility == Visibility.Visible)
+				this.imagePurifierHighlighter.Visibility = Visibility.Hidden;
 			if (imageDaycareHighlighter.Visibility == Visibility.Visible)
 				this.imageDaycareHighlighter.Visibility = Visibility.Hidden;
 		}
@@ -320,6 +349,12 @@ namespace PokemonManager.Windows {
 			foreach (Rectangle mask in daycareShadowMasks)
 				mask.Visibility = Visibility.Hidden;
 			foreach (Image slot in daycareSlotImages)
+				slot.Visibility = Visibility.Hidden;
+			foreach (Image image in purifierImages)
+				image.Source = null;
+			foreach (Rectangle mask in purifierShadowMasks)
+				mask.Visibility = Visibility.Hidden;
+			foreach (Image slot in purifierSlotImages)
 				slot.Visibility = Visibility.Hidden;
 
 			gridDaycare.Visibility = Visibility.Hidden;
@@ -427,6 +462,10 @@ namespace PokemonManager.Windows {
 				UnloadBox();
 				return;
 			}
+			if (IsViewingPurifier) {
+				this.pokeContainer = ((XDPokePC)pokeContainer.PokePC).GetChamber(chamberIndex);
+				this.labelChamberNumber.Content = (chamberIndex + 1).ToString();
+			}
 			if (movingPokemon && !PokeManager.IsHoldingPokemon) {
 				RemoveAdornerLayer();
 				movingPokemon = false;
@@ -442,6 +481,7 @@ namespace PokemonManager.Windows {
 				gridParty.Visibility = Visibility.Visible;
 				gridDaycare.Visibility = Visibility.Hidden;
 				gridBox.Visibility = Visibility.Hidden;
+				gridPurifier.Visibility = Visibility.Hidden;
 
 				if (hoverIndex != -1) {
 					imagePartySelector.Margin = new Thickness(31 + (hoverIndex % 3) * 32, 51 + (hoverIndex / 3) * 25, 0, 0);
@@ -455,12 +495,18 @@ namespace PokemonManager.Windows {
 					if (pokeContainer[i] != null) {
 						partySlotImages[i].Visibility = Visibility.Visible;
 						if (RevealEggs && pokeContainer[i].IsEgg) {
-							partyImages[i].Source = PokemonDatabase.GetPokemonBoxImageFromDexID(pokeContainer[i].DexID, false, pokeContainer[i].FormID);
+							if (PokeManager.IsAprilFoolsMode)
+								partyImages[i].Source = PokemonDatabase.GetPokemonBoxImageFromDexID(41, false);
+							else
+								partyImages[i].Source = PokemonDatabase.GetPokemonBoxImageFromDexID(pokeContainer[i].DexID, false, pokeContainer[i].FormID);
 							partyEggMarkers[i].Source = ResourceDatabase.GetImageFromName((PokeManager.Settings.UseNewBoxSprites ? "New" : "") + "SideEgg");
 							partyEggMarkers[i].Visibility = Visibility.Visible;
 						}
 						else {
-							partyImages[i].Source = pokeContainer[i].BoxSprite;
+							if (PokeManager.IsAprilFoolsMode && !pokeContainer[i].IsEgg)
+								partyImages[i].Source = PokemonDatabase.GetPokemonBoxImageFromDexID(41, pokeContainer[i].IsShiny);
+							else
+								partyImages[i].Source = pokeContainer[i].BoxSprite;
 							partyEggMarkers[i].Visibility = Visibility.Hidden;
 						}
 						if (pokeContainer[i].IsShadowPokemon) {
@@ -480,10 +526,48 @@ namespace PokemonManager.Windows {
 					}
 				}
 			}
+			else if (IsViewingPurifier) {
+				gridPurifier.Visibility = Visibility.Visible;
+				gridParty.Visibility = Visibility.Hidden;
+				gridDaycare.Visibility = Visibility.Hidden;
+				gridBox.Visibility = Visibility.Hidden;
+
+				if (hoverIndex != -1) {
+					imagePurifierSelector.Margin = new Thickness(31 + PurifierSlotOffsets[hoverIndex].X * 32, 32 + PurifierSlotOffsets[hoverIndex].Y * 25, 0, 0);
+					imagePurifierSelector.Visibility = Visibility.Visible;
+				}
+				else {
+					imagePurifierSelector.Visibility = Visibility.Hidden;
+				}
+
+				for (int i = 0; i < pokeContainer.NumSlots; i++) {
+					if (pokeContainer[i] != null) {
+						purifierSlotImages[i].Visibility = Visibility.Visible;
+						if (PokeManager.IsAprilFoolsMode && !pokeContainer[i].IsEgg)
+							purifierImages[i].Source = PokemonDatabase.GetPokemonBoxImageFromDexID(41, pokeContainer[i].IsShiny);
+						else
+							purifierImages[i].Source = pokeContainer[i].BoxSprite;
+						if (pokeContainer[i].IsShadowPokemon) {
+							purifierShadowMasks[i].OpacityMask = new ImageBrush(purifierImages[i].Source);
+							purifierShadowMasks[i].Visibility = Visibility.Visible;
+						}
+						else {
+							purifierShadowMasks[i].Visibility = Visibility.Hidden;
+						}
+					}
+					else {
+						purifierImages[i].Source = null;
+						purifierShadowMasks[i].OpacityMask = null;
+						purifierSlotImages[i].Visibility = Visibility.Hidden;
+						purifierShadowMasks[i].Visibility = Visibility.Hidden;
+					}
+				}
+			}
 			else if (IsViewingDaycare) {
 				gridParty.Visibility = Visibility.Hidden;
 				gridDaycare.Visibility = Visibility.Visible;
 				gridBox.Visibility = Visibility.Hidden;
+				gridPurifier.Visibility = Visibility.Hidden;
 
 				if (hoverIndex != -1) {
 					imageDaycareSelector.Margin = new Thickness(31 + (hoverIndex % 3) * 32, 61, 0, 0);
@@ -498,10 +582,14 @@ namespace PokemonManager.Windows {
 						daycareSlotCoverImages[i].Visibility = Visibility.Hidden;
 						daycareClickAreas[i].IsEnabled = true;
 						if (pokeContainer[i] != null) {
-							daycareImages[i].Source = pokeContainer[i].BoxSprite;
+
+							if (PokeManager.IsAprilFoolsMode && !pokeContainer[i].IsEgg)
+								daycareImages[i].Source = PokemonDatabase.GetPokemonBoxImageFromDexID(41, pokeContainer[i].IsShiny);
+							else
+								daycareImages[i].Source = pokeContainer[i].BoxSprite;
 							daycareSlotImages[i].Visibility = Visibility.Visible;
 							if (pokeContainer[i].IsShadowPokemon) {
-								daycareShadowMasks[i].OpacityMask = new ImageBrush(pokeContainer[i].BoxSprite);
+								daycareShadowMasks[i].OpacityMask = new ImageBrush(daycareImages[i].Source);
 								daycareShadowMasks[i].Visibility = Visibility.Visible;
 							}
 							else {
@@ -529,6 +617,7 @@ namespace PokemonManager.Windows {
 				gridParty.Visibility = Visibility.Hidden;
 				gridDaycare.Visibility = Visibility.Hidden;
 				gridBox.Visibility = Visibility.Visible;
+				gridPurifier.Visibility = Visibility.Hidden;
 
 				if (hoverIndex != -1) {
 					imageBoxSelector.Margin = new Thickness(1 + (hoverIndex % 6) * 24, 5 + (hoverIndex / 6) * 24, 0, 0);
@@ -546,12 +635,18 @@ namespace PokemonManager.Windows {
 					if (pokeContainer[i] != null) {
 						boxImages[i].Opacity = 1;
 						if (RevealEggs && pokeContainer[i].IsEgg) {
-							boxImages[i].Source = PokemonDatabase.GetPokemonBoxImageFromDexID(pokeContainer[i].DexID, false, pokeContainer[i].FormID);
+							if (PokeManager.IsAprilFoolsMode)
+								boxImages[i].Source = PokemonDatabase.GetPokemonBoxImageFromDexID(41, false);
+							else
+								boxImages[i].Source = PokemonDatabase.GetPokemonBoxImageFromDexID(pokeContainer[i].DexID, false, pokeContainer[i].FormID);
 							boxEggMarkers[i].Source = ResourceDatabase.GetImageFromName((PokeManager.Settings.UseNewBoxSprites ? "New" : "") + "SideEgg");
 							boxEggMarkers[i].Visibility = Visibility.Visible;
 						}
 						else {
-							boxImages[i].Source = pokeContainer[i].BoxSprite;
+							if (PokeManager.IsAprilFoolsMode && !pokeContainer[i].IsEgg)
+								boxImages[i].Source = PokemonDatabase.GetPokemonBoxImageFromDexID(41, pokeContainer[i].IsShiny);
+							else
+								boxImages[i].Source = pokeContainer[i].BoxSprite;
 							boxEggMarkers[i].Visibility = Visibility.Hidden;
 						}
 						if (pokeContainer[i].IsShadowPokemon) {
@@ -714,9 +809,18 @@ namespace PokemonManager.Windows {
 					else if (!PokeManager.CanPlaceEgg(tag.Control.pokeContainer)) {
 						TriggerMessageBox.Show(Window.GetWindow(this), "Cannot move eggs to Colosseum or XD", "Can't Place");
 					}
+					else if (tag.Control.IsViewingPurifier && tag.BoxIndex != 0 && PokeManager.HoldPokemon.Pokemon.IsShadowPokemon) {
+						TriggerMessageBox.Show(Window.GetWindow(this), "Cannot put Shadow Pokémon in that Purifier slot", "No Shadow Pokémon");
+					}
+					else if (tag.Control.IsViewingPurifier && tag.BoxIndex == 0 && !PokeManager.HoldPokemon.Pokemon.IsShadowPokemon) {
+						TriggerMessageBox.Show(Window.GetWindow(this), "Only Shadow Pokémon can go in that Purifier slot", "No Regular Pokémon");
+					}
 					else if (pkm == null) {
 						if (PokeManager.IsHoldingSelection) {
-							if (tag.Control.IsViewingDaycare) {
+							if (tag.Control.IsViewingPurifier) {
+								TriggerMessageBox.Show(Window.GetWindow(this), "Cannot place a selection in the Purifier", "No Selections Allowed");
+							}
+							else if (tag.Control.IsViewingDaycare) {
 								TriggerMessageBox.Show(Window.GetWindow(this), "Cannot place a selection in the Daycare", "No Selections Allowed");
 							}
 							else if (tag.Control.IsViewingParty) {
@@ -844,11 +948,13 @@ namespace PokemonManager.Windows {
 			this.imageDaycareHighlighter.Visibility = Visibility.Hidden;
 			this.imageBoxHighlighter.Visibility = Visibility.Hidden;
 			this.imagePartyHighlighter.Visibility = Visibility.Hidden;
+			this.imagePurifierHighlighter.Visibility = Visibility.Hidden;
 
 			foreach (PokeBoxControl slave in slaves) {
 				slave.imageDaycareHighlighter.Visibility = Visibility.Hidden;
 				slave.imageBoxHighlighter.Visibility = Visibility.Hidden;
 				slave.imagePartyHighlighter.Visibility = Visibility.Hidden;
+				slave.imagePurifierHighlighter.Visibility = Visibility.Hidden;
 			}
 
 			Rectangle selector = sender as Rectangle;
@@ -897,6 +1003,10 @@ namespace PokemonManager.Windows {
 					imagePartySelector.Margin = new Thickness(31 + (newIndex % 3) * 32, 51 + (newIndex / 3) * 25, 0, 0);
 					imagePartySelector.Visibility = Visibility.Visible;
 				}
+				else if (IsViewingPurifier) {
+					imagePurifierSelector.Margin = new Thickness(31 + PurifierSlotOffsets[newIndex].X * 32, 32 + PurifierSlotOffsets[newIndex].Y * 25, 0, 0);
+					imagePurifierSelector.Visibility = Visibility.Visible;
+				}
 				else if (IsViewingBox) {
 					imageBoxSelector.Margin = new Thickness(1 + (newIndex % 6) * 24, 5 + (newIndex / 6) * 24, 0, 0);
 					imageBoxSelector.Visibility = Visibility.Visible;
@@ -916,6 +1026,7 @@ namespace PokemonManager.Windows {
 				imageDaycareSelector.Visibility = Visibility.Hidden;
 				imageBoxSelector.Visibility = Visibility.Hidden;
 				imagePartySelector.Visibility = Visibility.Hidden;
+				imagePurifierSelector.Visibility = Visibility.Hidden;
 			}
 		}
 
@@ -937,6 +1048,8 @@ namespace PokemonManager.Windows {
 						ptCursor =  finalHoverer.partyClickAreas[finalHoverIndex].TranslatePoint(new Point(16, 19), adornerContainer);
 					else if (finalHoverer.IsViewingParty)
 						ptCursor =  finalHoverer.partyClickAreas[finalHoverIndex].TranslatePoint(new Point(16, 9), adornerContainer);
+					else if (finalHoverer.IsViewingPurifier)
+						ptCursor =  finalHoverer.purifierClickAreas[finalHoverIndex].TranslatePoint(new Point(16, 9), adornerContainer);
 					else if (finalHoverer.IsViewingBox)
 						ptCursor =  finalHoverer.boxClickAreas[finalHoverIndex].TranslatePoint(new Point(12, 8), adornerContainer);
 				}
@@ -1011,6 +1124,7 @@ namespace PokemonManager.Windows {
 				imageDaycareHighlighter.Visibility = Visibility.Visible;
 				this.imageBoxHighlighter.Visibility = Visibility.Hidden;
 				this.imagePartyHighlighter.Visibility = Visibility.Hidden;
+				this.imagePurifierHighlighter.Visibility = Visibility.Hidden;
 			}
 			else if (IsViewingParty) {
 				Rectangle selector = partyClickAreas[index];
@@ -1018,6 +1132,15 @@ namespace PokemonManager.Windows {
 				imagePartyHighlighter.Visibility = Visibility.Visible;
 				this.imageBoxHighlighter.Visibility = Visibility.Hidden;
 				this.imageDaycareHighlighter.Visibility = Visibility.Hidden;
+				this.imagePurifierHighlighter.Visibility = Visibility.Hidden;
+			}
+			else if (IsViewingPurifier) {
+				Rectangle selector = partyClickAreas[index];
+				imagePurifierHighlighter.Margin = new Thickness(31 + PurifierSlotOffsets[index].X * 32, 32 + PurifierSlotOffsets[index].Y * 25, 0, 0);
+				imagePurifierHighlighter.Visibility = Visibility.Visible;
+				this.imageBoxHighlighter.Visibility = Visibility.Hidden;
+				this.imageDaycareHighlighter.Visibility = Visibility.Hidden;
+				this.imagePartyHighlighter.Visibility = Visibility.Hidden;
 			}
 			else if (IsViewingBox) {
 				Rectangle selector = boxClickAreas[index];
@@ -1025,8 +1148,35 @@ namespace PokemonManager.Windows {
 				imageBoxHighlighter.Visibility = Visibility.Visible;
 				this.imagePartyHighlighter.Visibility = Visibility.Hidden;
 				this.imageDaycareHighlighter.Visibility = Visibility.Hidden;
+				this.imagePurifierHighlighter.Visibility = Visibility.Hidden;
 			}
 			pokemonViewer.LoadPokemon(pokemon);
+		}
+
+		private void OnPurifierPreviousClicked(object sender, RoutedEventArgs e) {
+			chamberIndex--;
+			if (chamberIndex < 0)
+				chamberIndex = 8;
+			UnhighlightPokemon();
+			PokemonSelectedEventArgs args = new PokemonSelectedEventArgs();
+			args.Index = 0;
+			args.PokeContainer = pokeContainer;
+			args.Pokemon = pokeContainer[0];
+			OnPokemonSelected(args);
+			RefreshUI(true);
+		}
+
+		private void OnPurifierNextClicked(object sender, RoutedEventArgs e) {
+			chamberIndex++;
+			if (chamberIndex >= 9)
+				chamberIndex = 0;
+			UnhighlightPokemon();
+			PokemonSelectedEventArgs args = new PokemonSelectedEventArgs();
+			args.Index = 0;
+			args.PokeContainer = pokeContainer;
+			args.Pokemon = pokeContainer[0];
+			OnPokemonSelected(args);
+			RefreshUI(true);
 		}
 
 		#region Context Menus
@@ -1131,6 +1281,8 @@ namespace PokemonManager.Windows {
 			if (result == MessageBoxResult.Yes) {
 				PokeManager.ClearSelectedPokemon();
 				foreach (IPokemon pokemon in pokeContainer) {
+					if (pokemon.IsHoldingItem)
+						PokeManager.ManagerGameSave.Inventory.Items[pokemon.HeldItemData.PocketType].AddItem(pokemon.HeldItemID, 1);
 					pokemon.PokeContainer.Remove(pokemon);
 					pokemon.IsReleased = true;
 				}
@@ -1206,6 +1358,8 @@ namespace PokemonManager.Windows {
 				if (PokeManager.Settings.ReleaseConfirmation)
 					result = TriggerMessageBox.Show(Window.GetWindow(this), "Are you sure you want to release " + pokeContainer[selectedIndex].Nickname + "?", "Release Pokemon", MessageBoxButton.YesNo);
 				if (result == MessageBoxResult.Yes) {
+					if (pokeContainer[selectedIndex].IsHoldingItem)
+						PokeManager.ManagerGameSave.Inventory.Items[pokeContainer[selectedIndex].HeldItemData.PocketType].AddItem(pokeContainer[selectedIndex].HeldItemID, 1);
 					// Be freeeeeeeeeeee (in the void forever)
 					pokeContainer[selectedIndex].IsReleased = true;
 					pokeContainer[selectedIndex] = null;
@@ -1515,6 +1669,75 @@ namespace PokemonManager.Windows {
 				clickArea.ContextMenuOpening += OnPokemonContextMenuOpening;
 				daycareClickAreas.Add(clickArea);
 				gridDaycare.Children.Insert(gridDaycare.Children.Count - 2, clickArea);
+			}
+		}
+		private void CreatePurifierElements() {
+			this.purifierImages = new List<Image>();
+			this.purifierShadowMasks = new List<Rectangle>();
+			this.purifierSlotImages = new List<Image>();
+			this.purifierClickAreas = new List<Rectangle>();
+
+			for (int i = 0; i < 5; i++) {
+				Image slotImage = new Image();
+				slotImage.Stretch = Stretch.None;
+				slotImage.SnapsToDevicePixels = true;
+				slotImage.UseLayoutRounding = true;
+				slotImage.Width = 30;
+				slotImage.Height = 23;
+				slotImage.Margin = new Thickness(31 + PurifierSlotOffsets[i].X * 32, 38 + PurifierSlotOffsets[i].Y * 25, 0, 0);
+				slotImage.HorizontalAlignment = HorizontalAlignment.Left;
+				slotImage.VerticalAlignment = VerticalAlignment.Top;
+				slotImage.Source = ResourceDatabase.GetImageFromName("PartySlot");
+				slotImage.Visibility = Visibility.Hidden;
+				gridPurifier.Children.Insert(gridPurifier.Children.Count - 2, slotImage);
+				purifierSlotImages.Add(slotImage);
+			}
+
+			for (int i = 0; i < 5; i++) {
+				Image image = new Image();
+				image.Stretch = Stretch.None;
+				image.SnapsToDevicePixels = true;
+				image.UseLayoutRounding = true;
+				image.Width = 32;
+				image.Height = 32;
+				image.Margin = new Thickness(30 + PurifierSlotOffsets[i].X * 32, 30 + PurifierSlotOffsets[i].Y * 25, 0, 0);
+				image.HorizontalAlignment = HorizontalAlignment.Left;
+				image.VerticalAlignment = VerticalAlignment.Top;
+				gridPurifier.Children.Insert(gridPurifier.Children.Count - 2, image);
+
+				// Used for shadow pokemon tints
+				Rectangle mask = new Rectangle();
+				mask.Width = 32;
+				mask.Height = 32;
+				mask.Margin = new Thickness(30 + PurifierSlotOffsets[i].X * 32, 30 + PurifierSlotOffsets[i].Y * 25, 0, 0);
+				mask.HorizontalAlignment = HorizontalAlignment.Left;
+				mask.VerticalAlignment = VerticalAlignment.Top;
+				mask.StrokeThickness = 0;
+				mask.Fill = new SolidColorBrush(Color.FromArgb(70, 128, 112, 184));
+				mask.Visibility = Visibility.Hidden;
+				gridPurifier.Children.Insert(gridPurifier.Children.Count - 2, mask);
+
+				purifierImages.Add(image);
+				purifierShadowMasks.Add(mask);
+			}
+			for (int i = 0; i < 5; i++) {
+				Rectangle clickArea = new Rectangle();
+				clickArea.Fill = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+				clickArea.Stroke = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+				clickArea.Width = 32;
+				clickArea.Height = 25;
+				clickArea.Opacity = 0;
+				clickArea.Tag = new PokeBoxTagStructure(this, i);
+				clickArea.Margin = new Thickness(30 + PurifierSlotOffsets[i].X * 32, 37 + PurifierSlotOffsets[i].Y * 25, 0, 0);
+				clickArea.HorizontalAlignment = HorizontalAlignment.Left;
+				clickArea.VerticalAlignment = VerticalAlignment.Top;
+				clickArea.PreviewMouseDown += OnBoxSlotClicked;
+				clickArea.MouseEnter += OnBoxSlotEnter;
+				clickArea.MouseLeave += OnBoxSlotLeave;
+				clickArea.ContextMenu = contextMenu;
+				clickArea.ContextMenuOpening += OnPokemonContextMenuOpening;
+				purifierClickAreas.Add(clickArea);
+				gridPurifier.Children.Insert(gridPurifier.Children.Count - 2, clickArea);
 			}
 		}
 		private void CreateBoxElements() {

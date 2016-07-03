@@ -92,6 +92,7 @@
     <Compile Include="Game\FileStructure\Gen3\GBA\DecorationBlockData.cs" />
     <Compile Include="Game\FileStructure\Gen3\GBA\GBAGameFlags.cs" />
     <Compile Include="Game\FileStructure\Gen3\GBA\PokeBoxBlockData.cs" />
+    <Compile Include="Game\FileStructure\Gen3\GC\PurifierData.cs" />
     <Compile Include="Game\FileStructure\Gen3\GC\DaycareData.cs" />
     <Compile Include="Game\FileStructure\Gen3\GC\GameConfigData.cs" />
     <Compile Include="Game\FileStructure\Gen3\GC\GCCharacterEncoding.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="PokemonStructures\BoxPokePC.cs" />
     <Compile Include="PokemonStructures\ColosseumDaycare.cs" />
     <Compile Include="PokemonStructures\Events\BikeEventDistribution.cs" />
+    <Compile Include="PokemonStructures\Events\BuyPokemonEventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\RegiDollEventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\EventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\PokemonEventDistribution.cs" />
@@ -131,6 +133,7 @@
     <Compile Include="PokemonStructures\XDDaycare.cs" />
     <Compile Include="PokemonStructures\IDaycare.cs" />
     <Compile Include="PokemonStructures\LearnableMove.cs" />
+    <Compile Include="PokemonStructures\XDPurificationChamber.cs" />
     <Compile Include="Windows\AdvancedSendSingleToWindow.xaml.cs">
       <DependentUpon>AdvancedSendSingleToWindow.xaml</DependentUpon>
     </Compile>
@@ -1418,7 +1421,17 @@
     <Content Include="Resources\Audio\Evolution.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\MagikarpSplash.png" />
+    <Resource Include="Resources\UI\Pokemon\PurifierWindow.png" />
+    <Resource Include="Resources\Splash\SplashVoltorb.png" />
+    <Resource Include="Resources\Splash\SplashUrsaring.png" />
+    <Resource Include="Resources\Splash\SplashRayquaza.png" />
+    <Resource Include="Resources\Splash\SplashMagikarp.png" />
+    <Resource Include="Resources\Splash\SplashKecleon.png" />
+    <Resource Include="Resources\Splash\SplashGengar.png" />
+    <Resource Include="Resources\Splash\SplashElectabuzz.png" />
+    <Resource Include="Resources\Splash\SplashCubone.png" />
+    <Resource Include="Resources\Splash\Splash.png" />
+    <Resource Include="Resources\Trainers\YoungsterMale.png" />
     <Resource Include="Resources\Icons\IconDefaults.png" />
     <Resource Include="Resources\Icons\IconPokerus.png" />
     <Resource Include="Resources\UI\Wallpapers\Manager\WallpaperManagerFlowerBox.png" />
@@ -1544,7 +1557,6 @@
     <Resource Include="Resources\UI\Wallpapers\WallpaperDefault.png" />
     <Resource Include="Resources\UI\Wallpapers\Emerald\WallpaperEmeraldSpecial.png" />
     <Resource Include="Resources\GameTypes\PokemonBoxPhysical.png" />
-    <Resource Include="Resources\Splash.png" />
     <Resource Include="Resources\UI\Pokemon\PokedexRRegistered.png" />
     <Resource Include="Resources\UI\Pokemon\PokedexCheckRegistered.png" />
     <Resource Include="Resources\UI\Pokemon\PokedexPokeballLiving.png" />

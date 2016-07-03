@@ -116,7 +116,7 @@ namespace PokemonManager.Windows {
 
 				if (result == MessageBoxResult.Yes) {
 					if (setName)
-						gameSave.TrainerName = newTrainerName;
+						gameSave.TrainerName = GBACharacterEncoding.CheckString(newTrainerName, gameSave.IsJapanese ? Languages.Japanese : Languages.English);
 					if (setGender)
 						gameSave.TrainerGender = trainerGender;
 

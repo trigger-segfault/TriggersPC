@@ -91,6 +91,11 @@ namespace PokemonManager {
 
 		private bool keepMissingFiles;
 
+		private bool forceAprilFools;
+		private bool debugMode;
+
+		private bool aprilFoolsMode;
+
 		public PokeManagerSettings() {
 			this.managerNickname = "Your PC";
 			this.useFRLGSprites = false;
@@ -124,6 +129,31 @@ namespace PokemonManager {
 			this.defaultBoxRow3 = 0;
 
 			this.keepMissingFiles = false;
+
+			this.forceAprilFools = false;
+			this.debugMode = false;
+
+			this.aprilFoolsMode = true;
+		}
+
+		public bool AprilFoolsEnabled {
+			get { return aprilFoolsMode; }
+			set {
+				aprilFoolsMode = value;
+				if (!disableChangesWhileLoading) {
+					PokeManager.SaveSettings();
+					PokeManager.RefreshUI();
+				}
+			}
+		}
+
+		public bool ForceAprilFools {
+			get { return forceAprilFools; }
+			set { forceAprilFools = value; }
+		}
+		public bool DebugMode {
+			get { return debugMode; }
+			set { debugMode = value; }
 		}
 
 		public bool KeepMissingFiles {
@@ -503,6 +533,34 @@ namespace PokemonManager {
 
 		public static bool IsReloading { get; set; }
 
+		private static bool firstTimeStartingUp;
+
+		private static bool loaded;
+
+		public static bool IsFirstTimeStartingUp {
+			get { return firstTimeStartingUp; }
+		}
+
+		public static bool IsAprilFoolsDay {
+			get {
+#if DEBUG
+				return true;
+#else
+				return settings.ForceAprilFools || (DateTime.Now.Month == 4 && DateTime.Now.Day == 1);
+#endif
+			}
+		}
+
+		public static bool IsAprilFoolsMode {
+			get {
+				return IsAprilFoolsDay && settings.AprilFoolsEnabled;
+			}
+		}
+
+		public static bool DebugMode {
+			get { return settings.DebugMode; }
+		}
+
 		public static void Initialize(PokeManagerWindow managerWindow) {
 			PokeManager.managerWindow = managerWindow;
 
@@ -513,6 +571,7 @@ namespace PokemonManager {
 			selectedPokemon = new List<PokemonLocation>();
 			secretBases = new List<SharedSecretBase>();
 			pokerusStrains = new List<PokerusStrain>();
+			firstTimeStartingUp = true;
 
 			#region Stuff
 
@@ -1146,10 +1205,17 @@ namespace PokemonManager {
 			ItemDatabase.InitializeEasyChat();
 			SecretBaseDatabase.Initialize();
 
+			try {
+				LoadSettings();
+			}
+			catch (Exception ex) {
+				MessageBoxResult result = TriggerMessageBox.Show(managerWindow, "Error while trying to load Trigger's PC Settings. Would you like to view the error?", "Load Error", MessageBoxButton.YesNo);
+				if (result == MessageBoxResult.Yes)
+					ErrorMessageBox.Show(ex);
+			}
 			CreateEvents();
 
 			LoadPokeManager();
-
 #if DEBUG
 			/*GCGameSave pre = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\2 pre.gci");
 			GCGameSave missed = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\2 missed.gci");
@@ -1322,6 +1388,8 @@ namespace PokemonManager {
 			Console.WriteLine("Finished");*/
 
 			#endregion
+
+			loaded = true;
 		}
 
 		private static void CreateEvents() {
@@ -1332,6 +1400,7 @@ namespace PokemonManager {
 			BikeEventDistribution bike;
 			TicketEventDistribution ticket;
 			PokemonEventDistribution pokemon;
+			BuyPokemonEventDistribution buyPokemon;
 			RegiDollEventDistribution regi;
 
 			bike = new BikeEventDistribution("ACRO MACH BIKE [RSE]");
@@ -1496,6 +1565,65 @@ namespace PokemonManager {
 			//regi.Requirements = "You must obtain the Heat Badge from Flannery in order to receive this Doll.";
 			regi.AllowedGames = GameTypeFlags.Ruby | GameTypeFlags.Sapphire | GameTypeFlags.Emerald;
 			RegisterEvent(regi);
+
+			if (IsAprilFoolsDay) {
+				buyPokemon = new BuyPokemonEventDistribution("APRIL FOOLS ZUBAT [RS]");
+				buyPokemon.Cost = 500;
+				buyPokemon.DexID = 41;
+				buyPokemon.Level = 5;
+				buyPokemon.Move1ID = 18;
+				buyPokemon.Move2ID = 48;
+				buyPokemon.Move3ID = 0;
+				buyPokemon.Move4ID = 0;
+				buyPokemon.SmallSprite = PokemonDatabase.GetPokemonImageTypes(buyPokemon.DexID).NewBoxImage;
+				buyPokemon.BigSprite = PokemonDatabase.GetPokemonImageTypes(buyPokemon.DexID).Image;
+				buyPokemon.Title = "Zubat for Sale";
+				buyPokemon.Description = "Confuse your enemies as you whirl them away!";
+				buyPokemon.Requirements = "You must have $500 to buy this Pokémon.";
+				buyPokemon.AllowedGames = GameTypeFlags.Ruby | GameTypeFlags.Sapphire;
+				buyPokemon.CheckRequirements = new CheckEventRequirementsDelegate(delegate(IGameSave gameSave) {
+					return gameSave.Money >= 500;
+				});
+				RegisterEvent(buyPokemon);
+
+				buyPokemon = new BuyPokemonEventDistribution("APRIL FOOLS MAGIKARP [E]");
+				buyPokemon.Cost = 500;
+				buyPokemon.DexID = 129;
+				buyPokemon.Level = 5;
+				buyPokemon.Move1ID = 150;
+				buyPokemon.Move2ID = 0;
+				buyPokemon.Move3ID = 0;
+				buyPokemon.Move4ID = 0;
+				buyPokemon.SmallSprite = PokemonDatabase.GetPokemonImageTypes(buyPokemon.DexID).NewBoxImage;
+				buyPokemon.BigSprite = PokemonDatabase.GetPokemonImageTypes(buyPokemon.DexID).Image;
+				buyPokemon.Title = "Magikarp for Sale";
+				buyPokemon.Description = "A wise investment.";
+				buyPokemon.Requirements = "You must have $500 to buy this Pokémon.";
+				buyPokemon.AllowedGames = GameTypeFlags.Emerald;
+				buyPokemon.CheckRequirements = new CheckEventRequirementsDelegate(delegate(IGameSave gameSave) {
+					return gameSave.Money >= 500;
+				});
+				RegisterEvent(buyPokemon);
+
+				buyPokemon = new BuyPokemonEventDistribution("APRIL FOOLS RATTATA [FRLG]");
+				buyPokemon.Cost = 500;
+				buyPokemon.DexID = 19;
+				buyPokemon.Level = 5;
+				buyPokemon.Move1ID = 103;
+				buyPokemon.Move2ID = 207;
+				buyPokemon.Move3ID = 0;
+				buyPokemon.Move4ID = 0;
+				buyPokemon.SmallSprite = PokemonDatabase.GetPokemonImageTypes(buyPokemon.DexID).NewBoxImage;
+				buyPokemon.BigSprite = PokemonDatabase.GetPokemonImageTypes(buyPokemon.DexID).Image;
+				buyPokemon.Title = "Rattata for Sale";
+				buyPokemon.Description = "It's only in the top percentage of Rattata!";
+				buyPokemon.Requirements = "You must have $500 to buy this Pokémon.";
+				buyPokemon.AllowedGames = GameTypeFlags.FireRed | GameTypeFlags.LeafGreen;
+				buyPokemon.CheckRequirements = new CheckEventRequirementsDelegate(delegate(IGameSave gameSave) {
+					return gameSave.Money >= 500;
+				});
+				RegisterEvent(buyPokemon);
+			}
 		}
 
 		public static int NumEvents {
@@ -2240,8 +2368,9 @@ namespace PokemonManager {
 		}
 		public static void PlacePokemon(IPokeContainer container, int index) {
 			if (IsHoldingSingle) {
-				if (container[index] != null)
+				if (container[index] != null) {
 					throw new Exception("Error cannot place Pokemon where one already exists");
+				}
 				else {
 					container[index] = holdPokemon.Pokemon;
 					holdPokemon.Pokemon.IsMoving = false;
@@ -2256,6 +2385,8 @@ namespace PokemonManager {
 				holdPokemon.Pokemon.IsMoving = false;
 				if (holdPokemon.Container.Type == ContainerTypes.Party)
 					((IPokeParty)holdPokemon.Container).AddPokemon(holdPokemon.Pokemon);
+				else if (holdPokemon.Container.Type == ContainerTypes.Purifier && holdPokemon.Index > 0)
+					((XDPurificationChamber)holdPokemon.Container).AddPokemon(holdPokemon.Pokemon);
 				else
 					holdPokemon.Container[holdPokemon.Index] = holdPokemon.Pokemon;
 				holdPokemon = null;
@@ -2306,7 +2437,9 @@ namespace PokemonManager {
 
 			if (File.Exists(Path.Combine(ApplicationDirectory, "Gen 3", "YourPC.trigspc"))) {
 				try {
-					LoadSettings();
+					PokeManager.firstTimeStartingUp = false;
+					if (loaded)
+						LoadSettings();
 					customTrainerImage = LoadImage(Path.Combine(ApplicationDirectory, "Resources", "Trainer", "Trainer.png"), true);
 					try {
 						byte[] data = File.ReadAllBytes(Path.Combine(ApplicationDirectory, "Gen 3", "YourPC.trigspc"));
@@ -2341,7 +2474,8 @@ namespace PokemonManager {
 						try {
 							LoadMailbox();
 							try {
-								LoadSettings();
+								if (loaded)
+									LoadSettings();
 							}
 							catch (Exception ex) {
 								TriggerMessageBox.Show(managerWindow, "Error while trying to load Trigger's PC Settings\n\nException: " + ex.Message, "Load Error");
@@ -2934,6 +3068,7 @@ namespace PokemonManager {
 			PokeManager.gameSaveFiles = new List<GameSaveFileInfo>();
 			PokeManager.missingGameSaveFiles = new List<GameSaveFileInfo>();
 			if (File.Exists(path)) {
+				PokeManager.firstTimeStartingUp = false;
 
 				XmlDocument doc = new XmlDocument();
 				doc.Load(path);
@@ -3040,6 +3175,16 @@ namespace PokemonManager {
 
 				element = doc.GetElementsByTagName("KeepMissingFiles");
 				if (element.Count != 0) settings.KeepMissingFiles = bool.Parse(element[0].InnerText);
+
+				element = doc.GetElementsByTagName("AprilFoolsEnabled");
+				if (element.Count != 0) settings.AprilFoolsEnabled = bool.Parse(element[0].InnerText);
+
+				// Hidden Settings
+				element = doc.GetElementsByTagName("ForceAprilFools");
+				if (element.Count != 0) settings.ForceAprilFools = bool.Parse(element[0].InnerText);
+
+				element = doc.GetElementsByTagName("DebugMode");
+				if (element.Count != 0) settings.DebugMode = bool.Parse(element[0].InnerText);
 
 				settings.DisableChangesWhileLoading = false;
 				#endregion
@@ -3235,6 +3380,22 @@ namespace PokemonManager {
 				element = doc.CreateElement("KeepMissingFiles");
 				element.AppendChild(doc.CreateTextNode(settings.KeepMissingFiles.ToString()));
 				setting.AppendChild(element);
+
+				element = doc.CreateElement("AprilFoolsEnabled");
+				element.AppendChild(doc.CreateTextNode(settings.AprilFoolsEnabled.ToString()));
+				setting.AppendChild(element);
+
+				// Hidden Settings
+				if (settings.ForceAprilFools) {
+					element = doc.CreateElement("ForceAprilFools");
+					element.AppendChild(doc.CreateTextNode(settings.ForceAprilFools.ToString()));
+					setting.AppendChild(element);
+				}
+				if (settings.DebugMode) {
+					element = doc.CreateElement("DebugMode");
+					element.AppendChild(doc.CreateTextNode(settings.DebugMode.ToString()));
+					setting.AppendChild(element);
+				}
 				#endregion
 
 				#region SaveFiles
