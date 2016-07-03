@@ -19,6 +19,9 @@ namespace PokemonManager.PokemonStructures {
 		private XDPokeBox[] boxes;
 		private XDPokeParty party;
 		private XDDaycare daycare;
+		private XDPurificationChamber[] chambers;
+		private byte[] purifierRaw;
+		//private XDPurifier purifier;
 
 		#endregion
 
@@ -53,6 +56,9 @@ namespace PokemonManager.PokemonStructures {
 		}
 		public IPokeBox this[int index] {
 			get { return boxes[index]; }
+		}
+		public XDPurificationChamber GetChamber(int index) {
+			return chambers[index];
 		}
 		public IEnumerator<IPokemon> GetEnumerator() {
 			return new PokePCEnumerator(this);
@@ -116,6 +122,19 @@ namespace PokemonManager.PokemonStructures {
 		public void AddDaycare(byte[] data) {
 			this.daycare = new XDDaycare(this, data);
 		}
+		public void AddPurifier(byte[] data) {
+			this.purifierRaw = data;
+			this.chambers = new XDPurificationChamber[9];
+			for (int i = 0; i < 9; i++) {
+				this.chambers[i] = new XDPurificationChamber(this, (byte)i, ByteHelper.SubByteArray(i * 984, data, 984));
+			}
+		}
+		public byte[] GetPurifierFinalData() {
+			for (int i = 0; i < 9; i++) {
+				ByteHelper.ReplaceBytes(purifierRaw, i * 984, chambers[i].GetFinalData());
+			}
+			return purifierRaw;
+		}
 		public void ApplyGameType(GameTypes gameType) {
 			foreach (IPokeBox pokeBox in boxes) {
 				for (int i = 0; i < pokeBox.NumSlots; i++) {
@@ -125,6 +144,10 @@ namespace PokemonManager.PokemonStructures {
 			}
 			foreach (IPokemon pokemon in party)
 				pokemon.GameType = gameType;
+			for (int i = 0; i < 9; i++) {
+				foreach (IPokemon pokemon in chambers[i])
+					pokemon.GameType = gameType;
+			}
 		}
 
 		#endregion

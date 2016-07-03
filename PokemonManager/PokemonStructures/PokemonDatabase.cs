@@ -1165,6 +1165,12 @@ namespace PokemonManager.PokemonStructures {
 		}
 
 		public static BitmapSource GetPokemonImageFromDexID(ushort dexID, bool shiny, byte formID = byte.MaxValue) {
+			/*if (PokeManager.IsAprilFoolsMode) {
+				if (shiny)
+					return gen3PokemonImages[41].FRLGShinyImage;
+				else
+					return gen3PokemonImages[41].FRLGImage;
+			}*/
 			FrontSpriteSelectionTypes selectionType = PokeManager.Settings.UsedFrontSpritesType;
 			if (dexID == 0 || dexID == 327) { // Spinda and Missing No. keep their default sprites
 				selectionType = FrontSpriteSelectionTypes.RSE;
@@ -1202,6 +1208,17 @@ namespace PokemonManager.PokemonStructures {
 			}
 		}
 		public static BitmapImage GetPokemonBoxImageFromDexID(ushort dexID, bool isShiny, byte formID = byte.MaxValue) {
+			/*if (PokeManager.IsAprilFoolsMode) {
+				if (PokeManager.Settings.UseNewBoxSprites) {
+					if (isShiny)
+						return gen3PokemonImages[41].NewBoxShinyImage;
+					else
+						return gen3PokemonImages[41].NewBoxImage;
+				}
+				else {
+					return gen3PokemonImages[41].BoxImage;
+				}
+			}*/
 			Gen3PokemonImageTypes pokemonImages;
 			if (formID != byte.MaxValue)
 				pokemonImages = gen3PokemonFormImages[new DexFormID { DexID = dexID, FormID = formID }];

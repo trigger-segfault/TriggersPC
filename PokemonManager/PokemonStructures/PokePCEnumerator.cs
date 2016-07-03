@@ -18,13 +18,18 @@ namespace PokemonManager.PokemonStructures {
 			this.pokeIndex	= -1;
 		}
 
+		public XDPokePC XDPokePC {
+			get { return (XDPokePC)pokePC; }
+		}
 		public IPokemon Current {
 			get {
 				if (pokeIndex != -1) {
-					if (pokePC.Daycare != null && boxIndex == -2)
-						return pokePC.Daycare[pokeIndex];
-					if (pokePC.Party != null && boxIndex == -1)
+					if (pokePC.Party != null && boxIndex == -3)
 						return pokePC.Party[pokeIndex];
+					else if (pokePC.Daycare != null && boxIndex == -2)
+						return pokePC.Daycare[pokeIndex];
+					else if (pokePC is XDPokePC && boxIndex == -1)
+						return XDPokePC.GetChamber(pokeIndex / 5)[pokeIndex % 5];
 					else if (boxIndex < pokePC.NumBoxes)
 						return pokePC[boxIndex][pokeIndex];
 				}
@@ -32,6 +37,13 @@ namespace PokemonManager.PokemonStructures {
 			}
 		}
 		public bool MoveNext() {
+			if (boxIndex == -3) {
+				pokeIndex++;
+				if (pokePC.Party != null && pokeIndex < pokePC.Party.NumPokemon)
+					return true;
+				boxIndex++;
+				pokeIndex = -1;
+			}
 			if (boxIndex == -2) {
 				pokeIndex++;
 				if (pokePC.Daycare != null) {
@@ -41,14 +53,19 @@ namespace PokemonManager.PokemonStructures {
 						pokeIndex++;
 					}
 				}
-				boxIndex = -1;
+				boxIndex++;
 				pokeIndex = -1;
 			}
 			if (boxIndex == -1) {
 				pokeIndex++;
-				if (pokePC.Party != null && pokeIndex < pokePC.Party.NumPokemon)
-					return true;
-				boxIndex = 0;
+				if (pokePC is XDPokePC) {
+					while (pokeIndex < 9 * 5) {
+						if (XDPokePC.GetChamber(pokeIndex / 5)[pokeIndex % 5] != null)
+							return true;
+						pokeIndex++;
+					}
+				}
+				boxIndex++;
 				pokeIndex = -1;
 			}
 			while (boxIndex < pokePC.NumBoxes) {
@@ -64,7 +81,7 @@ namespace PokemonManager.PokemonStructures {
 			return false;
 		}
 		public void Reset() {
-			boxIndex	= -1;
+			boxIndex	= -3;
 			pokeIndex	= -1;
 		}
 

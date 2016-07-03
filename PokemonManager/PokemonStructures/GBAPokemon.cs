@@ -1607,6 +1607,8 @@ namespace PokemonManager.PokemonStructures {
 			return checksum;
 		}
 		public byte[] GetFinalEncryptedData() {
+			if (invalidBackup != null)
+				return invalidBackup.GetFinalEncryptedData();
 			byte[] rawData = raw.Clone() as byte[];
 			byte[] g = Encrypt(GrowthSubData);
 			byte[] a = Encrypt(AttacksSubData);
@@ -1618,6 +1620,8 @@ namespace PokemonManager.PokemonStructures {
 			return rawData;
 		}
 		public byte[] GetFinalDecryptedData() {
+			if (invalidBackup != null)
+				return invalidBackup.GetFinalDecryptedData();
 			LittleEndian.WriteUInt16(CalculateChecksum(), raw, 28);
 			return raw;
 		}

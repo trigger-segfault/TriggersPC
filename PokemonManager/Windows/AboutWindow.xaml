@@ -23,7 +23,7 @@
             </Rectangle.Fill>
         </Rectangle>
 
-        <Image HorizontalAlignment="Center" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" Width="100" Source="/TriggersPC;component/Resources/Splash.png"/>
+        <Image HorizontalAlignment="Center" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" Width="100" Source="/TriggersPC;component/Resources/Splash/Splash.png"/>
         <Rectangle Margin="10,242,10,0" Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Height="88" VerticalAlignment="Top"/>
         <Label Content="Available On:" HorizontalAlignment="Left" Margin="15,247,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
 

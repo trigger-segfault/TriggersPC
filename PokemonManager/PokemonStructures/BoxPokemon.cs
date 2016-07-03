@@ -60,6 +60,8 @@ namespace PokemonManager.PokemonStructures {
 
 		private byte[] raw;
 
+		private BoxPokemon invalidBackup;
+
 		#endregion
 
 		public BoxPokemon() {
@@ -1596,6 +1598,8 @@ namespace PokemonManager.PokemonStructures {
 			return checksum;
 		}
 		public byte[] GetFinalEncryptedData() {
+			if (invalidBackup != null)
+				return invalidBackup.GetFinalEncryptedData();
 			byte[] rawData = raw.Clone() as byte[];
 			byte[] g = Encrypt(GrowthSubData);
 			byte[] a = Encrypt(AttacksSubData);
@@ -1607,6 +1611,8 @@ namespace PokemonManager.PokemonStructures {
 			return rawData;
 		}
 		public byte[] GetFinalDecryptedData() {
+			if (invalidBackup != null)
+				return invalidBackup.GetFinalDecryptedData();
 			LittleEndian.WriteUInt16(CalculateChecksum(), raw, 28);
 			return raw;
 		}
@@ -2025,8 +2031,9 @@ namespace PokemonManager.PokemonStructures {
 
 			return pkm;
 		}
-		public static BoxPokemon CreateInvalidPokemon(GameTypes gameType = GameTypes.Any) {
+		public static BoxPokemon CreateInvalidPokemon(BoxPokemon invalidBackup, GameTypes gameType = GameTypes.Any) {
 			BoxPokemon pkm = new BoxPokemon();
+			pkm.invalidBackup = invalidBackup;
 
 			pkm.GameType = gameType;
 

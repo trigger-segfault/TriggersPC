@@ -31,7 +31,7 @@ namespace PokemonManager.PokemonStructures {
 					if (colopkm.IsValid)
 						party.Add(colopkm);
 					else
-						party.Add(ColosseumPokemon.CreateInvalidPokemon());
+						party.Add(ColosseumPokemon.CreateInvalidPokemon(colopkm));
 					party[party.Count - 1].PokeContainer = this;
 				}
 				else {

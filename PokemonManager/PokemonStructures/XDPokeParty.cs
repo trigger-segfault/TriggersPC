@@ -31,7 +31,7 @@ namespace PokemonManager.PokemonStructures {
 					if (xdpkm.IsValid)
 						party.Add(xdpkm);
 					else
-						party.Add(XDPokemon.CreateInvalidPokemon());
+						party.Add(XDPokemon.CreateInvalidPokemon(xdpkm));
 					party[party.Count - 1].PokeContainer = this;
 				}
 				else {

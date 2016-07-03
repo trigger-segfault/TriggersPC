@@ -1,4 +1,5 @@
 ﻿using PokemonManager.Game;
+using PokemonManager.Game.FileStructure.Gen3.GBA;
 using PokemonManager.PokemonStructures;
 using System;
 using System.Collections.Generic;
@@ -97,7 +98,7 @@ namespace PokemonManager.Windows {
 			if (e.Key == Key.Enter) {
 				DialogResult = true;
 				nickname = textBoxName.Text;
-				pokemon.Nickname = nickname;
+				pokemon.Nickname = GBACharacterEncoding.CheckString(nickname, pokemon.Language);
 				Close();
 			}
 		}

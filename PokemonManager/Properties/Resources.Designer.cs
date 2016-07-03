@@ -1541,16 +1541,6 @@ namespace PokemonManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MagikarpSplash {
-            get {
-                object obj = ResourceManager.GetObject("MagikarpSplash", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap MaleSecretBase0 {
             get {
                 object obj = ResourceManager.GetObject("MaleSecretBase0", resourceCulture);
@@ -2241,6 +2231,16 @@ namespace PokemonManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PurifierWindow {
+            get {
+                object obj = ResourceManager.GetObject("PurifierWindow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap RetroMail {
             get {
                 object obj = ResourceManager.GetObject("RetroMail", resourceCulture);
@@ -2814,6 +2814,86 @@ namespace PokemonManager.Properties {
         internal static System.Drawing.Bitmap Splash {
             get {
                 object obj = ResourceManager.GetObject("Splash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SplashCubone {
+            get {
+                object obj = ResourceManager.GetObject("SplashCubone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SplashElectabuzz {
+            get {
+                object obj = ResourceManager.GetObject("SplashElectabuzz", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SplashGengar {
+            get {
+                object obj = ResourceManager.GetObject("SplashGengar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SplashKecleon {
+            get {
+                object obj = ResourceManager.GetObject("SplashKecleon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SplashMagikarp {
+            get {
+                object obj = ResourceManager.GetObject("SplashMagikarp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SplashRayquaza {
+            get {
+                object obj = ResourceManager.GetObject("SplashRayquaza", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SplashUrsaring {
+            get {
+                object obj = ResourceManager.GetObject("SplashUrsaring", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SplashVoltorb {
+            get {
+                object obj = ResourceManager.GetObject("SplashVoltorb", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -4144,6 +4224,16 @@ namespace PokemonManager.Properties {
         internal static System.Drawing.Bitmap XDPhysical {
             get {
                 object obj = ResourceManager.GetObject("XDPhysical", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap YoungsterMale {
+            get {
+                object obj = ResourceManager.GetObject("YoungsterMale", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

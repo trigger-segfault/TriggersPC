@@ -913,9 +913,6 @@
   <data name="SpindaSpotTopRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pokemon\SpindaSpotTopRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Splash" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Splash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="WallpaperDefault" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UI\Wallpapers\WallpaperDefault.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1240,7 +1237,37 @@
   <data name="IconDefaults" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\IconDefaults.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MagikarpSplash" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MagikarpSplash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PurifierWindow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\Pokemon\PurifierWindow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Splash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Splash\Splash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SplashCubone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Splash\SplashCubone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SplashElectabuzz" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Splash\SplashElectabuzz.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SplashGengar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Splash\SplashGengar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SplashKecleon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Splash\SplashKecleon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SplashMagikarp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Splash\SplashMagikarp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SplashRayquaza" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Splash\SplashRayquaza.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SplashUrsaring" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Splash\SplashUrsaring.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SplashVoltorb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Splash\SplashVoltorb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="YoungsterMale" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Trainers\YoungsterMale.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

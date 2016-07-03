@@ -45,6 +45,8 @@ namespace PokemonManager.PokemonStructures {
 		private byte deoxysForm;
 		private byte[] raw;
 
+		private XDPokemon invalidBackup;
+
 		#endregion
 
 		public XDPokemon() {
@@ -1433,6 +1435,8 @@ namespace PokemonManager.PokemonStructures {
 		#endregion
 
 		public byte[] GetFinalData() {
+			if (invalidBackup != null)
+				return invalidBackup.raw;
 			return raw;
 		}
 
@@ -1831,8 +1835,9 @@ namespace PokemonManager.PokemonStructures {
 
 			return pkm;
 		}
-		public static XDPokemon CreateInvalidPokemon(GameTypes gameType = GameTypes.Any) {
+		public static XDPokemon CreateInvalidPokemon(XDPokemon invalidBackup, GameTypes gameType = GameTypes.Any) {
 			XDPokemon pkm = new XDPokemon();
+			pkm.invalidBackup = invalidBackup;
 
 			pkm.GameType = gameType;
 			pkm.IsInvalid = true;

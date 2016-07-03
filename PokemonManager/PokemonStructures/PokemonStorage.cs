@@ -48,7 +48,7 @@ namespace PokemonManager.PokemonStructures {
 						if (pkm.IsValid)
 							Add(pkm);
 						else
-							Add(BoxPokemon.CreateInvalidPokemon());
+							Add(BoxPokemon.CreateInvalidPokemon(pkm));
 						this[Count - 1].PokeContainer = container;
 					}
 					else {
@@ -68,7 +68,7 @@ namespace PokemonManager.PokemonStructures {
 						if (colopkm.IsValid)
 							Add(colopkm);
 						else
-							Add(ColosseumPokemon.CreateInvalidPokemon());
+							Add(ColosseumPokemon.CreateInvalidPokemon(colopkm));
 						this[Count - 1].PokeContainer = container;
 					}
 					else {
@@ -88,7 +88,7 @@ namespace PokemonManager.PokemonStructures {
 						if (xdpkm.IsValid)
 							Add(xdpkm);
 						else
-							Add(XDPokemon.CreateInvalidPokemon());
+							Add(XDPokemon.CreateInvalidPokemon(xdpkm));
 						this[Count - 1].PokeContainer = container;
 					}
 					else {

@@ -54,6 +54,8 @@ namespace PokemonManager.PokemonStructures {
 		private byte deoxysForm;
 		private byte[] raw;
 
+		private ColosseumPokemon invalidBackup;
+
 		#endregion
 
 		public ColosseumPokemon() {
@@ -1438,6 +1440,8 @@ namespace PokemonManager.PokemonStructures {
 		#endregion
 
 		public byte[] GetFinalData() {
+			if (invalidBackup != null)
+				return invalidBackup.raw;
 			return raw;
 		}
 
@@ -1836,8 +1840,9 @@ namespace PokemonManager.PokemonStructures {
 
 			return pkm;
 		}
-		public static ColosseumPokemon CreateInvalidPokemon(GameTypes gameType = GameTypes.Any) {
+		public static ColosseumPokemon CreateInvalidPokemon(ColosseumPokemon invalidBackup, GameTypes gameType = GameTypes.Any) {
 			ColosseumPokemon pkm = new ColosseumPokemon();
+			pkm.invalidBackup = invalidBackup;
 
 			pkm.GameType = gameType;
 			pkm.IsInvalid = true;

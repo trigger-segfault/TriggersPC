@@ -40,7 +40,7 @@ namespace PokemonManager.PokemonStructures {
 					if (pkm.IsValid)
 						pokemonList[i] = pkm;
 					else
-						pokemonList[i] = BoxPokemon.CreateInvalidPokemon(GameTypes.PokemonBox);
+						pokemonList[i] = BoxPokemon.CreateInvalidPokemon(pkm);
 					pokemonList[i].PokeContainer = this;
 				}
 			}
