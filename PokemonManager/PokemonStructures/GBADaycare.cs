@@ -121,6 +121,18 @@ namespace PokemonManager.PokemonStructures {
 
 		#region Pokemon Accessors
 
+		public void CancelLearnedMoves(int index) {
+			for (int i = 0; i < 4; i++) {
+				finalPokemon[index].SetMoveAt(i, originalPokemon[index].GetMoveAt(i));
+			}
+		}
+		public bool HasLearnedNewMoves(int index) {
+			for (int i = 0; i < 4; i++) {
+				if (finalPokemon[index].GetMoveIDAt(i) != originalPokemon[index].GetMoveIDAt(i))
+					return true;
+			}
+			return false;
+		}
 		public IPokemon this[int index] {
 			get { return finalPokemon[index]; }
 			set {

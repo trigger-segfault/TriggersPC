@@ -882,10 +882,20 @@ namespace PokemonManager.Windows {
 										daycareResult = MessageBoxResult.Cancel;
 									}
 								}
+								if (daycareResult == MessageBoxResult.OK && pkm.PokeContainer is GBADaycare) {
+									GBADaycare daycare = (GBADaycare)pkm.PokeContainer;
+									if (daycare.HasLearnedNewMoves(pkm.ContainerIndex)) {
+										daycareResult = TriggerMessageBox.Show(Window.GetWindow(this), "Would you like to keep the new moves " + pkm.Nickname + " has learned in the daycare?", "Keep New Moves", MessageBoxButton.YesNo);
+										if (daycareResult == MessageBoxResult.No) {
+											daycare.CancelLearnedMoves(pkm.ContainerIndex);
+											PokemonViewer.RefreshUI();
+										}
+									}
+								}
 							}
 						}
 
-						if (daycareResult == MessageBoxResult.OK) {
+						if (daycareResult != MessageBoxResult.Cancel) {
 							IPokemon switchPokemon = PokeManager.HoldPokemon.Pokemon;
 							PokeManager.SwitchPokemon(pkm);
 							if (refreshAll) {
@@ -913,16 +923,26 @@ namespace PokemonManager.Windows {
 							if (pkm.GameSave.Money >= cost) {
 								daycareResult = TriggerMessageBox.Show(Window.GetWindow(this), "If you would like to take back " + pkm.Nickname + " from the daycare, it will cost $" + cost.ToString("#,0"), "Daycare Fee", MessageBoxButton.OKCancel);
 								if (daycareResult == MessageBoxResult.OK)
-								pkm.GameSave.Money -= cost;
+									pkm.GameSave.Money -= cost;
 							}
 							else {
 								TriggerMessageBox.Show(Window.GetWindow(this), "You do not have enough Pokédollars to withdraw " + pkm.Nickname + ". You need $" + cost.ToString("#,0"), "Not Enough Money");
 								daycareResult = MessageBoxResult.Cancel;
 							}
 						}
+						if (daycareResult == MessageBoxResult.OK && pkm.PokeContainer is GBADaycare) {
+							GBADaycare daycare = (GBADaycare)pkm.PokeContainer;
+							if (daycare.HasLearnedNewMoves(pkm.ContainerIndex)) {
+								daycareResult = TriggerMessageBox.Show(Window.GetWindow(this), "Would you like to keep the new moves " + pkm.Nickname + " has learned in the daycare?", "Keep New Moves", MessageBoxButton.YesNo);
+								if (daycareResult == MessageBoxResult.No) {
+									daycare.CancelLearnedMoves(pkm.ContainerIndex);
+									PokemonViewer.RefreshUI();
+								}
+							}
+						}
 					}
 
-					if (daycareResult == MessageBoxResult.OK) {
+					if (daycareResult != MessageBoxResult.Cancel) {
 						if (PokeManager.IsPokemonSelected(pkm))
 							PokeManager.PickupSelection(this);
 						else if (PokeManager.CanPickupPokemon(pkm))
