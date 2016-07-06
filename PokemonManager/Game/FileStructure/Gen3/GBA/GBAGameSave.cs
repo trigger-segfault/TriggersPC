@@ -422,10 +422,36 @@ namespace PokemonManager.Game.FileStructure.Gen3.GBA {
 
 		#endregion
 	}
+	public class DataString {
+		public byte[] Raw;
+		public int StartIndex;
+		public int Length;
+
+		public DataString(byte[] raw, int startIndex, int length) {
+			this.Raw = raw;
+			this.StartIndex = startIndex;
+			this.Length = length;
+		}
+
+		public byte this[int index] {
+			get { return Raw[StartIndex + index]; }
+			set { Raw[StartIndex + index] = value; }
+		}
+		public override string ToString() {
+			string text = this[0].ToString("X");
+			for (int i = 1; i < Length; i++)
+				text += ", " + this[i].ToString("X");
+			return text;
+		}
+	}
 
 	public class DifferenceData {
 		public int StartIndex;
 		public int Length;
+		public DataString Data1;
+		public DataString Data2;
+		public DataString Data3;
+		public DataString Data4;
 
 		public DifferenceData(int startIndex) {
 			this.StartIndex = startIndex;

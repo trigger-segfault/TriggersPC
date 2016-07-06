@@ -216,6 +216,8 @@ namespace PokemonManager.Windows {
 
 			buttonEVTraining.IsEnabled = false;
 			buttonFixEReader.IsEnabled = false;
+			buttonWipeCondition.IsEnabled = false;
+			buttonWipeRibbons.IsEnabled = false;
 
 			this.typeHiddenPower.Visibility = Visibility.Hidden;
 			this.labelHiddenPowerDamage.Content = "";
@@ -713,6 +715,30 @@ namespace PokemonManager.Windows {
 
 			buttonEVTraining.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && !pokemon.IsEgg && !pokemon.IsShadowPokemon && pokemon.Level > 95;
 
+			buttonWipeCondition.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && !pokemon.IsEgg &&
+				(pokemon.Coolness > 0 || pokemon.Beauty > 0 || pokemon.Cuteness > 0 || pokemon.Smartness > 0 || pokemon.Toughness > 0 || pokemon.Feel > 0);
+
+			// Exlude national ribbon
+			bool hasRibbons =
+				pokemon.CoolRibbonCount > 0 ||
+				pokemon.BeautyRibbonCount > 0 ||
+				pokemon.CuteRibbonCount > 0 ||
+				pokemon.SmartRibbonCount > 0 ||
+				pokemon.ToughRibbonCount > 0 ||
+				pokemon.HasArtistRibbon ||
+				pokemon.HasChampionRibbon ||
+				pokemon.HasCountryRibbon ||
+				pokemon.HasEarthRibbon ||
+				pokemon.HasEffortRibbon ||
+				pokemon.HasLandRibbon ||
+				pokemon.HasMarineRibbon ||
+				pokemon.HasSkyRibbon ||
+				pokemon.HasVictoryRibbon ||
+				pokemon.HasWinningRibbon ||
+				pokemon.HasWorldRibbon;
+
+			buttonWipeRibbons.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && !pokemon.IsEgg && hasRibbons;
+
 			SetCurrentMove(-1);
 			Random random = new Random((int)DateTime.Now.Ticks);
 		}
@@ -880,7 +906,7 @@ namespace PokemonManager.Windows {
 				PokeManager.DropAll();
 				PokeManager.RefreshUI();
 			}
-			MessageBoxResult boxResult = TriggerMessageBox.Show(Window.GetWindow(this), "Are you sure you want to wipe " + pokemon.Nickname + "'s EV's?", "Wipe EVs", MessageBoxButton.YesNo);
+			MessageBoxResult boxResult = TriggerMessageBox.Show(Window.GetWindow(this), "Are you sure you want to wipe " + pokemon.Nickname + "'s EVs?", "Wipe EVs", MessageBoxButton.YesNo);
 			if (boxResult == MessageBoxResult.No)
 				return;
 			pokemon.WipeEVs();
@@ -1294,6 +1320,56 @@ namespace PokemonManager.Windows {
 			RefreshUI();
 			PokeManager.ManagerWindow.RefreshSearchResultsUI();
 			TriggerMessageBox.Show(Window.GetWindow(this), pokemon.Nickname + "'s stats have been randomized", "Fix e-Reader Shadow Pokémon");
+		}
+
+		private void OnWipeRibbonsClicked(object sender, RoutedEventArgs e) {
+			if (PokeManager.IsHoldingPokemon) {
+				PokeManager.DropAll();
+				PokeManager.RefreshUI();
+			}
+			MessageBoxResult result = TriggerMessageBox.Show(Window.GetWindow(this), "Are you sure you want to remove " + pokemon.Nickname + "'s Ribbons?" + (pokemon.HasNationalRibbon ? "\nNote: The National Ribbon will not be removed" : ""), "Remove Ribbons", MessageBoxButton.YesNo);
+			if (result == MessageBoxResult.No)
+				return;
+			pokemon.CoolRibbonCount = 0;
+			pokemon.BeautyRibbonCount = 0;
+			pokemon.CuteRibbonCount = 0;
+			pokemon.SmartRibbonCount = 0;
+			pokemon.ToughRibbonCount = 0;
+			pokemon.HasArtistRibbon = false;
+			pokemon.HasChampionRibbon = false;
+			pokemon.HasCountryRibbon = false;
+			pokemon.HasEarthRibbon = false;
+			pokemon.HasEffortRibbon = false;
+			pokemon.HasLandRibbon = false;
+			pokemon.HasMarineRibbon = false;
+			pokemon.HasSkyRibbon = false;
+			pokemon.HasVictoryRibbon = false;
+			pokemon.HasWinningRibbon = false;
+			pokemon.HasWorldRibbon = false;
+
+			RefreshUI();
+			PokeManager.ManagerWindow.RefreshSearchResultsUI();
+			TriggerMessageBox.Show(Window.GetWindow(this), pokemon.Nickname + "'s Ribbons have been removed", "Ribbons Removed");
+		}
+
+		private void OnWipeConditionClicked(object sender, RoutedEventArgs e) {
+			if (PokeManager.IsHoldingPokemon) {
+				PokeManager.DropAll();
+				PokeManager.RefreshUI();
+			}
+			MessageBoxResult result = TriggerMessageBox.Show(Window.GetWindow(this), "Are you sure you want to wipe " + pokemon.Nickname + "'s condition?", "Wipe Condition", MessageBoxButton.YesNo);
+			if (result == MessageBoxResult.No)
+				return;
+			pokemon.Coolness = 0;
+			pokemon.Beauty = 0;
+			pokemon.Cuteness = 0;
+			pokemon.Smartness = 0;
+			pokemon.Toughness = 0;
+			pokemon.Feel = 0;
+
+			RefreshUI();
+			PokeManager.ManagerWindow.RefreshSearchResultsUI();
+			TriggerMessageBox.Show(Window.GetWindow(this), pokemon.Nickname + "'s condition has been wiped", "Condition Wiped");
 		}
 	}
 }

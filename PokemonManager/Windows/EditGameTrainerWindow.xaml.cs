@@ -113,8 +113,8 @@ namespace PokemonManager.Windows {
 
 			if (setName || setGender) {
 				MessageBoxResult result = TriggerMessageBox.Show(this, "Warning: Renaming a trainer or changing their gender will also change the OT Trainer of every Pokémon caught by this trainer in all saves. Are you sure you want to continue?", "Warning", MessageBoxButton.YesNo);
-				if (result == MessageBoxResult.Yes && (gameSave.GameType == GameTypes.Ruby || gameSave.GameType == GameTypes.Sapphire || gameSave.GameType == GameTypes.Emerald))
-					result = TriggerMessageBox.Show(this, "Warning: Certain scripts may act incorrectly if you change your gender. This includes after you beat the Elite Four where you will get stuck in a wall. Are you sure you want to continue?", "Warning", MessageBoxButton.YesNo);
+				//if (result == MessageBoxResult.Yes && (gameSave.GameType == GameTypes.Ruby || gameSave.GameType == GameTypes.Sapphire || gameSave.GameType == GameTypes.Emerald))
+				//	result = TriggerMessageBox.Show(this, "Warning: Certain scripts may act incorrectly if you change your gender. This includes after you beat the Elite Four where you will get stuck in a wall. Are you sure you want to continue?", "Warning", MessageBoxButton.YesNo);
 
 				if (result == MessageBoxResult.Yes) {
 					if (setName)

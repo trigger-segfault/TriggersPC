@@ -14,7 +14,7 @@ namespace PokemonManager.PokemonStructures {
 
 		public PokePCEnumerator(IPokePC pokePC) {
 			this.pokePC		= pokePC;
-			this.boxIndex	= -2;
+			this.boxIndex	= -3;
 			this.pokeIndex	= -1;
 		}
 

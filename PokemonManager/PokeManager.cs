@@ -1217,60 +1217,56 @@ namespace PokemonManager {
 
 			LoadPokeManager();
 #if DEBUG
-			/*GCGameSave pre = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\2 pre.gci");
-			GCGameSave missed = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\2 missed.gci");
-			GCGameSave snagged = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\2 snagged.gci");
-			GCGameSave pre2 = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\3 pre.gci");
-			GCGameSave missed2 = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\3 missed.gci");
-			GCGameSave snagged2 = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\XD Saves\3 snagged.gci");
-			//GCGameSave mySave = new GCGameSave(@"C:\Users\Jrob\Documents\Dolphin Emulator\GC\USA\01-GC6E-pokemon_colosseum.gci");
-			//GCGameSave purified = new GCGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\ColosseumJapaneseAras.gci");
-			//GCGameSave purified = new GCGameSave(@"C:\Users\Jrob\Documents\Dolphin Emulator\GC\USA\Suicune Unpurified.gci");
+			/*GBAGameSave boy = new GBAGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Gender Saves\Emerald Male.sav");
+			GBAGameSave girl = new GBAGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Gender Saves\Emerald Female.sav");
+			GBAGameSave boy2 = new GBAGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Gender Saves\Emerald Male2.sav");
+			GBAGameSave girl2 = new GBAGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Gender Saves\Emerald Female2.sav");
+			GBAGameSave boy3 = new GBAGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Gender Saves\Emerald Male3.sav");
+			GBAGameSave girl3 = new GBAGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Gender Saves\Emerald Female3.sav");
 
-			byte[] rawPre = pre.MostRecentSave.ShadowPokemonData.Raw;
-			byte[] rawMissed = missed.MostRecentSave.ShadowPokemonData.Raw;
-			byte[] rawSnagged = snagged.MostRecentSave.ShadowPokemonData.Raw;
-			byte[] rawPre2 = pre2.MostRecentSave.ShadowPokemonData.Raw;
-			byte[] rawMissed2 = missed2.MostRecentSave.ShadowPokemonData.Raw;
-			byte[] rawSnagged2 = snagged2.MostRecentSave.ShadowPokemonData.Raw;
+			var blocksBoy = boy.MostRecentSave.BlockDataCollection;
+			var blocksGirl = girl.MostRecentSave.BlockDataCollection;
+			var blocksBoy2 = boy2.MostRecentSave.BlockDataCollection;
+			var blocksGirl2 = girl2.MostRecentSave.BlockDataCollection;
+			var blocksBoy3 = boy3.MostRecentSave.BlockDataCollection;
+			var blocksGirl3 = girl3.MostRecentSave.BlockDataCollection;
 
-			var difData1 = FindDifferenceData(rawPre, rawMissed);
-			var difData2 = FindDifferenceData(rawMissed, rawSnagged);
-			var difData3 = FindDifferenceData(rawPre2, rawMissed2);
-			var difData4 = FindDifferenceData(rawMissed2, rawSnagged2);
+			Dictionary<SectionTypes, List<DifferenceData>> differenceData = new Dictionary<SectionTypes, List<DifferenceData>>();
 
-			for (int i = 0; i < rawMissed.Length - 4; i++) {
-				if (BigEndian.ToUInt32(rawMissed, i) == 3735586821)
-					Console.WriteLine(i);
-				if (BigEndian.ToUInt32(rawSnagged, i) == 1622014653)
-					Console.WriteLine(i);
-				if (BigEndian.ToUInt32(rawSnagged2, i) == 488928609)
-					Console.WriteLine(i);
+			foreach (SectionTypes sectionType in Enum.GetValues(typeof(SectionTypes))) {
+				if (sectionType >= SectionTypes.PCBufferA && sectionType <= SectionTypes.PCBufferI)
+					continue;
+				byte[] rawBoy = blocksBoy.GetBlockData(sectionType).Raw;
+				byte[] rawGirl = blocksGirl.GetBlockData(sectionType).Raw;
+				byte[] rawBoy2 = blocksBoy2.GetBlockData(sectionType).Raw;
+				byte[] rawGirl2 = blocksGirl2.GetBlockData(sectionType).Raw;
+				byte[] rawBoy3 = blocksBoy3.GetBlockData(sectionType).Raw;
+				byte[] rawGirl3 = blocksGirl3.GetBlockData(sectionType).Raw;
+				differenceData.Add(sectionType, new List<DifferenceData>());
+
+				DifferenceData difference = null;
+				for (int i = 0; i < SectionIDTable.GetContents(sectionType); i++) {
+					if (rawBoy[i] != rawGirl[i] && rawBoy[i] == rawBoy2[i] && rawGirl[i] == rawGirl2[i]) {
+						if (difference == null)
+							difference = new DifferenceData(i);
+						else
+							difference.Length++;
+					}
+					else if (difference != null) {
+						difference.Data1 = new DataString(rawBoy, difference.StartIndex, difference.Length);
+						difference.Data2 = new DataString(rawGirl, difference.StartIndex, difference.Length);
+						difference.Data3 = new DataString(rawBoy3, difference.StartIndex, difference.Length);
+						difference.Data4 = new DataString(rawGirl3, difference.StartIndex, difference.Length);
+						differenceData[sectionType].Add(difference);
+						difference = null;
+					}
+				}
 			}
-
-			Console.WriteLine(difData1.ToString() + difData2 + difData3 + difData4);
-
-			snagged2.Save(@"C:\Users\Jrob\Documents\Dolphin Emulator\GC\USA\Card A\XD.gci");*/
-
-			//GBAGameSave emSave = new GBAGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Real Saves\Emerald - EMERALD.sav");
-			//GBAGameSave emSave = new GBAGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Real Saves\FireRed - RED.sav");
-			/*GBAGameSave emSave = new GBAGameSave(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Real Saves\Sapphire - SAPPHIR.sav");
-
-			var blocks1 = emSave.MostRecentSave.BlockDataCollection;
-			var blocks2 = emSave.LeastRecentSave.BlockDataCollection;
-
-			var difData = FindDifferenceData(blocks1, blocks2);
-
-			bool flag1 = blocks1.GetGameFlag(0x86);
-			bool flag2 = blocks2.GetGameFlag(0x86);
-
-			Console.Write(difData.ToString() + flag1 + flag2);
-
-			//emSave.SetGameFlag(0x86, false);
-			//emSave.Save(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Real Saves\Emerald - EMERALD2.sav");
-			//emSave.Save(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Real Saves\FireRed - RED2.sav");
-			emSave.Save(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Real Saves\Sapphire - SAPPHIR2.sav");*/
-			//Environment.Exit(0);
+			Console.WriteLine(differenceData.ToString());
+			boy3.TrainerGender = Genders.Female;
+			
+			boy3.Save(@"C:\Users\Jrob\My Projects\C#\PokemonManager\Saves\Gender Saves\Emerald Test.sav");
+			Environment.Exit(0);*/
 #endif
 
 			#region Stuff 2 - Electric Boogaloo
@@ -1774,6 +1770,8 @@ namespace PokemonManager {
 						difference.Length++;
 				}
 				else if (difference != null) {
+					difference.Data1 = new DataString(data1, difference.StartIndex, difference.Length);
+					difference.Data2 = new DataString(data2, difference.StartIndex, difference.Length);
 					differenceData.Add(difference);
 					difference = null;
 				}
@@ -1830,6 +1828,8 @@ namespace PokemonManager {
 							difference.Length++;
 					}
 					else if (difference != null) {
+						difference.Data1 = new DataString(least.Raw, difference.StartIndex, difference.Length);
+						difference.Data2 = new DataString(most.Raw, difference.StartIndex, difference.Length);
 						differenceData[sectionType].Add(difference);
 						difference = null;
 					}

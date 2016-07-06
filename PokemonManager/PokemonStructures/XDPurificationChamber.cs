@@ -161,6 +161,10 @@ namespace PokemonManager.PokemonStructures {
 				else
 					ByteHelper.ReplaceBytes(raw, i * 196, new byte[196]);
 			}
+			if (shadowPokemon != null)
+				ByteHelper.ReplaceBytes(raw, 4 * 196, shadowPokemon.GetFinalData());
+			else
+				ByteHelper.ReplaceBytes(raw, 4 * 196, new byte[196]);
 			ByteHelper.ReplaceBytes(raw, 5 * 196, new byte[4]);
 			return raw;
 		}

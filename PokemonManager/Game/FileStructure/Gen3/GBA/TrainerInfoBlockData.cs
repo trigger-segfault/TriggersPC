@@ -28,6 +28,26 @@ namespace PokemonManager.Game.FileStructure {
 			set {
 				raw[8] = (byte)value;
 				parent.NationalPokedexBAndC.SecretBaseTrainerGender = value;
+
+				// Set the flags for visible sprites at the two houses.
+				bool genderFlag = value == Genders.Male;
+				// True means the sprite is hidden
+				if (GameCode == GameCodes.RubySapphire || GameCode == GameCodes.Emerald) {
+					// Your Mom
+					parent.SetGameFlag(0x2F6, !genderFlag); // If Male
+					parent.SetGameFlag(0x2F7, genderFlag); // If Female
+					// Neighbor's Mom
+					parent.SetGameFlag(0x310, genderFlag); // If Female
+					parent.SetGameFlag(0x311, !genderFlag); // If Male
+				}
+				if (GameCode == GameCodes.Emerald) {
+					// Little Kid at Neighbor's House
+					parent.SetGameFlag(0x2DF, genderFlag); // If Female
+					parent.SetGameFlag(0x2E0, !genderFlag); // If Male
+					// Doll in Rival's Bedroom
+					parent.SetGameFlag(0x32F, genderFlag); // If Female
+					parent.SetGameFlag(0x351, !genderFlag); // If Male
+				}
 			}
 		}
 		public ushort TrainerID {

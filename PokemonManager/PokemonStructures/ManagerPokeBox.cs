@@ -59,7 +59,7 @@ namespace PokemonManager.PokemonStructures {
 			}
 			else if (version == 2) {
 				for (int i = 0; i < 30; i++) {
-					GBAPokemon pkm = new GBAPokemon(ByteHelper.SubByteArray(i * 100, storage, 100));
+					GBAPokemon pkm = new GBAPokemon(ByteHelper.SubByteArray(i * 100, storage, 80));
 					if (!ByteHelper.CompareBytes(0, pkm.Raw)) {
 						if (pkm.IsValid) {
 							pokemonList[i] = pkm;
