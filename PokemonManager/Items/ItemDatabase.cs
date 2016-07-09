@@ -281,7 +281,7 @@ namespace PokemonManager.Items {
 		public static BitmapSource GetItemImageFromID(ushort id) {
 			if (gen3ImageMap.ContainsKey(id))
 				return gen3ImageMap[id];
-			return null;
+			return gen3ImageMap[0];
 		}
 
 		public static DecorationData GetDecorationFromID(byte id) {
@@ -311,7 +311,7 @@ namespace PokemonManager.Items {
 		public static ItemData GetItemFromID(ushort id) {
 			if (gen3ItemMap.ContainsKey(id))
 				return gen3ItemMap[id];
-			return null;
+			return gen3ItemMap[0];
 		}
 
 		public static bool ContainsItemWithID(ushort id) {

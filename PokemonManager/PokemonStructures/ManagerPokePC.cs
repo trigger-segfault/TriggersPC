@@ -176,7 +176,7 @@ namespace PokemonManager.PokemonStructures {
 			};
 			Random random = new Random((int)DateTime.Now.Ticks);
 			byte wallpaper = possibilities[random.Next(possibilities.Length)];
-			boxes.Insert(index, new ManagerPokeBox(this, (byte)boxes.Count, "BOX" + (boxes.Count + 1).ToString(), (PokeBoxWallpapers)wallpaper));
+			InsertBox(index, new ManagerPokeBox(this, (byte)boxes.Count, "BOX" + (boxes.Count + 1).ToString(), (PokeBoxWallpapers)wallpaper));
 		}
 		public void InsertBox(int index, ManagerPokeBox box) {
 			GameSave.IsChanged = true;

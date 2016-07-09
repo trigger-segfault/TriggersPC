@@ -2173,6 +2173,18 @@ namespace PokemonManager {
 			}
 		}
 
+		public static bool CanSafelyPlaceHeldUnknownItem(IPokeContainer container) {
+			if (IsHoldingSingle) {
+				return holdPokemon.Pokemon.HeldItemID == 0 || holdPokemon.Pokemon.HeldItemData.ID != 0 || holdPokemon.Pokemon.GameSave == container.GameSave;
+			}
+			else if (IsHoldingSelection) {
+				foreach (PokemonLocation pokemon in selectedPokemon) {
+					if (pokemon.Pokemon.HeldItemID != 0 && pokemon.Pokemon.HeldItemData.ID == 0 && pokemon.Pokemon.GameSave != container.GameSave)
+						return false;
+				}
+			}
+			return true;
+		}
 		public static bool IsHoldingPokemon {
 			get { return holdPokemon != null; }
 		}
@@ -2207,6 +2219,9 @@ namespace PokemonManager {
 				foreach (PokemonLocation pokemon in selectedPokemon) {
 					container.PokePC.PlacePokemonInNextAvailableSlot(container is IPokeBox ? (int)((IPokeBox)container).BoxNumber : -1, index, pokemon.Pokemon);
 					pokemon.Pokemon.IsMoving = false;
+				}
+				for (int i = 0; i < selectedPokemon.Count; i++) {
+					selectedPokemon[i] = new PokemonLocation(selectedPokemon[i].Pokemon.PokemonFinder.Pokemon);
 				}
 				holdPokemon = null;
 				if (holdAdorner != null)

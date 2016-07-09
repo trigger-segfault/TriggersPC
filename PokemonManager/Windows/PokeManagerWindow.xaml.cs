@@ -237,7 +237,10 @@ namespace PokemonManager.Windows {
 
 		private void OnTick(object sender, EventArgs e) {
 			// Don't do this while dialog windows are opened.
-			if (this.OwnedWindows.Count == 0) {
+			/*foreach (Window window in this.OwnedWindows) {
+				if (
+			}*/
+			if (!System.Windows.Interop.ComponentDispatcher.IsThreadModal) {//this.OwnedWindows.Count == 0) {
 				bool changesMade = false;
 				List<IGameSave> changedGames = new List<IGameSave>();
 				for (int i = 0; i < PokeManager.NumGameSaves; i++) {
@@ -253,7 +256,7 @@ namespace PokemonManager.Windows {
 				if (changesMade) {
 					MessageBoxResult result = TriggerMessageBox.Show(this,
 						"Changes have been made to one or more of the loaded save files outside of Trigger's PC, would you like to reload all saves?" +
-						"\n\nWarning:If you have saved changes to the modified games since running the games you could end up with save conflicts if you do reload",
+						"\n\nWarning: If you have saved changes to the modified games since running the games you could end up with save conflicts if you do reload",
 						"Changes Detected", MessageBoxButton.YesNo
 					);
 					if (result == MessageBoxResult.Yes && PokeManager.IsChanged)
@@ -331,12 +334,13 @@ namespace PokemonManager.Windows {
 			PokeManager.IsReloading = true;
 			if (PokemonSearchWindow != null)
 				PokemonSearchWindow.Close();
-			pokemonViewer.Reload();
 			loaded = false;
-			comboBoxGameSaves.ReloadGameSaves();
-			comboBoxGameSaves.SelectedGameIndex = PokeManager.Settings.IsValidDefaultGame ? PokeManager.Settings.DefaultGame : -1;
+			comboBoxGameSaves.ReloadGameSaves(true);
+			//comboBoxGameSaves.SelectedGameIndex = PokeManager.Settings.IsValidDefaultGame ? PokeManager.Settings.DefaultGame : -1;
 			loaded = true;
-			LoadGame(PokeManager.Settings.IsValidDefaultGame ? PokeManager.Settings.DefaultGame : -1);
+			pokemonViewer.gameSave = comboBoxGameSaves.SelectedGameSave;
+			pokemonViewer.ReloadGames();
+			LoadGame(comboBoxGameSaves.SelectedGameIndex);
 			PokeManager.IsReloading = false;
 		}
 		public void FinishActions() {
@@ -440,7 +444,7 @@ namespace PokemonManager.Windows {
 					ErrorMessageBox.Show(ex);
 				}
 				else {
-					MessageBoxResult result = TriggerMessageBox.Show(this, "An error occured while displaying this game save. The save may be corrupted or this may have been an error on Trigger's PC's end. Would you like to view the full exception?", "Load Error", MessageBoxButton.YesNo);
+					MessageBoxResult result = TriggerMessageBox.Show(this, "An error occured while displaying this game save. The save may be corrupted or this may have been an error on Trigger's PC's end. Would you like to see the error?", "Load Error", MessageBoxButton.YesNo);
 					if (result == MessageBoxResult.Yes)
 						ErrorMessageBox.Show(ex);
 					LoadGame(-1);

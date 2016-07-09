@@ -646,7 +646,7 @@ namespace PokemonManager.Windows {
 			buttonMoves.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && !pokemon.IsEgg && !pokemon.IsShadowPokemon;
 			if (pokemon.IsHoldingItem) {
 				buttonGive.Content = "Take Item";
-				buttonGive.IsEnabled = !DisableEditing && !pokemon.IsInDaycare;
+				buttonGive.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && pokemon.HeldItemData.ID != 0;
 			}
 			else {
 				buttonGive.Content = "Give Item";

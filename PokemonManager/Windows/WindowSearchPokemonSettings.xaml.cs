@@ -228,6 +228,8 @@ namespace PokemonManager.Windows {
 			AddComboBoxItem(comboBoxSortMethod, "Level", (int)SortMethods.Level);
 			AddComboBoxItem(comboBoxSortMethod, "Friendship", (int)SortMethods.Friendship);
 			AddComboBoxItem(comboBoxSortMethod, "Hatch Counter", (int)SortMethods.HatchCounter);
+			AddComboBoxItem(comboBoxSortMethod, "Type", (int)SortMethods.Type);
+			AddComboBoxItem(comboBoxSortMethod, "Hidden Power Type", (int)SortMethods.HiddenPowerType);
 			AddComboBoxItem(comboBoxSortMethod, "Hidden Power Damage", (int)SortMethods.HiddenPowerDamage);
 			AddComboBoxItem(comboBoxSortMethod, "Total Stats", (int)SortMethods.TotalStats);
 			AddComboBoxItem(comboBoxSortMethod, "Total IVs", (int)SortMethods.TotalIVs);

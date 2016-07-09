@@ -82,7 +82,9 @@ namespace PokemonManager.Windows {
 			}
 				
 		}
-		public void ReloadGameSaves() {
+		public void ReloadGameSaves(bool keepIndex = false) {
+			int previousSelectedIndex = SelectedIndex;
+			bool hasPreviousIndex = false;
 			Items.Clear();
 
 			if (!DesignerProperties.GetIsInDesignMode(this)) {
@@ -90,9 +92,14 @@ namespace PokemonManager.Windows {
 					ComboBoxItem comboBoxItem = new ComboBoxItem();
 					FillComboBoxItem(i, comboBoxItem);
 					Items.Add(comboBoxItem);
+					if (i + 1 == previousSelectedIndex)
+						hasPreviousIndex = true;
 				}
 			}
-			SelectedIndex = 0;
+			if (keepIndex && hasPreviousIndex)
+				SelectedIndex = previousSelectedIndex;
+			else
+				SelectedIndex = 0;
 		}
 		public void ResetGameSaveVisibility() {
 			for (int i = -1; i < PokeManager.NumGameSaves; i++) {

@@ -175,9 +175,10 @@ namespace PokemonManager.Windows {
 		}
 		private void OnEditBox(object sender, RoutedEventArgs e) {
 			if (selectedBox != null) {
-				var result = EditBoxWindow.ShowDialog(this, selectedBox);
+				var result = EditBoxWindow.ShowDialog(this, selectedBox, true);
 				if (result.HasValue && result.Value) {
 					((Label)((StackPanel)boxes[selectedIndex].Content).Children[1]).Content = selectedBox.Name;
+					((Image)((Grid)((StackPanel)boxes[selectedIndex].Content).Children[0]).Children[0]).Source = selectedBox.WallpaperImage;
 					pokeBoxControl.LoadBox(selectedBox, PokeManager.GetIndexOfGame(selectedBox.PokePC.GameSave));
 				}
 			}
@@ -242,6 +243,7 @@ namespace PokemonManager.Windows {
 			if (EditRowWindow.ShowDialog(this, null)) {
 				comboBoxRows.ReloadRows();
 				comboBoxRows.SelectedIndex = PokeManager.ManagerGameSave.NumPokePCRows - 1;
+				buttonRemoveRow.IsEnabled = true;
 			}
 		}
 
@@ -257,9 +259,9 @@ namespace PokemonManager.Windows {
 				PokeManager.ManagerGameSave.RemovePokePCRow(rowIndex);
 				comboBoxRows.ReloadRows();
 				buttonRemoveRow.IsEnabled = PokeManager.ManagerGameSave.NumPokePCRows > 1;
+				buttonMoveRowUp.IsEnabled = rowIndex != 0;
+				buttonMoveRowDown.IsEnabled = rowIndex + 1 < PokeManager.ManagerGameSave.NumPokePCRows;
 			}
-			buttonMoveRowDown.IsEnabled = rowIndex != 0;
-			buttonMoveRowUp.IsEnabled = rowIndex + 1 < PokeManager.ManagerGameSave.NumPokePCRows;
 		}
 
 		private void OnRowSelectionChanged(object sender, SelectionChangedEventArgs e) {

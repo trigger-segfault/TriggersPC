@@ -414,15 +414,19 @@ namespace PokemonManager.Windows {
 		}
 
 		private void OnContextMenuOpening(object sender, ContextMenuEventArgs e) {
-			if (selectedItem != null) {
+			if (selectedItem != null && selectedItem.ItemData.ID != 0) {
 				if (HasSelection) {
 					selectionIsImportant = -1;
 					selectionMax = 0;
 					bool roomInCollection = false;
+					bool unknownItem = false;
 					ItemTypes itemType = SelectedItems[0].ItemData.PocketType;
 					foreach (Item item in SelectedItems) {
 						selectionMax = Math.Max(selectionMax, (int)item.Count);
-						if (item.ItemData.IsImportant) {
+						if (item.ItemData.ID == 0) {
+							unknownItem = true;
+						}
+						else if (item.ItemData.IsImportant) {
 							if (selectionIsImportant == -1)
 								selectionIsImportant = 1;
 							else if (selectionIsImportant == 0)
@@ -445,12 +449,12 @@ namespace PokemonManager.Windows {
 					((MenuItem)contextMenu.Items[1]).Header = (pocket.PocketType == ItemTypes.PC ? "Withdraw All" : "Deposit All");
 					((MenuItem)contextMenu.Items[2]).Header = (selectionIsImportant == 1 ? "Add to Collection" : "Send To");
 
-					((MenuItem)contextMenu.Items[0]).IsEnabled = selectionIsImportant == 0 && pocket.Inventory.ContainsPocket(ItemTypes.PC);
-					((MenuItem)contextMenu.Items[1]).IsEnabled = selectionIsImportant == 0 && pocket.Inventory.ContainsPocket(ItemTypes.PC);
-					((MenuItem)contextMenu.Items[2]).IsEnabled = itemType != ItemTypes.Unknown && (selectionIsImportant == 0 || (roomInCollection && selectionIsImportant == 1));
+					((MenuItem)contextMenu.Items[0]).IsEnabled = !unknownItem && selectionIsImportant == 0 && pocket.Inventory.ContainsPocket(ItemTypes.PC);
+					((MenuItem)contextMenu.Items[1]).IsEnabled = !unknownItem && selectionIsImportant == 0 && pocket.Inventory.ContainsPocket(ItemTypes.PC);
+					((MenuItem)contextMenu.Items[2]).IsEnabled = !unknownItem && itemType != ItemTypes.Unknown && (selectionIsImportant == 0 || (roomInCollection && selectionIsImportant == 1));
 					((MenuItem)contextMenu.Items[3]).IsEnabled = false;
-					((MenuItem)contextMenu.Items[5]).IsEnabled = (selectionIsImportant == 0 || pocket.GameSave.GameIndex == -1);
-					((MenuItem)contextMenu.Items[6]).IsEnabled = (selectionIsImportant == 0 || pocket.GameSave.GameIndex == -1);
+					((MenuItem)contextMenu.Items[5]).IsEnabled = !unknownItem && (selectionIsImportant == 0 || pocket.GameSave.GameIndex == -1);
+					((MenuItem)contextMenu.Items[6]).IsEnabled = !unknownItem && (selectionIsImportant == 0 || pocket.GameSave.GameIndex == -1);
 				}
 				else {
 					((MenuItem)contextMenu.Items[0]).Header = (pocket.PocketType == ItemTypes.PC ? "Withdraw" : "Deposit");

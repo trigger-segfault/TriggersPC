@@ -155,6 +155,9 @@ namespace PokemonManager.Windows {
 				if (e.Pokemon.IsEgg) {
 					TriggerMessageBox.Show(this, "Cannot give items to Eggs", "Can't Hold");
 				}
+				else if (e.Pokemon.HeldItemID != 0 && e.Pokemon.HeldItemData.ID == 0) {
+					TriggerMessageBox.Show(this, "Cannot switch " + e.Pokemon.Nickname + "'s item because it is an Unknown Item", "Unknown Item");
+				}
 				else if (e.Pokemon.HeldItemID == giveItem.ID) {
 					TriggerMessageBox.Show(this, e.Pokemon.Nickname + " is already holding " + e.Pokemon.HeldItemData.Name, "Already Holding");
 				}
@@ -180,11 +183,21 @@ namespace PokemonManager.Windows {
 				}
 			}
 			else if (mode == SendPokemonModes.SendTo && e.Pokemon == null) {
+				if (!PokeManager.CanSafelyPlaceHeldUnknownItem(e.PokeContainer)) {
+					MessageBoxResult unknownItemResult = TriggerMessageBox.Show(Window.GetWindow(this), "The Pokémon that you are trying to send is holding an Unknown Item. Sending it to a different game may cause problems. Are you sure you want to send it?", "Unknown Item", MessageBoxButton.YesNo);
+					if (unknownItemResult == MessageBoxResult.No)
+						return;
+				}
 				PokeManager.PlacePokemon(e.PokeContainer, e.Index);
 				PokeManager.LastGameInDialogIndex = gameIndex;
 				DialogResult = true;
 			}
 			else if (mode == SendPokemonModes.SendFrom && e.Pokemon != null) {
+				if (e.Pokemon.HeldItemID != 0 && e.Pokemon.HeldItemData.ID == 0 && e.Pokemon.GameSave != container.GameSave) {
+					MessageBoxResult unknownItemResult = TriggerMessageBox.Show(Window.GetWindow(this), "That Pokémon is holding an Unknown Item. Sending it to a different game may cause problems. Are you sure you want to send it?", "Unknown Item", MessageBoxButton.YesNo);
+					if (unknownItemResult == MessageBoxResult.No)
+						return;
+				}
 				if (PokeManager.CanPickupPokemon(e.Pokemon)) {
 					PokeManager.PickupPokemon(e.Pokemon, null);
 					PokeManager.PlacePokemon(container, containerIndex);
@@ -199,6 +212,11 @@ namespace PokemonManager.Windows {
 				}
 			}
 			else if (mode == SendPokemonModes.SendMulti && e.Pokemon == null) {
+				if (!PokeManager.CanSafelyPlaceHeldUnknownItem(e.PokeContainer)) {
+					MessageBoxResult unknownItemResult = TriggerMessageBox.Show(Window.GetWindow(this), "A Pokémon that you are trying to send is holding an Unknown Item. Sending it to a different game may cause problems. Are you sure you want to send it?", "Unknown Item", MessageBoxButton.YesNo);
+					if (unknownItemResult == MessageBoxResult.No)
+						return;
+				}
 				if (e.PokeContainer.PokePC.HasRoomForPokemon(PokeManager.NumSelectedPokemon)) {
 					PokeManager.PlaceSelection(e.PokeContainer, e.Index);
 					PokeManager.ClearSelectedPokemon();

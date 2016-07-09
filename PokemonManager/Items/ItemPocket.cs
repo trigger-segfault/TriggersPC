@@ -26,9 +26,9 @@ namespace PokemonManager.Items {
 	public class ItemPocket {
 
 		private static Dictionary<ItemTypes, Dictionary<int, int>> ItemOrders = new Dictionary<ItemTypes, Dictionary<int, int>>{
-			{ItemTypes.PC, new Dictionary<int, int>{{3, 0}, {7, 1}, {2, 2}, {0, 3}, {1, 4}, {9, 5}, {4, 6}, {5, 7}, {6, 8}}},
-			{ItemTypes.Items, new Dictionary<int, int>{{0, 0}, {1, 1}, {2, 2}, {3, 3}, {7, 4}, {9, 5}}},
-			{ItemTypes.Misc, new Dictionary<int, int>{{7, 0}, {1, 1}, {9, 3}}}
+			{ItemTypes.PC, new Dictionary<int, int>{{3, 0}, {7, 1}, {2, 2}, {0, 3}, {1, 4}, {9, 5}, {4, 6}, {5, 7}, {6, 8}, {90, 9}}},
+			{ItemTypes.Items, new Dictionary<int, int>{{0, 0}, {1, 1}, {2, 2}, {3, 3}, {7, 4}, {9, 5}, {90, 6}}},
+			{ItemTypes.Misc, new Dictionary<int, int>{{7, 0}, {1, 1}, {9, 3}, {90, 2}}}
 		};
 
 		#region Members

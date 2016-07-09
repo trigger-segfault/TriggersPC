@@ -360,6 +360,7 @@ namespace PokemonManager.Windows {
 			gridDaycare.Visibility = Visibility.Hidden;
 			gridParty.Visibility = Visibility.Hidden;
 			gridBox.Visibility = Visibility.Hidden;
+			gridPurifier.Visibility = Visibility.Hidden;
 
 			rectEditBox.Opacity = 0;
 		}
@@ -803,6 +804,11 @@ namespace PokemonManager.Windows {
 			IPokemon pkm = tag.Control.pokeContainer[tag.BoxIndex];
 			if (mode == PokeBoxControlModes.MovePokemon) {
 				if (PokeManager.IsHoldingPokemon) {
+					if (!PokeManager.CanSafelyPlaceHeldUnknownItem(tag.Control.pokeContainer)) {
+						MessageBoxResult unknownItemResult = TriggerMessageBox.Show(Window.GetWindow(this), "A Pokémon that you are holding is holding an Unknown Item. Sending it to a different game may cause problems. Are you sure you want to place it?", "Unknown Item", MessageBoxButton.YesNo);
+						if (unknownItemResult == MessageBoxResult.No)
+							return;
+					}
 					if (!PokeManager.CanPlaceShadowPokemon(tag.Control.pokeContainer)) {
 						TriggerMessageBox.Show(Window.GetWindow(this), "Cannot move Shadow Pokémon to a different game until they have been purified", "Can't Place");
 					}
@@ -1303,6 +1309,8 @@ namespace PokemonManager.Windows {
 				foreach (IPokemon pokemon in pokeContainer) {
 					if (pokemon.IsHoldingItem)
 						PokeManager.ManagerGameSave.Inventory.Items[pokemon.HeldItemData.PocketType].AddItem(pokemon.HeldItemID, 1);
+					if (PokeManager.IsPokemonSelected(pokemon))
+						PokeManager.UnselectPokemon(pokemon);
 					pokemon.PokeContainer.Remove(pokemon);
 					pokemon.IsReleased = true;
 				}
@@ -1381,6 +1389,8 @@ namespace PokemonManager.Windows {
 					if (pokeContainer[selectedIndex].IsHoldingItem)
 						PokeManager.ManagerGameSave.Inventory.Items[pokeContainer[selectedIndex].HeldItemData.PocketType].AddItem(pokeContainer[selectedIndex].HeldItemID, 1);
 					// Be freeeeeeeeeeee (in the void forever)
+					if (PokeManager.IsPokemonSelected(pokeContainer[selectedIndex]))
+						PokeManager.UnselectPokemon(pokeContainer[selectedIndex]);
 					pokeContainer[selectedIndex].IsReleased = true;
 					pokeContainer[selectedIndex] = null;
 					PokeManager.RefreshUI();

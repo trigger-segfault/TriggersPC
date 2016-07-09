@@ -161,7 +161,7 @@ namespace PokemonManager.Windows {
 					((Control)listViewGameSaves.SelectedItem).Focus();
 				}
 				catch (Exception ex) {
-					MessageBoxResult result2 = TriggerMessageBox.Show(this, "Error loading game save file. Would you like to see the error?", "Read Error");
+					MessageBoxResult result2 = TriggerMessageBox.Show(this, "Error loading game save file. Would you like to see the error?", "Read Error", MessageBoxButton.YesNo);
 					if (result2 == MessageBoxResult.Yes)
 						ErrorMessageBox.Show(ex);
 				}

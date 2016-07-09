@@ -48,7 +48,9 @@ namespace PokemonManager.Windows {
 			}
 				
 		}
-		public void ReloadRows() {
+		public void ReloadRows(bool keepIndex = false) {
+			int previousSelectedIndex = SelectedIndex;
+			bool hasPreviousIndex = false;
 			Items.Clear();
 
 			if (!DesignerProperties.GetIsInDesignMode(this)) {
@@ -56,9 +58,14 @@ namespace PokemonManager.Windows {
 					ComboBoxItem comboBoxItem = new ComboBoxItem();
 					comboBoxItem.Content = PokeManager.ManagerGameSave.GetPokePCRow(i).Name;
 					Items.Add(comboBoxItem);
+					if (i == previousSelectedIndex)
+						hasPreviousIndex = true;
 				}
 			}
-			SelectedIndex = 0;
+			if (keepIndex && hasPreviousIndex)
+				SelectedIndex = previousSelectedIndex;
+			else
+				SelectedIndex = 0;
 		}
 		public void ResetRowVisibility() {
 			for (int i = 0; i < PokeManager.ManagerGameSave.NumPokePCRows; i++) {

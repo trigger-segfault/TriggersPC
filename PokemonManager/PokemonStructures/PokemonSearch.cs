@@ -25,6 +25,10 @@ namespace PokemonManager.PokemonStructures {
 		Level,
 		Friendship,
 		HatchCounter,
+		Type,
+		FirstType,
+		SecondType,
+		HiddenPowerType,
 		HiddenPowerDamage,
 		TotalStats,
 		TotalIVs,
@@ -691,6 +695,12 @@ namespace PokemonManager.PokemonStructures {
 			case SortMethods.Level: return pokemon.Level;
 			case SortMethods.Friendship: return (!pokemon.IsEgg ? pokemon.Friendship : 70);
 			case SortMethods.HatchCounter: return (pokemon.IsEgg ? pokemon.Friendship : 0);
+			case SortMethods.Type: return ((int)pokemon.PokemonData.Type2 > (int)pokemon.PokemonData.Type1 ?
+				((int)pokemon.PokemonData.Type2 * 100 + (int)pokemon.PokemonData.Type1) :
+				((int)pokemon.PokemonData.Type1 * 100 + (pokemon.PokemonData.HasTwoTypes ? (int)pokemon.PokemonData.Type2 : 0)));
+			case SortMethods.FirstType: return ((int)pokemon.PokemonData.Type1 * 100) + (pokemon.PokemonData.HasTwoTypes ? (int)pokemon.PokemonData.Type2 : 0);
+			case SortMethods.SecondType: return (pokemon.PokemonData.HasTwoTypes ? (int)pokemon.PokemonData.Type2 * 100 + (int)pokemon.PokemonData.Type1 : (int)pokemon.PokemonData.Type1 * 100);
+			case SortMethods.HiddenPowerType: return (int)pokemon.HiddenPowerType;
 			case SortMethods.HiddenPowerDamage: return pokemon.HiddenPowerDamage;
 			case SortMethods.TotalStats: return ((int)pokemon.HP + pokemon.Attack + pokemon.Defense + pokemon.SpAttack + pokemon.SpDefense + pokemon.Speed);
 			case SortMethods.TotalIVs: return ((int)pokemon.HPIV + pokemon.AttackIV + pokemon.DefenseIV + pokemon.SpAttackIV + pokemon.SpDefenseIV + pokemon.SpeedIV);

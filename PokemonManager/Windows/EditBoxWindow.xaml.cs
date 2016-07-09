@@ -75,8 +75,9 @@ namespace PokemonManager.Windows {
 		private string newWallpaperName;
 		private bool newUsingCustomWallpaper;
 		private int customWallpaperStartIndex;
+		private bool silentEdit;
 
-		public EditBoxWindow(IPokeBox pokeBox) {
+		public EditBoxWindow(IPokeBox pokeBox, bool silentEdit) {
 			InitializeComponent();
 			if (pokeBox is BoxPokeBox) {
 				this.newName = ((BoxPokeBox)pokeBox).RealName;
@@ -88,6 +89,7 @@ namespace PokemonManager.Windows {
 			}
 			this.buttonQuotes1.Content = "“";
 			this.buttonQuotes2.Content = "”";
+			this.silentEdit = silentEdit;
 
 			string[] wallpaperNames = null;
 			if (pokeBox.GameType == GameTypes.Ruby || pokeBox.GameType == GameTypes.Sapphire)
@@ -168,7 +170,8 @@ namespace PokemonManager.Windows {
 				ManagerPokeBox.UsingCustomWallpaper = newUsingCustomWallpaper;
 				ManagerPokeBox.WallpaperName = newWallpaperName;
 			}
-			PokeManager.RefreshUI();
+			if (!silentEdit)
+				PokeManager.RefreshUI();
 			DialogResult = true;
 		}
 
@@ -207,8 +210,8 @@ namespace PokemonManager.Windows {
 			}
 		}
 
-		public static bool? ShowDialog(Window owner, IPokeBox pokeBox) {
-			EditBoxWindow window = new EditBoxWindow(pokeBox);
+		public static bool? ShowDialog(Window owner, IPokeBox pokeBox, bool silentEdit = false) {
+			EditBoxWindow window = new EditBoxWindow(pokeBox, silentEdit);
 			window.Owner = owner;
 			return window.ShowDialog();
 		}
