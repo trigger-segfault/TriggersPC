@@ -1421,6 +1421,7 @@
     <Content Include="Resources\Audio\Evolution.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\UI\Pokemon\BulbapediaIcon.png" />
     <Resource Include="Resources\UI\Pokemon\PurifierWindow.png" />
     <Resource Include="Resources\Splash\SplashVoltorb.png" />
     <Resource Include="Resources\Splash\SplashUrsaring.png" />

@@ -89,9 +89,10 @@ namespace PokemonManager.PokemonStructures {
 			else
 				OpenEncryptedData(data);
 
+			// A pretty old bug, we don't really need this anymore.
 			// Fix Colosseum Game Origin being incorrect. (Support for users of previous versions)
-			if ((byte)GameOrigin == 11)
-				GameOrigin = GameOrigins.ColosseumXD;
+			//if ((byte)GameOrigin == 11)
+			//	GameOrigin = GameOrigins.ColosseumXD;
 		}
 
 		#region Basic Info

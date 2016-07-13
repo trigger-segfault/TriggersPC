@@ -31,6 +31,7 @@ namespace PokemonManager.Windows {
 		private int currentMoveIndex;
 		private int gameIndex;
 		private MediaPlayer playerCry;
+		private MoveData currentMoveData;
 
 		public PokemonViewer() {
 			InitializeComponent();
@@ -196,6 +197,11 @@ namespace PokemonManager.Windows {
 			this.labelMoveCategory.Content = "";
 			this.labelMovePower.Content = "";
 			this.labelMoveAccuracy.Content = "";
+
+			buttonOpenInBulbapedia.Visibility = Visibility.Hidden;
+			buttonOpenAbilityInBulbapedia.Visibility = Visibility.Hidden;
+			buttonOpenMoveInBulbapedia.Visibility = Visibility.Hidden;
+			buttonOpenMoveInBulbapediaContest.Visibility = Visibility.Hidden;
 
 			buttonBall.IsEnabled = false;
 			buttonNickname.IsEnabled = false;
@@ -406,6 +412,8 @@ namespace PokemonManager.Windows {
 					this.labelPokerus.ToolTip = tooltip;
 				}
 			}
+			buttonOpenMoveInBulbapedia.Visibility = Visibility.Hidden;
+			buttonOpenMoveInBulbapediaContest.Visibility = Visibility.Hidden;
 
 			if (pokemon.Move1ID != 0) {
 				ushort moveID = pokemon.Move1ID;
@@ -632,6 +640,9 @@ namespace PokemonManager.Windows {
 			if (pokemon.HasEarthRibbon) AddRibbon("EARTH");
 			if (pokemon.HasWorldRibbon) AddRibbon("WORLD");
 
+			buttonOpenInBulbapedia.Visibility = Visibility.Visible;
+			buttonOpenAbilityInBulbapedia.Visibility = Visibility.Visible;
+
 			buttonBall.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && !pokemon.IsEgg;
 			buttonNickname.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && !pokemon.IsEgg && !pokemon.IsShadowPokemon;
 			buttonDeoxys.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && pokemon.DexID == 386;
@@ -801,6 +812,8 @@ namespace PokemonManager.Windows {
 			rectContestMove2.StrokeThickness = 1;
 			rectContestMove3.StrokeThickness = 1;
 			rectContestMove4.StrokeThickness = 1;
+			Rectangle rect = null;
+			Rectangle rectContest = null;
 			if (moveIndex == -1) {
 				this.textBlockMoveDescription.Text = "";
 				this.labelMovePower.Content = "";
@@ -817,45 +830,70 @@ namespace PokemonManager.Windows {
 					moveData = PokemonDatabase.GetMoveFromID(355);
 				else if (pokemon.IsShadowPokemon && pokemon.GameType == GameTypes.XD && ((XDPokemon)pokemon).ShadowMove1ID != 0)
 					moveData = PokemonDatabase.GetMoveFromID(((XDPokemon)pokemon).ShadowMove1ID);
-				rectMove1.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-				rectContestMove1.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-				rectMove1.StrokeThickness = 2;
-				rectContestMove1.StrokeThickness = 2;
+				rect = rectMove1;
+				rectContest = rectContestMove1;
+				/*rectMove1.StrokeThickness = 2;
+				rectContestMove1.StrokeThickness = 2;*/
 			}
 			else if (moveIndex == 1) {
 				moveData = pokemon.Move2Data;
 				if (pokemon.IsShadowPokemon && pokemon.GameType == GameTypes.XD && ((XDPokemon)pokemon).ShadowMove2ID != 0)
 					moveData = PokemonDatabase.GetMoveFromID(((XDPokemon)pokemon).ShadowMove2ID);
-				rectMove2.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+				rect = rectMove2;
+				rectContest = rectContestMove2;
+				/*rectMove2.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 				rectContestMove2.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 				rectMove2.StrokeThickness = 2;
-				rectContestMove2.StrokeThickness = 2;
+				rectContestMove2.StrokeThickness = 2;*/
 			}
 			else if (moveIndex == 2) {
 				moveData = pokemon.Move3Data;
 				if (pokemon.IsShadowPokemon && pokemon.GameType == GameTypes.XD && ((XDPokemon)pokemon).ShadowMove3ID != 0)
 					moveData = PokemonDatabase.GetMoveFromID(((XDPokemon)pokemon).ShadowMove3ID);
-				rectMove3.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+				rect = rectMove3;
+				rectContest = rectContestMove3;
+				/*rectMove3.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 				rectContestMove3.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 				rectMove3.StrokeThickness = 2;
-				rectContestMove3.StrokeThickness = 2;
+				rectContestMove3.StrokeThickness = 2;*/
 			}
 			else if (moveIndex == 3) {
 				moveData = pokemon.Move4Data;
 				if (pokemon.IsShadowPokemon && pokemon.GameType == GameTypes.XD && ((XDPokemon)pokemon).ShadowMove4ID != 0)
 					moveData = PokemonDatabase.GetMoveFromID(((XDPokemon)pokemon).ShadowMove4ID);
-				rectMove4.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+				rect = rectMove4;
+				rectContest = rectContestMove4;
+				/*rectMove4.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 				rectContestMove4.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 				rectMove4.StrokeThickness = 2;
-				rectContestMove4.StrokeThickness = 2;
+				rectContestMove4.StrokeThickness = 2;*/
 			}
-			this.textBlockMoveDescription.Text = moveData.Description;
-			this.labelMovePower.Content = (moveData.Power != 0 ? moveData.Power.ToString() : "---");
-			this.labelMoveAccuracy.Content = (moveData.Accuracy != 0 ? moveData.Accuracy.ToString() : "---");
-			this.labelMoveCategory.Content = moveData.Category.ToString();
-			this.textBlockContestMoveDescription.Text = moveData.ContestDescription;
-			this.labelMoveAppeal.Content = moveData.Appeal.ToString();
-			this.labelMoveJam.Content = moveData.Jam.ToString();
+			if (moveData == null || moveData.ID == 0) {
+				this.textBlockMoveDescription.Text = "";
+				this.labelMovePower.Content = "";
+				this.labelMoveAccuracy.Content = "";
+				this.labelMoveCategory.Content = "";
+				this.textBlockContestMoveDescription.Text = "";
+				this.labelMoveAppeal.Content = "";
+				this.labelMoveJam.Content = "";
+			}
+			else {
+				this.textBlockMoveDescription.Text = moveData.Description;
+				this.labelMovePower.Content = (moveData.Power != 0 ? moveData.Power.ToString() : "---");
+				this.labelMoveAccuracy.Content = (moveData.Accuracy != 0 ? moveData.Accuracy.ToString() : "---");
+				this.labelMoveCategory.Content = moveData.Category.ToString();
+				this.textBlockContestMoveDescription.Text = moveData.ContestDescription;
+				this.labelMoveAppeal.Content = moveData.Appeal.ToString();
+				this.labelMoveJam.Content = moveData.Jam.ToString();
+				this.currentMoveData = moveData;
+				rect.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+				rectContest.Stroke = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+				rect.StrokeThickness = 2;
+				rectContest.StrokeThickness = 2;
+			}
+
+			buttonOpenMoveInBulbapedia.Visibility = (moveData.ID != 0 ? Visibility.Visible : Visibility.Hidden);
+			buttonOpenMoveInBulbapediaContest.Visibility = (moveData.ID != 0 ? Visibility.Visible : Visibility.Hidden);
 		}
 
 		private void rectMove1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
@@ -1049,7 +1087,11 @@ namespace PokemonManager.Windows {
 			else if (pokemon.IsHoldingItem) {
 				MessageBoxResult result = MessageBoxResult.Yes;
 				string sentTo = "";
-				if (pokemon.GameSave.Inventory.Items[pokemon.HeldItemData.PocketType].HasRoomForItem(pokemon.HeldItemID, 1)) {
+				if (pokemon.GameSave.GameType == GameTypes.PokemonBox) {
+					PokeManager.ManagerGameSave.Inventory.Items[pokemon.HeldItemData.PocketType].AddItem(pokemon.HeldItemID, 1);
+					sentTo = PokeManager.Settings.ManagerNickname;
+				}
+				else if (pokemon.GameSave.Inventory.Items[pokemon.HeldItemData.PocketType].HasRoomForItem(pokemon.HeldItemID, 1)) {
 					pokemon.GameSave.Inventory.Items[pokemon.HeldItemData.PocketType].AddItem(pokemon.HeldItemID, 1);
 					if (pokemon.GameSave.GameType == GameTypes.Any)
 						sentTo = PokeManager.Settings.ManagerNickname;
@@ -1370,6 +1412,21 @@ namespace PokemonManager.Windows {
 			RefreshUI();
 			PokeManager.ManagerWindow.RefreshSearchResultsUI();
 			TriggerMessageBox.Show(Window.GetWindow(this), pokemon.Nickname + "'s condition has been wiped", "Condition Wiped");
+		}
+
+		private void OnOpenPokemonInBulbapedia(object sender, RoutedEventArgs e) {
+			string url = "http://bulbapedia.bulbagarden.net/wiki/" + pokemon.PokemonData.Name + " _(Pokémon)";
+			System.Diagnostics.Process.Start(url);
+		}
+
+		private void OnOpenMoveInBulbapedia(object sender, RoutedEventArgs e) {
+			string url = "http://bulbapedia.bulbagarden.net/wiki/" + currentMoveData.Name + " _(move)";
+			System.Diagnostics.Process.Start(url);
+		}
+
+		private void OnOpenAbilityInBulbapedia(object sender, RoutedEventArgs e) {
+			string url = "http://bulbapedia.bulbagarden.net/wiki/" + pokemon.AbilityData.Name + " _(ability)";
+			System.Diagnostics.Process.Start(url);
 		}
 	}
 }

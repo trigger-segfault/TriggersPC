@@ -85,6 +85,19 @@ namespace PokemonManager.PokemonStructures {
 					throw new ArgumentOutOfRangeException("Index outside of bounds for Daycare", new Exception());
 			}
 		}
+		public void AddPokemon(IPokemon pokemon) {
+			pokePC.GameSave.IsChanged = true;
+			IPokemon pkm = (pokemon != null ? (pokemon is XDPokemon ? pokemon : pokemon.CreateXDPokemon(((GCGameSave)GameSave).CurrentRegion)): null);
+			pkm.GameType = GameType;
+			pkm.PokeContainer = this;
+			if (pokePC.GameSave != null)
+				pokePC.GameSave.OwnPokemon(pkm);
+			depositedPokemon = pkm as XDPokemon;
+			depositedPokemon = pkm as XDPokemon;
+			DaycareStatus = 1;
+			InitialLevel = 0;
+			InitialPurification = 0;
+		}
 		public int IndexOf(IPokemon pokemon) {
 			if (pokemon == depositedPokemon)
 				return 0;

@@ -29,6 +29,7 @@ namespace PokemonManager.Windows {
 		private int selectedIndex;
 		private Move selectedMove;
 		private bool contestMode;
+		private MoveData currentMoveData;
 
 		public RelearnMoveWindow(IPokemon pokemon) {
 			InitializeComponent();
@@ -82,6 +83,7 @@ namespace PokemonManager.Windows {
 			this.labelMoveAppeal.Content = "";
 			this.labelMoveJam.Content = "";
 			this.textBlockMoveDescription.Text = "";
+			buttonOpenMoveInBulbapedia.Visibility = Visibility.Hidden;
 		}
 
 		public static bool? ShowDialog(Window owner, IPokemon pokemon) {
@@ -128,6 +130,7 @@ namespace PokemonManager.Windows {
 				this.labelMoveAppeal.Content = "";
 				this.labelMoveJam.Content = "";
 				this.textBlockMoveDescription.Text = "";
+				buttonOpenMoveInBulbapedia.Visibility = Visibility.Hidden;
 			}
 			else {
 				selectedMove = (Move)(listViewMoves.Items[selectedIndex] as ListViewItem).Tag;
@@ -137,6 +140,8 @@ namespace PokemonManager.Windows {
 				this.labelMoveAppeal.Content = selectedMove.MoveData.Appeal;
 				this.labelMoveJam.Content = selectedMove.MoveData.Jam;
 				this.textBlockMoveDescription.Text = (contestMode ? selectedMove.MoveData.ContestDescription : selectedMove.MoveData.Description);
+				currentMoveData = selectedMove.MoveData;
+				buttonOpenMoveInBulbapedia.Visibility = Visibility.Visible;
 			}
 			buttonTeachMove.IsEnabled = selectedIndex != -1;
 		}
@@ -154,6 +159,10 @@ namespace PokemonManager.Windows {
 
 			OnMoveSelectionChanged(null, null);
 
+		}
+		private void OnOpenMoveInBulbapedia(object sender, RoutedEventArgs e) {
+			string url = "http://bulbapedia.bulbagarden.net/wiki/" + currentMoveData.Name + " _(move)";
+			System.Diagnostics.Process.Start(url);
 		}
 	}
 }

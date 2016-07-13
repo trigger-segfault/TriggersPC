@@ -10,5 +10,6 @@ namespace PokemonManager.PokemonStructures {
 	public interface IDaycare : IPokeContainer {
 
 		uint GetWithdrawCost(int index);
+		void AddPokemon(IPokemon pokemon);
 	}
 }

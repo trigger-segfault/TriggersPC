@@ -60,7 +60,7 @@ namespace PokemonManager.PokemonStructures.Events {
 			pkm.DexID = DexID;
 			pkm.Personality = (Personality.HasValue ? Personality.Value : (uint)random.Next());
 			pkm.Experience = PokemonDatabase.GetExperienceFromLevel(pokemonData.ExperienceGroup, (IsEgg ? (byte)5 : Level));
-			pkm.IsSecondAbility2 = (IsSecondAbility.HasValue ? IsSecondAbility.Value : (pokemonData.HasTwoAbilities && random.Next(2) == 1)); // TODO: TESTING
+			pkm.IsSecondAbility2 = (IsSecondAbility.HasValue ? IsSecondAbility.Value : (!pokemonData.CanOnlyHaveFirstAbility && random.Next(2) == 1));
 			pkm.Nickname = (Nickname != null ? Nickname : pokemonData.Name.ToUpper());
 			pkm.BallCaughtID = 4;
 			pkm.MetLocationID = 255;

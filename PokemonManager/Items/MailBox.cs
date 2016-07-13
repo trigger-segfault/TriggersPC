@@ -146,8 +146,8 @@ namespace PokemonManager.Items {
 				listViewItems.Clear();
 
 				Mail defaultMail = new Mail();
-				defaultMail.TrainerName = "TRIGGER";
-				defaultMail.SetTrainerIDs(60000, 0);
+				defaultMail.TrainerName = "Trigger";
+				defaultMail.SetTrainerIDs(45465, 28557);
 				defaultMail.MailItemID = 130;
 				defaultMail.OriginalHolderDexID = 197;
 

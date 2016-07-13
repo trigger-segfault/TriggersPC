@@ -163,6 +163,22 @@ namespace PokemonManager.PokemonStructures {
 				}
 			}
 		}
+		public void AddPokemon(IPokemon pokemon) {
+			pokePC.GameSave.IsChanged = true;
+			IPokemon pkm = (pokemon != null ? (pokemon is GBAPokemon ? pokemon : pokemon.CreateGBAPokemon(GameType)): null);
+			int index = 0;
+			for (index = 0; index < 3; index++) {
+				if (originalPokemon[index] == null)
+					break;
+			}
+			pkm.GameType = GameType;
+			pkm.PokeContainer = this;
+			if (pokePC.GameSave != null)
+				pokePC.GameSave.SetPokemonOwned(pkm.DexID, true);
+			finalPokemon[index] = pkm as GBAPokemon;
+			originalPokemon[index] = pkm as GBAPokemon;
+			SetGainedExperience(index, 0);
+		}
 		public int IndexOf(IPokemon pokemon) {
 			for (int i = 0; i < finalPokemon.Length; i++) {
 				if (finalPokemon[i] == pokemon)

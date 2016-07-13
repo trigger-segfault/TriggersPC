@@ -168,6 +168,7 @@ namespace PokemonManager.Windows {
 			slave.master = this;
 			slave.Mode = mode;
 			slave.IsPickupMode = pickupMode;
+			slave.IsSummaryMode = summaryMode;
 			slaves.Add(slave);
 		}
 		public void RemoveSlave(PokeBoxControl slave) {
@@ -723,6 +724,101 @@ namespace PokemonManager.Windows {
 					//else
 						IsSummaryMode = true;
 				}
+				else if (e.Key == Key.Z) {
+					PokeManager.DropAll();
+					PokeManager.ClearSelectedPokemon();
+					PokeManager.RefreshUI();
+				}
+				else if (e.Key == Key.X) {
+					if (mode == PokeBoxControlModes.MovePokemon) {
+						if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) {
+							IPokeContainer container = null;
+							if (hoverIndex != -1) {
+								container = pokeContainer;
+							}
+							else {
+								foreach (PokeBoxControl slave in slaves) {
+									if (slave.hoverIndex != -1 && slave.pokeContainer.Type == ContainerTypes.Box)
+										container = slave.pokeContainer;
+								}
+							}
+							bool isAllSelected = true;
+							foreach (IPokemon pokemon in container) {
+								if (!PokeManager.IsPokemonSelected(pokemon)) {
+									isAllSelected = false;
+									break;
+								}
+							}
+							if (isAllSelected) {
+								foreach (IPokemon pokemon in container) {
+									if (PokeManager.IsPokemonSelected(pokemon))
+										PokeManager.UnselectPokemon(pokemon);
+								}
+							}
+							else {
+								foreach (IPokemon pokemon in container) {
+									if (!PokeManager.IsPokemonSelected(pokemon))
+										PokeManager.SelectPokemon(pokemon);
+								}
+							}
+							PokeManager.RefreshUI();
+						}
+						else {
+							if (hoverIndex != -1) {
+								OnContextMenuSelectAllClicked(null, null);
+							}
+							else {
+								foreach (PokeBoxControl slave in slaves) {
+									if (slave.hoverIndex != -1 && slave.pokeContainer.Type == ContainerTypes.Box) {
+										slave.OnContextMenuSelectAllClicked(null, null);
+									}
+								}
+							}
+						}
+					}
+				}
+				else if (e.Key == Key.C) {
+					if (mode == PokeBoxControlModes.MovePokemon) {
+						if (hoverIndex != -1) {
+							OnContextMenuSelectAllClicked(null, null);
+							PokeManager.PickupSelection(this);
+							PokeManager.RefreshUI();
+						}
+						else {
+							foreach (PokeBoxControl slave in slaves) {
+								if (slave.hoverIndex != -1 && slave.pokeContainer.Type == ContainerTypes.Box) {
+									slave.OnContextMenuSelectAllClicked(null, null);
+									PokeManager.PickupSelection(this);
+									PokeManager.RefreshUI();
+								}
+							}
+						}
+					}
+				}
+				else if (e.Key == Key.V) {
+					if (mode == PokeBoxControlModes.MovePokemon && PokeManager.IsHoldingPokemon) {
+						if (hoverIndex != -1) {
+							for (int i = 0; i < 30; i++) {
+								if (pokeContainer[i] == null) {
+									TryMovePokemon(new PokeBoxTagStructure(this, i));
+									break;
+								}
+							}
+						}
+						else {
+							foreach (PokeBoxControl slave in slaves) {
+								if (slave.hoverIndex != -1 && slave.pokeContainer.Type == ContainerTypes.Box) {
+									for (int i = 0; i < 30; i++) {
+										if (slave.pokeContainer[i] == null) {
+											TryMovePokemon(new PokeBoxTagStructure(slave, i));
+											break;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 		private void OnKeyUp(object sender, KeyEventArgs e) {
@@ -1093,8 +1189,32 @@ namespace PokemonManager.Windows {
 
 		private void OnEditBoxClicked(object sender, MouseButtonEventArgs e) {
 			if (e.ChangedButton == MouseButton.Left && mode == PokeBoxControlModes.MovePokemon) {
-				OnBoxContextMenuOpening(null, null);
-				rectEditBox.ContextMenu.IsOpen = true;
+				if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) {
+					bool isAllSelected = true;
+					foreach (IPokemon pokemon in pokeContainer) {
+						if (!PokeManager.IsPokemonSelected(pokemon)) {
+							isAllSelected = false;
+							break;
+						}
+					}
+					if (isAllSelected) {
+						foreach (IPokemon pokemon in pokeContainer) {
+							if (PokeManager.IsPokemonSelected(pokemon))
+								PokeManager.UnselectPokemon(pokemon);
+						}
+					}
+					else {
+						foreach (IPokemon pokemon in pokeContainer) {
+							if (!PokeManager.IsPokemonSelected(pokemon))
+								PokeManager.SelectPokemon(pokemon);
+						}
+					}
+					PokeManager.RefreshUI();
+				}
+				else {
+					OnBoxContextMenuOpening(null, null);
+					rectEditBox.ContextMenu.IsOpen = true;
+				}
 			}
 		}
 
@@ -1217,7 +1337,8 @@ namespace PokemonManager.Windows {
 			((MenuItem)contextMenu.Items[1]).Tag = tag;
 			//((MenuItem)contextMenu.Items[2]).Tag = tag;
 			((MenuItem)contextMenu.Items[2]).Tag = tag;
-			((MenuItem)contextMenu.Items[4]).Tag = tag;
+			((MenuItem)contextMenu.Items[3]).Tag = tag;
+			((MenuItem)contextMenu.Items[5]).Tag = tag;
 
 			((MenuItem)contextMenu.Items[0]).IsEnabled = true;
 			if (pkm == null) {
@@ -1255,19 +1376,26 @@ namespace PokemonManager.Windows {
 				//((MenuItem)contextMenu.Items[2]).IsEnabled = false;
 				((MenuItem)contextMenu.Items[2]).IsEnabled = false;
 			}
-			((MenuItem)contextMenu.Items[4]).IsEnabled = (pkm != null && !pkm.IsShadowPokemon);
+			((MenuItem)contextMenu.Items[5]).IsEnabled = (pkm != null && !pkm.IsShadowPokemon);
 
 			if (pkm != null && pkm.IsInDaycare) {
 				((MenuItem)contextMenu.Items[0]).IsEnabled = false;
 				//((MenuItem)contextMenu.Items[2]).IsEnabled = false;
 				((MenuItem)contextMenu.Items[2]).IsEnabled = false;
-				((MenuItem)contextMenu.Items[4]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[5]).IsEnabled = false;
 			}
+			((MenuItem)contextMenu.Items[3]).IsEnabled = PokeManager.IsHoldingPokemon;
 		}
 		private void OnBoxContextMenuOpening(object sender, ContextMenuEventArgs e) {
-			//((MenuItem)boxContextMenu.Items[0]).IsEnabled = (pokeContainer.GameType != GameTypes.PokemonBox);
-			//((MenuItem)boxContextMenu.Items[2]).IsEnabled = (pokeContainer.GameIndex != -1);
-			//((MenuItem)boxContextMenu.Items[2]).Header = "Send All To " + PokeManager.Settings.ManagerNickname;
+			((MenuItem)boxContextMenu.Items[1]).IsEnabled = false;
+			((MenuItem)boxContextMenu.Items[2]).IsEnabled = false;
+			foreach (IPokemon pokemon in pokeContainer) {
+				((MenuItem)boxContextMenu.Items[1]).IsEnabled = true;
+				if (pokemon.IsHoldingItem) {
+					((MenuItem)boxContextMenu.Items[2]).IsEnabled = true;
+					break;
+				}
+			}
 		}
 		private void OnContextMenuSendBoxTo(object sender, RoutedEventArgs e) {
 			PokemonSelectedEventArgs args = new PokemonSelectedEventArgs();
@@ -1290,6 +1418,7 @@ namespace PokemonManager.Windows {
 		private void OnContextMenuEditBoxClicked(object sender, RoutedEventArgs e) {
 			PokeManager.DropAll();
 			PokeManager.ClearSelectedPokemon();
+			PokeManager.RefreshUI();
 			EditBoxWindow.ShowDialog(Window.GetWindow(this), (IPokeBox)pokeContainer);
 		}
 		private void OnContextMenuSelectAllClicked(object sender, RoutedEventArgs e) {
@@ -1297,6 +1426,57 @@ namespace PokemonManager.Windows {
 			PokeManager.ClearSelectedPokemon();
 			foreach (IPokemon pokemon in pokeContainer) {
 				PokeManager.SelectPokemon(pokemon);
+			}
+			PokeManager.RefreshUI();
+		}
+		private void OnContextMenuTakeAllItemsClicked(object sender, RoutedEventArgs e) {
+			PokeManager.DropAll();
+			PokeManager.ClearSelectedPokemon();
+			int count = 0;
+			bool sentToBag = false;
+			bool sentToPC = false;
+			bool sentToYourPC = false;
+			foreach (IPokemon pokemon in pokeContainer) {
+				if (pokemon.IsHoldingItem) {
+					if (pokemon.GameSave.Inventory != null && pokemon.GameSave.Inventory.Items[pokemon.HeldItemData.PocketType].HasRoomForItem(pokemon.HeldItemID, 1)) {
+						if (pokemon.GameSave.GameType == GameTypes.Any)
+							sentToYourPC = true;
+						else
+							sentToBag = true;
+						pokemon.GameSave.Inventory.Items[pokemon.HeldItemData.PocketType].AddItem(pokemon.HeldItemID, 1);
+					}
+					else if (pokemon.GameSave.Inventory != null && pokemon.GameSave.Inventory.Items.ContainsPocket(ItemTypes.PC) && pokemon.GameSave.Inventory.Items[ItemTypes.PC].HasRoomForItem(pokemon.HeldItemID, 1)) {
+						sentToPC = true;
+						PokeManager.ManagerGameSave.Inventory.Items[pokemon.HeldItemData.PocketType].AddItem(pokemon.HeldItemID, 1);
+					}
+					else {
+						sentToYourPC = true;
+						PokeManager.ManagerGameSave.Inventory.Items[pokemon.HeldItemData.PocketType].AddItem(pokemon.HeldItemID, 1);
+					}
+					pokemon.HeldItemID = 0;
+					count++;
+				}
+			}
+			if (count > 0) {
+				string sentTo = "";
+				if (sentToBag) {
+					sentTo += pokeContainer.GameSave.TrainerName + "'s Bag";
+					if (sentToPC && sentToYourPC)
+						sentTo += ", ";
+					else if (sentToPC || sentToYourPC)
+						sentTo += " and ";
+				}
+				if (sentToPC) {
+					sentTo += pokeContainer.GameSave.TrainerName + "'s PC";
+					if (sentToBag && sentToYourPC)
+						sentTo += ", and ";
+					else if (sentToYourPC)
+						sentTo += " and ";
+				}
+				if (sentToYourPC) {
+					sentTo += PokeManager.Settings.ManagerNickname;
+				}
+				TriggerMessageBox.Show(Window.GetWindow(this), "Sent " + count + " Item" + (count != 1 ? "s" : "") + " to " + sentTo, "Took Items");
 			}
 			PokeManager.RefreshUI();
 		}
@@ -1314,8 +1494,8 @@ namespace PokemonManager.Windows {
 					pokemon.PokeContainer.Remove(pokemon);
 					pokemon.IsReleased = true;
 				}
-				PokeManager.RefreshUI();
 			}
+			PokeManager.RefreshUI();
 		}
 
 		private void OnContextMenuGiveClicked(object sender, RoutedEventArgs e) {
@@ -1335,6 +1515,10 @@ namespace PokemonManager.Windows {
 					PokeManager.RefreshUI();
 				}
 			}
+		}
+		private void OnContextMenuCancelPickupClicked(object sender, RoutedEventArgs e) {
+			PokeManager.DropAll();
+			PokeManager.RefreshUI();
 		}
 		private void OnContextMenuMoveClicked(object sender, RoutedEventArgs e) {
 			if (master != null) {
@@ -1804,17 +1988,6 @@ namespace PokemonManager.Windows {
 					shadowMask.IsHitTestVisible = false;
 					gridBoxPokemon.Children.Insert(gridBoxPokemon.Children.Count - 2, shadowMask);
 
-					Image egg = new Image();
-					egg.Stretch = Stretch.None;
-					egg.SnapsToDevicePixels = true;
-					egg.UseLayoutRounding = true;
-					egg.Width = 9;
-					egg.Height = 11;
-					egg.Margin = new Thickness(j * 24 + 20, i * 24 + 21, 0, 0);
-					egg.HorizontalAlignment = HorizontalAlignment.Left;
-					egg.VerticalAlignment = VerticalAlignment.Top;
-					gridBoxPokemon.Children.Insert(gridBoxPokemon.Children.Count - 2, egg);
-
 					// Used for multi select highlighting
 					Rectangle selectMask = new Rectangle();
 					selectMask.Width = 32;
@@ -1827,6 +2000,17 @@ namespace PokemonManager.Windows {
 					selectMask.Visibility = Visibility.Hidden;
 					selectMask.IsHitTestVisible = false;
 					gridBoxPokemon.Children.Insert(gridBoxPokemon.Children.Count - 2, selectMask);
+
+					Image egg = new Image();
+					egg.Stretch = Stretch.None;
+					egg.SnapsToDevicePixels = true;
+					egg.UseLayoutRounding = true;
+					egg.Width = 9;
+					egg.Height = 11;
+					egg.Margin = new Thickness(j * 24 + 20, i * 24 + 21, 0, 0);
+					egg.HorizontalAlignment = HorizontalAlignment.Left;
+					egg.VerticalAlignment = VerticalAlignment.Top;
+					gridBoxPokemon.Children.Insert(gridBoxPokemon.Children.Count - 2, egg);
 
 					boxImages.Add(image);
 					boxShadowMasks.Add(shadowMask);
@@ -1871,6 +2055,9 @@ namespace PokemonManager.Windows {
 			MenuItem sendTo = new MenuItem();
 			sendTo.Header = "Send To";
 			sendTo.Click += OnContextMenuSendToClicked;
+			MenuItem cancelPickup = new MenuItem();
+			cancelPickup.Header = "Cancel Pickup";
+			cancelPickup.Click += OnContextMenuCancelPickupClicked;
 			Separator separator = new Separator();
 			MenuItem release = new MenuItem();
 			release.Header = "Release";
@@ -1880,6 +2067,7 @@ namespace PokemonManager.Windows {
 			contextMenu.Items.Add(summary);
 			//contextMenu.Items.Add(give);
 			contextMenu.Items.Add(sendTo);
+			contextMenu.Items.Add(cancelPickup);
 			contextMenu.Items.Add(separator);
 			contextMenu.Items.Add(release);
 		}
@@ -1892,9 +2080,9 @@ namespace PokemonManager.Windows {
 			MenuItem selectAll = new MenuItem();
 			selectAll.Header = "Select All";
 			selectAll.Click += OnContextMenuSelectAllClicked;
-			//MenuItem sendBoxTo = new MenuItem();
-			//sendBoxTo.Header = "Send Box To ";
-			//sendBoxTo.Click += OnContextMenuSendBoxTo;
+			MenuItem takeAll = new MenuItem();
+			takeAll.Header = "Take All Items";
+			takeAll.Click += OnContextMenuTakeAllItemsClicked;
 			Separator separator = new Separator();
 			MenuItem releaseAll = new MenuItem();
 			releaseAll.Header = "Release All";
@@ -1902,7 +2090,7 @@ namespace PokemonManager.Windows {
 
 			boxContextMenu.Items.Add(edit);
 			boxContextMenu.Items.Add(selectAll);
-			//boxContextMenu.Items.Add(sendBoxTo);
+			boxContextMenu.Items.Add(takeAll);
 			boxContextMenu.Items.Add(separator);
 			boxContextMenu.Items.Add(releaseAll);
 		}

@@ -64,8 +64,10 @@ namespace PokemonManager.Windows {
 			double offset = scrollHeight * index / listViewItems.Items.Count;
 			vsp.SetVerticalOffset(offset);*/
 
-			listViewItems.ScrollIntoView(listViewItems.SelectedItem);
-			((Control)listViewItems.SelectedItem).Focus();
+			if (index != -1) {
+				listViewItems.ScrollIntoView(listViewItems.SelectedItem);
+				((Control)listViewItems.SelectedItem).Focus();
+			}
 		}
 
 		public void LoadPocket(ItemPocket pocket) {

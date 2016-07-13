@@ -25,7 +25,7 @@ namespace PokemonManager.Windows {
 			InitializeComponent();
 
 			DateTime buildDate = GetLinkerTime(Assembly.GetExecutingAssembly());
-			this.labelVersion.Content = Assembly.GetExecutingAssembly().GetName().Version.ToString() + " Beta";
+			this.labelVersion.Content = Assembly.GetExecutingAssembly().GetName().Version.ToString() + " Release";
 			this.labelBuildDate.Content = buildDate.ToShortDateString() + " (" + buildDate.ToShortTimeString() + ")";
 		}
 

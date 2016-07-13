@@ -36,9 +36,16 @@
             </Hyperlink>
         </Label>
         <Label HorizontalAlignment="Left" Margin="116,299,0,0" VerticalAlignment="Top" FontWeight="Bold">
-            <Hyperlink NavigateUri="https://github.com/trigger-death/TriggersPC" RequestNavigate="OnRequestNavigate">
-                <Run Text="GitHub"/>
-            </Hyperlink>
+            <TextBlock Cursor="Arrow" TextWrapping="WrapWithOverflow">
+                <Hyperlink NavigateUri="https://github.com/trigger-death/TriggersPC" RequestNavigate="OnRequestNavigate">
+                    <Run Text="GitHub"/>
+                </Hyperlink>
+                <Run Text="("/>
+                <Hyperlink NavigateUri="https://github.com/trigger-death/TriggersPC/wiki" RequestNavigate="OnRequestNavigate">
+                    <Run Text="Wiki"/>
+                </Hyperlink>
+                <Run Text=")"/>
+            </TextBlock>
         </Label>
         <Rectangle Margin="10,123,10,0" Stroke="Black" RadiusY="2" RadiusX="2" Fill="#FFF4F4F5" Height="114" VerticalAlignment="Top"/>
         <Label Content="Trigger's PC" HorizontalAlignment="Left" Margin="15,128,0,0" VerticalAlignment="Top" FontWeight="Bold"/>

@@ -642,7 +642,7 @@ namespace PokemonManager.Windows {
 				}
 			}
 
-			for (int i = 0; i < PokeManager.NumGameSaves; i++) {
+			for (int i = -1; i < PokeManager.NumGameSaves; i++) {
 				IGameSave gameSave = PokeManager.GetGameSaveAt(i);
 				if (gameSave is ManagerGameSave) {
 					for (int j = 0; j < (gameSave as ManagerGameSave).NumPokePCRows; j++) {
@@ -684,7 +684,7 @@ namespace PokemonManager.Windows {
 				}
 			}
 
-			for (int i = 0; i < PokeManager.NumGameSaves; i++) {
+			for (int i = -1; i < PokeManager.NumGameSaves; i++) {
 				IGameSave gameSave = PokeManager.GetGameSaveAt(i);
 				if (gameSave is ManagerGameSave) {
 					for (int j = 0; j < (gameSave as ManagerGameSave).NumPokePCRows; j++) {
@@ -728,7 +728,7 @@ namespace PokemonManager.Windows {
 		public List<PokerusStrain> CheckAllPokemonForPokerus() {
 			List<PokerusStrain> foundStrains = new List<PokerusStrain>();
 			
-			for (int i = 0; i < PokeManager.NumGameSaves; i++) {
+			for (int i = -1; i < PokeManager.NumGameSaves; i++) {
 				IGameSave gameSave = PokeManager.GetGameSaveAt(i);
 				if (gameSave is ManagerGameSave) {
 					for (int j = 0; j < (gameSave as ManagerGameSave).NumPokePCRows; j++) {

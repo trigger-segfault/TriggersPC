@@ -42,7 +42,8 @@ namespace PokemonManager.Windows {
 			this.currencyType = currencyType;
 
 			labelCurrencyType.Content = CurrencyName;
-
+			if (!sendMode)
+				Title = "Send Currency From";
 			for (int i = -1; i < PokeManager.NumGameSaves; i++) {
 				if (i == gameIndex) {
 					comboBoxGame.SetGameSaveVisible(i, false);

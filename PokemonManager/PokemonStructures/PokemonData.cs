@@ -44,7 +44,8 @@ namespace PokemonManager.PokemonStructures {
 			this.type2			= (row["Type2"] as string == null ? this.type1 : GetPokemonTypeFromString(row["Type2"] as string));
 
 			this.ability1ID		= PokemonDatabase.GetAbilityIDFromString(row["Ability1"] as string);
-			this.ability2ID		= (row["Ability2"] as string == null ? this.ability1ID : PokemonDatabase.GetAbilityIDFromString(row["Ability2"] as string));
+			this.ability2ID		= (row["Ability2"] as string == null ? (byte)0 : PokemonDatabase.GetAbilityIDFromString(row["Ability2"] as string));
+			//this.ability2ID		= (row["Ability2"] as string == null ? this.ability1ID : PokemonDatabase.GetAbilityIDFromString(row["Ability2"] as string));
 
 			this.eggGroup1		= GetEggGroupFromString(row["EggGroup1"] as string);
 			this.eggGroup2		= GetEggGroupFromString(row["EggGroup2"] as string);
@@ -131,6 +132,9 @@ namespace PokemonManager.PokemonStructures {
 		}
 		public bool HasTwoAbilities {
 			get { return ability1ID != ability2ID; }
+		}
+		public bool CanOnlyHaveFirstAbility {
+			get { return ability2ID == 0; }
 		}
 		public EggGroups EggGroup1 {
 			get { return eggGroup1; }

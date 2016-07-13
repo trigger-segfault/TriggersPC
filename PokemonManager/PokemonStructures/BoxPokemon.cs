@@ -190,6 +190,8 @@ namespace PokemonManager.PokemonStructures {
 			get {
 				if (IsEgg)
 					return PokemonDatabase.GetPokemonImageFromDexID(387, false);
+				if (DexID == 327)
+					return PokemonDatabase.GetSpindaSprite(Personality, IsShiny);
 				return PokemonDatabase.GetPokemonImageFromDexID(DexID, IsShiny, FormID);
 			}
 		}

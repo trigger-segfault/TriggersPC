@@ -24,8 +24,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Xml;
 
 namespace PokemonManager {
@@ -2315,6 +2317,15 @@ namespace PokemonManager {
 		public static bool CanSwitchShadowPokemon(IPokemon pokemon) {
 			if (IsHoldingPokemon) {
 				bool needsNewLocation = pokemon.IsShadowPokemon && pokemon.GameSave != holdPokemon.Container.GameSave;
+				if (holdPokemon.Container.GameSave.GameType == GameTypes.XD) {
+					if (pokemon.IsShadowPokemon && holdPokemon.Container.Type == ContainerTypes.Daycare)
+						needsNewLocation = true;
+					else if (pokemon.IsShadowPokemon && holdPokemon.Container.Type == ContainerTypes.Purifier && holdPokemon.Index > 0)
+						needsNewLocation = true;
+					else if (!pokemon.IsShadowPokemon && holdPokemon.Container.Type == ContainerTypes.Purifier && holdPokemon.Index == 0)
+						needsNewLocation = true;
+				}
+
 				for (int i = 0; i < pokemon.PokePC.NumBoxes && needsNewLocation; i++) {
 					for (int j = 0; j < 30 && needsNewLocation; j++) {
 						if (pokemon.PokePC[i][j] == null) {
@@ -2330,6 +2341,8 @@ namespace PokemonManager {
 		public static bool CanSwitchEgg(IPokemon pokemon) {
 			if (IsHoldingPokemon) {
 				bool needsNewLocation = pokemon.IsEgg && (holdPokemon.Container.GameType == GameTypes.Colosseum || holdPokemon.Container.GameType == GameTypes.XD);
+				if (pokemon.IsEgg && holdPokemon.Container.Type == ContainerTypes.Daycare)
+					needsNewLocation = true;
 				for (int i = 0; i < pokemon.PokePC.NumBoxes && needsNewLocation; i++) {
 					for (int j = 0; j < 30 && needsNewLocation; j++) {
 						if (pokemon.PokePC[i][j] == null) {
@@ -2365,6 +2378,16 @@ namespace PokemonManager {
 				// Try to make the pokemon drop in the current game. It's only required for shadow Pokemon though.
 				bool needsNewLocation = (pokemon.IsShadowPokemon && pokemon.GameSave != holdPokemon.Container.GameSave) ||
 					(pokemon.IsEgg && (holdPokemon.Container.GameType == GameTypes.Colosseum || holdPokemon.Container.GameType == GameTypes.XD));
+				if (holdPokemon.Container.GameSave.GameType == GameTypes.XD) {
+					if (pokemon.IsShadowPokemon && holdPokemon.Container.Type == ContainerTypes.Daycare)
+						needsNewLocation = true;
+					else if (pokemon.IsShadowPokemon && holdPokemon.Container.Type == ContainerTypes.Purifier && holdPokemon.Index > 0)
+						needsNewLocation = true;
+					else if (!pokemon.IsShadowPokemon && holdPokemon.Container.Type == ContainerTypes.Purifier && holdPokemon.Index == 0)
+						needsNewLocation = true;
+				}
+				if (pokemon.IsEgg && holdPokemon.Container.Type == ContainerTypes.Daycare)
+					needsNewLocation = true;
 				for (int i = 0; i < pokemon.PokePC.NumBoxes && needsNewLocation; i++) {
 					for (int j = 0; j < 30 && needsNewLocation; j++) {
 						if (pokemon.PokePC[i][j] == null) {
@@ -2400,6 +2423,8 @@ namespace PokemonManager {
 				holdPokemon.Pokemon.IsMoving = false;
 				if (holdPokemon.Container.Type == ContainerTypes.Party)
 					((IPokeParty)holdPokemon.Container).AddPokemon(holdPokemon.Pokemon);
+				else if (holdPokemon.Container.Type == ContainerTypes.Daycare && holdPokemon.Index < 2)
+					((IDaycare)holdPokemon.Container).AddPokemon(holdPokemon.Pokemon);
 				else if (holdPokemon.Container.Type == ContainerTypes.Purifier && holdPokemon.Index > 0)
 					((XDPurificationChamber)holdPokemon.Container).AddPokemon(holdPokemon.Pokemon);
 				else

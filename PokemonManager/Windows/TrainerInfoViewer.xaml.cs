@@ -75,10 +75,10 @@ namespace PokemonManager.Windows {
 		public void CreateContextMenu() {
 			contextMenu = new ContextMenu();
 			MenuItem sendTo = new MenuItem();
-			sendTo.Header = "Send To...";
+			sendTo.Header = "Send To";
 			sendTo.Click += OnSendTo;
 			MenuItem sendFrom = new MenuItem();
-			sendFrom.Header = "Send From...";
+			sendFrom.Header = "Send From";
 			sendFrom.Click += OnSendFrom;
 			contextMenu.Items.Add(sendTo);
 			contextMenu.Items.Add(sendFrom);
@@ -231,6 +231,10 @@ namespace PokemonManager.Windows {
 		private void OnRebattleStevenClicked(object sender, RoutedEventArgs e) {
 			if (!loaded) return;
 			(gameSave as GBAGameSave).HasBattledStevenEmerald = false;
+		}
+
+		private void OnSendCurrencyContextMenuOpening(object sender, ContextMenuEventArgs e) {
+			selectedCurrency = (CurrencyTypes)Enum.Parse(typeof(CurrencyTypes), ((Button)sender).Tag as string);
 		}
 	}
 }
