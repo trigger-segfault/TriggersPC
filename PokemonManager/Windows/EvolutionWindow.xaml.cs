@@ -61,8 +61,7 @@ namespace PokemonManager.Windows {
 			this.rectMaskPrevolution.OpacityMask = new ImageBrush(PokemonDatabase.GetPokemonImageFromDexID(pokemon.DexID, pokemon.IsShiny));
 			this.rectMaskEvolution.OpacityMask = new ImageBrush(PokemonDatabase.GetPokemonImageFromDexID(evolutionDexID, pokemon.IsShiny));
 			this.rectMaskPrevolution.Opacity = 0;
-			string nickname = pokemon.HasNickname ? pokemon.Nickname : pokemon.PokemonData.Name;
-			this.textBlockMessage.Text = "What?\nYour " + nickname + " is evolving!";
+			this.textBlockMessage.Text = "What?\nYour " + pokemon.Nickname + " is evolving!";
 			playerCry = new MediaPlayer();
 			playerCry.MediaEnded += OnMediaEnded;
 			playerCry.Volume = PokeManager.Settings.MutedVolume;
@@ -185,8 +184,7 @@ namespace PokemonManager.Windows {
 			((imagePrevolution.RenderTransform as TransformGroup).Children[1] as ScaleTransform).ScaleY = 1;
 
 			// Setup correct controls
-			string nickname = pokemon.HasNickname ? pokemon.Nickname : pokemon.PokemonData.Name;
-			this.textBlockMessage.Text = "What?\n" + nickname + " stopped evolving!";
+			this.textBlockMessage.Text = "What?\n" + pokemon.Nickname + " stopped evolving!";
 			this.gridControlButtons.Visibility = Visibility.Hidden;
 			this.buttonClose.Visibility = Visibility.Visible;
 			

@@ -28,8 +28,11 @@ namespace PokemonManager.PokemonStructures.Events {
 			get { return ItemDatabase.GetItemImageFromID(272); }
 		}
 		public override void GiveReward(IGameSave gameSave) {
-			if (gameSave.Inventory.Items[ItemTypes.KeyItems].GetCountOfID(GetBikeItemID(gameSave)) == 0)
-				gameSave.Inventory.Items[ItemTypes.KeyItems].AddItem(GetBikeItemID(gameSave), 1);
+			ushort bikeID = GetBikeItemID(gameSave);
+			if (gameSave.Inventory.Items[ItemTypes.KeyItems].GetCountOfID(bikeID) == 0) {
+				gameSave.Inventory.Items[ItemTypes.KeyItems].AddItem(bikeID, 1);
+				PokeManager.ManagerWindow.GotoItem(gameSave.GameIndex, ItemTypes.KeyItems, bikeID);
+			}
 		}
 
 		public override bool IsRequirementsFulfilled(IGameSave gameSave) {

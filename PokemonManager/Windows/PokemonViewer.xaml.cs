@@ -32,6 +32,7 @@ namespace PokemonManager.Windows {
 		private int gameIndex;
 		private MediaPlayer playerCry;
 		private MoveData currentMoveData;
+		private ContextMenu openInContextMenu;
 
 		public PokemonViewer() {
 			InitializeComponent();
@@ -49,6 +50,26 @@ namespace PokemonManager.Windows {
 				button.IsChecked = (i == 1);
 				grid.Visibility = (i == 1 ? Visibility.Visible : Visibility.Hidden);
 			}
+
+			openInContextMenu = new ContextMenu();
+			MenuItem bulbapedia = new MenuItem();
+			bulbapedia.Header = "Open in Bulbapedia";
+			bulbapedia.Click += OnOpenPokemonInBulbapedia;
+			Image bulbapediaImage = new Image();
+			bulbapediaImage.Width = 16;
+			bulbapediaImage.Height = 16;
+			bulbapediaImage.Source = ResourceDatabase.GetImageFromName("BulbapediaIcon");
+			bulbapedia.Icon = bulbapediaImage;
+			MenuItem smogon = new MenuItem();
+			smogon.Header = "Open in Smogon";
+			smogon.Click += OnOpenPokemonInSmogon;
+			Image smogonImage = new Image();
+			smogonImage.Width = 16;
+			smogonImage.Height = 16;
+			smogonImage.Source = ResourceDatabase.GetImageFromName("SmogonIcon");
+			smogon.Icon = smogonImage;
+			openInContextMenu.Items.Add(bulbapedia);
+			openInContextMenu.Items.Add(smogon);
 		}
 
 		public IPokemon ViewedPokemon {
@@ -641,7 +662,7 @@ namespace PokemonManager.Windows {
 			if (pokemon.HasWorldRibbon) AddRibbon("WORLD");
 
 			buttonOpenInBulbapedia.Visibility = Visibility.Visible;
-			buttonOpenAbilityInBulbapedia.Visibility = Visibility.Visible;
+			buttonOpenAbilityInBulbapedia.Visibility = (pokemon.AbilityData.ID != 0 ? Visibility.Visible : Visibility.Hidden);
 
 			buttonBall.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && !pokemon.IsEgg;
 			buttonNickname.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && !pokemon.IsEgg && !pokemon.IsShadowPokemon;
@@ -1427,6 +1448,15 @@ namespace PokemonManager.Windows {
 		private void OnOpenAbilityInBulbapedia(object sender, RoutedEventArgs e) {
 			string url = "http://bulbapedia.bulbagarden.net/wiki/" + pokemon.AbilityData.Name + " _(ability)";
 			System.Diagnostics.Process.Start(url);
+		}
+
+		private void OnOpenPokemonInSmogon(object sender, RoutedEventArgs e) {
+			string url = "http://www.smogon.com/dex/rs/pokemon/" + pokemon.PokemonData.Name;
+			System.Diagnostics.Process.Start(url);
+		}
+
+		private void OnOpenPokemonInClicked(object sender, RoutedEventArgs e) {
+			openInContextMenu.IsOpen = true;
 		}
 	}
 }

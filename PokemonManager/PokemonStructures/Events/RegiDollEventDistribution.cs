@@ -35,6 +35,7 @@ namespace PokemonManager.PokemonStructures.Events {
 		}
 		public override void GiveReward(IGameSave gameSave) {
 			gameSave.Inventory.Decorations[DecorationTypes.Doll].AddDecoration(DollID, 1);
+			PokeManager.ManagerWindow.GotoDecoration(gameSave.GameIndex, DecorationTypes.Doll, DollID);
 		}
 
 		public override string GetRequirements(IGameSave gameSave) {

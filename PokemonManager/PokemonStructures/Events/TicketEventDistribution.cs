@@ -69,6 +69,7 @@ namespace PokemonManager.PokemonStructures.Events {
 			}
 			if (gameSave.Inventory.Items[ItemTypes.KeyItems].GetCountOfID(TicketItemID) == 0)
 				gameSave.Inventory.Items[ItemTypes.KeyItems].AddItem(TicketItemID, 1);
+			PokeManager.ManagerWindow.GotoItem(gameSave.GameIndex, ItemTypes.KeyItems, TicketItemID);
 		}
 
 		public override bool IsRequirementsFulfilled(IGameSave gameSave) {

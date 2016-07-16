@@ -45,12 +45,16 @@ namespace PokemonManager.Windows {
 			MenuItem insert = new MenuItem();
 			insert.Header = "Insert Box";
 			insert.Click += OnInsertBox;
+			MenuItem duplicate = new MenuItem();
+			duplicate.Header = "Duplicate Box";
+			duplicate.Click += OnDuplicateBox;
 			MenuItem delete = new MenuItem();
 			delete.Header = "Remove Box";
 			delete.Click += OnDeleteBox;
 			delete.IsEnabled = pokePC.NumBoxes > 1;
 			contextMenu.Items.Add(edit);
 			contextMenu.Items.Add(insert);
+			contextMenu.Items.Add(duplicate);
 			contextMenu.Items.Add(delete);
 
 			selectedIndex = -1;
@@ -137,11 +141,13 @@ namespace PokemonManager.Windows {
 				((MenuItem)contextMenu.Items[0]).IsEnabled = true;
 				((MenuItem)contextMenu.Items[1]).IsEnabled = true;
 				((MenuItem)contextMenu.Items[2]).IsEnabled = true;
+				((MenuItem)contextMenu.Items[3]).IsEnabled = pokePC.NumBoxes > 1;
 			}
 			else {
 				((MenuItem)contextMenu.Items[0]).IsEnabled = false;
 				((MenuItem)contextMenu.Items[1]).IsEnabled = false;
 				((MenuItem)contextMenu.Items[2]).IsEnabled = false;
+				((MenuItem)contextMenu.Items[3]).IsEnabled = false;
 			}
 		}
 
@@ -153,22 +159,11 @@ namespace PokemonManager.Windows {
 
 		private void OnAddBox(object sender, RoutedEventArgs e) {
 			pokePC.AddBox();
-			//pokePC[(int)pokePC.NumBoxes - 1].Name = "NEW BOX";
 			ListViewItem listViewItem = new ListViewItem();
 			MakeBox((int)pokePC.NumBoxes - 1, listViewItem);
 			boxes.Add(listViewItem);
-			((MenuItem)boxes[0].ContextMenu.Items[2]).IsEnabled = pokePC.NumBoxes > 1;
 			selectedIndex = (int)pokePC.NumBoxes - 1;
 			listViewBoxes.SelectedIndex = selectedIndex;
-
-			// Hackish thing to make sure the list view is always scrolled at the bottom when adding a new box
-			//http://stackoverflow.com/questions/211971/scroll-wpf-listview-to-specific-line
-			/*VirtualizingStackPanel vsp =  
-				(VirtualizingStackPanel)typeof(ItemsControl).InvokeMember("_itemsHost",
-				BindingFlags.Instance | BindingFlags.GetField | BindingFlags.NonPublic, null,
-				listViewBoxes, null);
-			double scrollHeight = vsp.ScrollOwner.ScrollableHeight;
-			vsp.SetVerticalOffset(vsp.ScrollOwner.ScrollableHeight * 2);*/
 
 			listViewBoxes.ScrollIntoView(listViewBoxes.SelectedItem);
 			((Control)listViewBoxes.SelectedItem).Focus();
@@ -185,13 +180,20 @@ namespace PokemonManager.Windows {
 		}
 		private void OnInsertBox(object sender, RoutedEventArgs e) {
 			pokePC.InsertBox(selectedIndex);
-			//pokePC[selectedIndex].Name = "NEW BOX";
 			ListViewItem listViewItem = new ListViewItem();
 			MakeBox(selectedIndex, listViewItem);
+			int oldSelectedIndex = selectedIndex;
 			boxes.Insert(selectedIndex, listViewItem);
-			((MenuItem)boxes[0].ContextMenu.Items[2]).IsEnabled = pokePC.NumBoxes > 1;
-			selectedIndex = (int)pokePC.NumBoxes - 1;
-			listViewBoxes.SelectedIndex = selectedIndex;
+			listViewBoxes.SelectedIndex = oldSelectedIndex;
+			UpdateBoxNames();
+			pokeBoxControl.LoadBox(selectedBox, PokeManager.GetIndexOfGame(selectedBox.PokePC.GameSave));
+		}
+		private void OnDuplicateBox(object sender, RoutedEventArgs e) {
+			pokePC.DuplicateBox(selectedIndex);
+			ListViewItem listViewItem = new ListViewItem();
+			MakeBox(selectedIndex + 1, listViewItem);
+			boxes.Insert(selectedIndex + 1, listViewItem);
+			listViewBoxes.SelectedIndex = selectedIndex + 1;
 			UpdateBoxNames();
 			pokeBoxControl.LoadBox(selectedBox, PokeManager.GetIndexOfGame(selectedBox.PokePC.GameSave));
 		}
@@ -203,7 +205,6 @@ namespace PokemonManager.Windows {
 			else if (pokePC.NumBoxes > 1 && selectedIndex < pokePC.NumBoxes && selectedIndex != -1) {
 				pokePC.RemoveBoxAt(selectedIndex);
 				boxes.RemoveAt(selectedIndex);
-				((MenuItem)boxes[0].ContextMenu.Items[2]).IsEnabled = pokePC.NumBoxes > 1;
 				UpdateBoxNames();
 				pokeBoxControl.UnloadBox();
 				selectedIndex = -1;

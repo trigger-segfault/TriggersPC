@@ -169,6 +169,15 @@ namespace PokemonManager.PokemonStructures {
 			AddBox(new ManagerPokeBox(this, (byte)boxes.Count, "BOX" + (boxes.Count + 1).ToString(), (PokeBoxWallpapers)wallpaper));
 		}
 
+		public void DuplicateBox(int index) {
+			ManagerPokeBox boxToDuplicate = boxes[index];
+			ManagerPokeBox newBox = new ManagerPokeBox(this, (byte)boxes.Count, "BOX" + (boxes.Count + 1).ToString(), (PokeBoxWallpapers)boxToDuplicate.Wallpaper);
+			newBox.UsingCustomWallpaper = boxToDuplicate.UsingCustomWallpaper;
+			newBox.WallpaperName = boxToDuplicate.WallpaperName;
+			if (boxToDuplicate.Name != "BOX" + (boxToDuplicate.BoxNumber + 1).ToString())
+				newBox.Name = boxToDuplicate.Name;
+			InsertBox(index + 1, newBox);
+		}
 		public void InsertBox(int index) {
 			byte[] possibilities = new byte[] {
 				1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 15,

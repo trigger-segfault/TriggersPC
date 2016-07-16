@@ -162,10 +162,9 @@ namespace PokemonManager.PokemonStructures {
 		public uint BoxNumber {
 			get { return boxNumber; }
 			set {
-				if (name == "BOX" + (boxNumber + 1).ToString()) {
-					boxNumber = value;
-					name = "BOX" + (boxNumber + 1).ToString();
-				}
+				if (name == "BOX" + (boxNumber + 1).ToString())
+					name = "BOX" + (value + 1).ToString();
+				boxNumber = value;
 			}
 		}
 		public string Name {

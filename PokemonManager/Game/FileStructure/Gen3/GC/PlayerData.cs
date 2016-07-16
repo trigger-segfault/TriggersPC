@@ -31,7 +31,7 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 				AddPocket(ItemTypes.TMCase, 1580, 64, 999, false, true);
 				AddPocket(ItemTypes.Berries, 1836, 46, 999, false, true);
 				AddPocket(ItemTypes.CologneCase, 2020, 3, 999, false, true);
-				AddPocket(ItemTypes.DiscCase, 2032, 60, 1, false, true);
+				AddPocket(ItemTypes.DiscCase, 2032, 60, 999, false, true);
 				((XDPokePC)parent.PokePC).AddParty(ByteHelper.SubByteArray(48, data, 1176));
 			}
 		}

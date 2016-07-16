@@ -1400,6 +1400,7 @@ namespace PokemonManager {
 			PokemonEventDistribution pokemon;
 			BuyPokemonEventDistribution buyPokemon;
 			RegiDollEventDistribution regi;
+			BattleCDEventDistribution cd;
 
 			bike = new BikeEventDistribution("ACRO MACH BIKE [RSE]");
 			bike.SmallSprite = ItemDatabase.GetItemImageFromID(272);
@@ -1563,6 +1564,26 @@ namespace PokemonManager {
 			//regi.Requirements = "You must obtain the Heat Badge from Flannery in order to receive this Doll.";
 			regi.AllowedGames = GameTypeFlags.Ruby | GameTypeFlags.Sapphire | GameTypeFlags.Emerald;
 			RegisterEvent(regi);
+
+			cd = new BattleCDEventDistribution("BATTLE CD 14 [XD]");
+			cd.CDItemID = 1547;
+			cd.SmallSprite = ItemDatabase.GetItemImageFromID(cd.CDItemID);
+			cd.BigSprite = ItemDatabase.GetItemImageFromID(cd.CDItemID);
+			cd.Title = "Glitched Battle CD 14";
+			cd.Description = "This Battle CD is no longer obtainable after the Lucky Egg quest due to a bug.";
+			cd.Requirements = "You must snag all 83 Shadow Pokémon in order to receive this Battle CD.";
+			cd.AllowedGames = GameTypeFlags.XD;
+			RegisterEvent(cd);
+
+			cd = new BattleCDEventDistribution("BATTLE CD 15 [XD]");
+			cd.CDItemID = 1548;
+			cd.SmallSprite = ItemDatabase.GetItemImageFromID(cd.CDItemID);
+			cd.BigSprite = ItemDatabase.GetItemImageFromID(cd.CDItemID);
+			cd.Title = "Glitched Battle CD 15";
+			cd.Description = "This Battle CD is no longer obtainable after the Lucky Egg quest due to a bug.";
+			cd.Requirements = "You must snag all 83 Shadow Pokémon in order to receive this Battle CD.";
+			cd.AllowedGames = GameTypeFlags.XD;
+			RegisterEvent(cd);
 
 			if (IsAprilFoolsDay) {
 				buyPokemon = new BuyPokemonEventDistribution("APRIL FOOLS ZUBAT [RS]");

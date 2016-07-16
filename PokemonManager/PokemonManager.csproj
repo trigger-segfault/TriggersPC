@@ -124,6 +124,7 @@
     <Compile Include="PokemonStructures\ColosseumDaycare.cs" />
     <Compile Include="PokemonStructures\Events\BikeEventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\BuyPokemonEventDistribution.cs" />
+    <Compile Include="PokemonStructures\Events\BattleCDEventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\RegiDollEventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\EventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\PokemonEventDistribution.cs" />
@@ -1421,6 +1422,7 @@
     <Content Include="Resources\Audio\Evolution.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\UI\Pokemon\SmogonIcon.png" />
     <Resource Include="Resources\UI\Pokemon\BulbapediaIcon.png" />
     <Resource Include="Resources\UI\Pokemon\PurifierWindow.png" />
     <Resource Include="Resources\Splash\SplashVoltorb.png" />
