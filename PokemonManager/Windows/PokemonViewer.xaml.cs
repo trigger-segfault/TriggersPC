@@ -53,15 +53,23 @@ namespace PokemonManager.Windows {
 
 			openInContextMenu = new ContextMenu();
 			MenuItem bulbapedia = new MenuItem();
-			bulbapedia.Header = "Open in Bulbapedia";
+			bulbapedia.Header = "Open Pokémon in Bulbapedia";
 			bulbapedia.Click += OnOpenPokemonInBulbapedia;
 			Image bulbapediaImage = new Image();
 			bulbapediaImage.Width = 16;
 			bulbapediaImage.Height = 16;
 			bulbapediaImage.Source = ResourceDatabase.GetImageFromName("BulbapediaIcon");
 			bulbapedia.Icon = bulbapediaImage;
+			MenuItem bulbapediaLearnset = new MenuItem();
+			bulbapediaLearnset.Header = "Open Learnset in Bulbapedia";
+			bulbapediaLearnset.Click += OnOpenLearnsetInBulbapedia;
+			Image bulbapediaLearnsetImage = new Image();
+			bulbapediaLearnsetImage.Width = 16;
+			bulbapediaLearnsetImage.Height = 16;
+			bulbapediaLearnsetImage.Source = ResourceDatabase.GetImageFromName("BulbapediaIcon");
+			bulbapediaLearnset.Icon = bulbapediaLearnsetImage;
 			MenuItem smogon = new MenuItem();
-			smogon.Header = "Open in Smogon";
+			smogon.Header = "Open Pokémon in Smogon";
 			smogon.Click += OnOpenPokemonInSmogon;
 			Image smogonImage = new Image();
 			smogonImage.Width = 16;
@@ -69,6 +77,7 @@ namespace PokemonManager.Windows {
 			smogonImage.Source = ResourceDatabase.GetImageFromName("SmogonIcon");
 			smogon.Icon = smogonImage;
 			openInContextMenu.Items.Add(bulbapedia);
+			openInContextMenu.Items.Add(bulbapediaLearnset);
 			openInContextMenu.Items.Add(smogon);
 		}
 
@@ -245,6 +254,7 @@ namespace PokemonManager.Windows {
 			buttonFixEReader.IsEnabled = false;
 			buttonWipeCondition.IsEnabled = false;
 			buttonWipeRibbons.IsEnabled = false;
+			buttonRecalculateStats.IsEnabled = false;
 
 			this.typeHiddenPower.Visibility = Visibility.Hidden;
 			this.labelHiddenPowerDamage.Content = "";
@@ -770,6 +780,8 @@ namespace PokemonManager.Windows {
 				pokemon.HasWorldRibbon;
 
 			buttonWipeRibbons.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && !pokemon.IsEgg && hasRibbons;
+
+			buttonRecalculateStats.IsEnabled = !DisableEditing && !pokemon.IsInDaycare && !pokemon.IsEgg && !pokemon.IsShadowPokemon;
 
 			SetCurrentMove(-1);
 			Random random = new Random((int)DateTime.Now.Ticks);
@@ -1439,6 +1451,10 @@ namespace PokemonManager.Windows {
 			string url = "http://bulbapedia.bulbagarden.net/wiki/" + pokemon.PokemonData.Name + " _(Pokémon)";
 			System.Diagnostics.Process.Start(url);
 		}
+		private void OnOpenLearnsetInBulbapedia(object sender, RoutedEventArgs e) {
+			string url = "http://bulbapedia.bulbagarden.net/wiki/" + pokemon.PokemonData.Name + " _(Pokémon)/Generation_III_learnset";
+			System.Diagnostics.Process.Start(url);
+		}
 
 		private void OnOpenMoveInBulbapedia(object sender, RoutedEventArgs e) {
 			string url = "http://bulbapedia.bulbagarden.net/wiki/" + currentMoveData.Name + " _(move)";
@@ -1457,6 +1473,10 @@ namespace PokemonManager.Windows {
 
 		private void OnOpenPokemonInClicked(object sender, RoutedEventArgs e) {
 			openInContextMenu.IsOpen = true;
+		}
+
+		private void OnRecalcStatsClicked(object sender, RoutedEventArgs e) {
+
 		}
 	}
 }

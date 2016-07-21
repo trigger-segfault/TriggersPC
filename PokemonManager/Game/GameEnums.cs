@@ -46,6 +46,7 @@ namespace PokemonManager.Game {
 	/** <summary>Flags for all the game types. This is mainly used to state which games support a certain object.</summary> */
 	public enum GameTypeFlags : byte {
 		None		= 0x00,
+
 		Red			= 0x01,
 		Blue		= 0x02,
 		Yellow		= 0x04,
@@ -63,7 +64,8 @@ namespace PokemonManager.Game {
 		LeafGreen	= 0x10,
 		Colosseum	= 0x20,
 		XD			= 0x40,
-		AllGen3		= 0x7F
+		Box			= 0x80,
+		AllGen3		= 0xFF
 	}
 
 	/** <summary>The gender of the trainer.</summary> */

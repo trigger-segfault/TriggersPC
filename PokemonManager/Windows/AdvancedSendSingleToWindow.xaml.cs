@@ -36,7 +36,7 @@ namespace PokemonManager.Windows {
 		private ItemTypes pocket;
 		private bool withdrawMode;
 
-		public AdvancedSendSingleToWindow(int gameIndex, int max, string title, object sendType, bool withdrawMode) {
+		public AdvancedSendSingleToWindow(int gameIndex, int max, string title, object sendType, bool withdrawMode, GameTypeFlags exclusives) {
 			InitializeComponent();
 			this.loaded = false;
 			this.realMax = max;
@@ -69,7 +69,9 @@ namespace PokemonManager.Windows {
 						continue;
 					}
 					IGameSave gameSave = PokeManager.GetGameSaveAt(i);
-					if (gameSave.GameType == GameTypes.PokemonBox || (this.isDecoration && gameSave.Inventory.Decorations == null))
+					if (!this.isDecoration && gameSave.GameType != GameTypes.Any && !exclusives.HasFlag((GameTypeFlags)(1 << ((int)gameSave.GameType - 1))))
+						comboBoxGames.SetGameSaveVisible(i, false);
+					else if (gameSave.GameType == GameTypes.PokemonBox || (this.isDecoration && gameSave.Inventory.Decorations == null))
 						comboBoxGames.SetGameSaveVisible(i, false);
 				}
 			}
@@ -93,8 +95,8 @@ namespace PokemonManager.Windows {
 			OnGameChanged(null, null);
 		}
 
-		public static AdvancedSendSingleResults ShowDialog(Window owner, int gameIndex, int max, string title, object sendType, bool withdrawMode) {
-			AdvancedSendSingleToWindow window = new AdvancedSendSingleToWindow(gameIndex, max, title, sendType, withdrawMode);
+		public static AdvancedSendSingleResults ShowDialog(Window owner, int gameIndex, int max, string title, object sendType, bool withdrawMode, GameTypeFlags exclusives = GameTypeFlags.AllGen3) {
+			AdvancedSendSingleToWindow window = new AdvancedSendSingleToWindow(gameIndex, max, title, sendType, withdrawMode, exclusives);
 			window.Owner = owner;
 			var result = window.ShowDialog();
 			if (result.HasValue && result.Value) {

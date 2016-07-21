@@ -27,6 +27,7 @@ namespace PokemonManager.Windows {
 		private ContextMenu contextMenu;
 		private int selectionIsImportant;
 		private int selectionMax;
+		private GameTypeFlags selectionExclusives;
 
 		private ListViewDragDropManager<ListViewItem> dropManager;
 
@@ -37,6 +38,8 @@ namespace PokemonManager.Windows {
 			textBlockItemDescription.Text = "";
 
 			CreateContextMenu();
+
+			buttonOpenItemInBulbapedia.Visibility = Visibility.Hidden;
 		}
 
 		public ItemPocket Pocket {
@@ -109,6 +112,7 @@ namespace PokemonManager.Windows {
 					labelItemName.Content = itemData.Name;
 					textBlockItemDescription.Text = itemData.Description;
 					buySellInfo.LoadBuySellInfo(itemData);
+					buttonOpenItemInBulbapedia.Visibility = Visibility.Visible;
 				}
 				else {
 					selectedIndex = -1;
@@ -116,6 +120,7 @@ namespace PokemonManager.Windows {
 					textBlockItemDescription.Text = "";
 					imageItem.Source = null;
 					buySellInfo.UnloadBuySellInfo();
+					buttonOpenItemInBulbapedia.Visibility = Visibility.Hidden;
 				}
 			}
 		}
@@ -123,7 +128,7 @@ namespace PokemonManager.Windows {
 		private void OnDeposit(object sender, EventArgs e) {
 			if (HasSelection) {
 				string deposit = (pocket.PocketType == ItemTypes.PC ? "Withdraw" : "Deposit");
-				var results = AdvancedSendSelectionToWindow.ShowDialog(Window.GetWindow(this), pocket.GameSave.GameIndex, selectionMax, deposit + " Item Selection", pocket.PocketType == ItemTypes.PC ? ItemTypes.Any : ItemTypes.PC, true);
+				var results = AdvancedSendSelectionToWindow.ShowDialog(Window.GetWindow(this), pocket.GameSave.GameIndex, selectionMax, deposit + " Item Selection", pocket.PocketType == ItemTypes.PC ? ItemTypes.Any : ItemTypes.PC, true, selectionExclusives);
 				if (results != null) {
 					bool noRoom = false;
 					foreach (Item item in SelectedItems) {
@@ -150,7 +155,7 @@ namespace PokemonManager.Windows {
 				}
 				else {
 					string deposit = (pocket.PocketType == ItemTypes.PC ? "Withdraw" : "Deposit");
-					var results = AdvancedSendSingleToWindow.ShowDialog(Window.GetWindow(this), pocket.GameSave.GameIndex, (int)selectedItem.Count, deposit + " Item", pocket.PocketType == ItemTypes.PC ? selectedItem.ItemData.PocketType : ItemTypes.PC, true);
+					var results = AdvancedSendSingleToWindow.ShowDialog(Window.GetWindow(this), pocket.GameSave.GameIndex, (int)selectedItem.Count, deposit + " Item", pocket.PocketType == ItemTypes.PC ? selectedItem.ItemData.PocketType : ItemTypes.PC, true, selectedItem.ItemData.Exclusives);
 
 					//int? count = ItemCountWindow.ShowDialog(Window.GetWindow(this), pocket.PocketType == ItemTypes.PC ? "Withdraw" : "Deposit", 1, (int)selectedItem.Count);
 					if (results != null) {
@@ -274,7 +279,7 @@ namespace PokemonManager.Windows {
 					}
 				}
 				else {
-					var results = AdvancedSendSelectionToWindow.ShowDialog(Window.GetWindow(this), pocket.GameSave.GameIndex, selectionMax, "Send Item Selection", SelectedItems[0].ItemData.PocketType, false);
+					var results = AdvancedSendSelectionToWindow.ShowDialog(Window.GetWindow(this), pocket.GameSave.GameIndex, selectionMax, "Send Item Selection", SelectedItems[0].ItemData.PocketType, false, selectionExclusives);
 					if (results != null) {
 						bool noRoom = false;
 						foreach (Item item in SelectedItems) {
@@ -301,7 +306,7 @@ namespace PokemonManager.Windows {
 					pocket.AddItem(selectedItem.ID, 1);
 			}
 			else {
-				var results = AdvancedSendSingleToWindow.ShowDialog(Window.GetWindow(this), pocket.GameSave.GameIndex, (int)selectedItem.Count, "Send Item", selectedItem.ItemData.PocketType, false);
+				var results = AdvancedSendSingleToWindow.ShowDialog(Window.GetWindow(this), pocket.GameSave.GameIndex, (int)selectedItem.Count, "Send Item", selectedItem.ItemData.PocketType, false, selectedItem.ItemData.Exclusives);
 				//SendItemToResult result = SendItemToWindow.ShowDialog(Window.GetWindow(this), pocket.Inventory.GameIndex, selectedItem.ID, selectedItem.Count);
 				if (results != null) {
 					if (PokeManager.GetGameSaveAt(results.GameIndex).Inventory.Items[results.Pocket].HasRoomForItem(selectedItem.ID, (uint)results.Count)) {
@@ -423,7 +428,9 @@ namespace PokemonManager.Windows {
 					bool roomInCollection = false;
 					bool unknownItem = false;
 					ItemTypes itemType = SelectedItems[0].ItemData.PocketType;
+					selectionExclusives = GameTypeFlags.AllGen3;
 					foreach (Item item in SelectedItems) {
+						selectionExclusives &= item.ItemData.Exclusives;
 						selectionMax = Math.Max(selectionMax, (int)item.Count);
 						if (item.ItemData.ID == 0) {
 							unknownItem = true;
@@ -519,6 +526,15 @@ namespace PokemonManager.Windows {
 
 		private void OnSortClicked(object sender, RoutedEventArgs e) {
 			pocket.Sort();
+		}
+
+		private void OnOpenItemInBulbapedia(object sender, RoutedEventArgs e) {
+			string url = "http://bulbapedia.bulbagarden.net/wiki/";
+			if (selectedItem.ItemData.PocketType == ItemTypes.TMCase)
+				url += selectedItem.ItemData.Name.Substring(0, 4);
+			else
+				url += selectedItem.ItemData.Name;
+			System.Diagnostics.Process.Start(url);
 		}
 	}
 }

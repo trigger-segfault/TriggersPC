@@ -125,6 +125,7 @@
     <Compile Include="PokemonStructures\Events\BikeEventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\BuyPokemonEventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\BattleCDEventDistribution.cs" />
+    <Compile Include="PokemonStructures\Events\EnigmaBerryEventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\RegiDollEventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\EventDistribution.cs" />
     <Compile Include="PokemonStructures\Events\PokemonEventDistribution.cs" />

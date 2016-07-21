@@ -1533,6 +1533,9 @@ namespace PokemonManager.PokemonStructures {
 			}
 
 			Level = PokemonDatabase.GetLevelFromExperience(PokemonData.ExperienceGroup, Experience);
+			uint expereince100 = PokemonDatabase.GetExperienceFromLevel(PokemonData.ExperienceGroup, 100);
+			if (Experience > expereince100)
+				Experience = expereince100;
 			PokerusRemaining = byte.MaxValue;
 			// Shedinja's DexID (Always has 1 HP)
 			HP = (DexID != 292 ? Convert.ToUInt16(Math.Floor(((double)baseHP * 2 + (double)HPIV + (double)HPEV / 4) * (double)Level / 100 + 10 + (double)Level)) : (ushort)1);

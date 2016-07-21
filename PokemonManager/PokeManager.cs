@@ -1401,6 +1401,7 @@ namespace PokemonManager {
 			BuyPokemonEventDistribution buyPokemon;
 			RegiDollEventDistribution regi;
 			BattleCDEventDistribution cd;
+			EnigmaBerryEventDistribution berry;
 
 			bike = new BikeEventDistribution("ACRO MACH BIKE [RSE]");
 			bike.SmallSprite = ItemDatabase.GetItemImageFromID(272);
@@ -1584,6 +1585,15 @@ namespace PokemonManager {
 			cd.Requirements = "You must snag all 83 Shadow Pokémon in order to receive this Battle CD.";
 			cd.AllowedGames = GameTypeFlags.XD;
 			RegisterEvent(cd);
+
+			berry = new EnigmaBerryEventDistribution("ENIGMA BERRY [RSEFRLG]");;
+			berry.SmallSprite = ItemDatabase.GetItemImageFromID(175);
+			berry.BigSprite = ItemDatabase.GetItemImageFromID(175);
+			berry.Title = "Berry Collector";
+			berry.Description = "The unobtainable Enigma Berry used as a placeholder for e-Reader berries.";
+			berry.Requirements = "You must beat the Elite Four and own the first 40 berries in order to receive this berry.";
+			berry.AllowedGames = GameTypeFlags.Ruby | GameTypeFlags.Sapphire | GameTypeFlags.Emerald | GameTypeFlags.FireRed | GameTypeFlags.LeafGreen;
+			RegisterEvent(berry);
 
 			if (IsAprilFoolsDay) {
 				buyPokemon = new BuyPokemonEventDistribution("APRIL FOOLS ZUBAT [RS]");

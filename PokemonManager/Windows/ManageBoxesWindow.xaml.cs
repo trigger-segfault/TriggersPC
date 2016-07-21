@@ -165,8 +165,10 @@ namespace PokemonManager.Windows {
 			selectedIndex = (int)pokePC.NumBoxes - 1;
 			listViewBoxes.SelectedIndex = selectedIndex;
 
-			listViewBoxes.ScrollIntoView(listViewBoxes.SelectedItem);
-			((Control)listViewBoxes.SelectedItem).Focus();
+			if (listViewBoxes.SelectedItem != null) {
+				listViewBoxes.ScrollIntoView(listViewBoxes.SelectedItem);
+				((Control)listViewBoxes.SelectedItem).Focus();
+			}
 		}
 		private void OnEditBox(object sender, RoutedEventArgs e) {
 			if (selectedBox != null) {
@@ -187,6 +189,10 @@ namespace PokemonManager.Windows {
 			listViewBoxes.SelectedIndex = oldSelectedIndex;
 			UpdateBoxNames();
 			pokeBoxControl.LoadBox(selectedBox, PokeManager.GetIndexOfGame(selectedBox.PokePC.GameSave));
+			if (listViewBoxes.SelectedItem != null) {
+				listViewBoxes.ScrollIntoView(listViewBoxes.SelectedItem);
+				((Control)listViewBoxes.SelectedItem).Focus();
+			}
 		}
 		private void OnDuplicateBox(object sender, RoutedEventArgs e) {
 			pokePC.DuplicateBox(selectedIndex);
@@ -196,6 +202,10 @@ namespace PokemonManager.Windows {
 			listViewBoxes.SelectedIndex = selectedIndex + 1;
 			UpdateBoxNames();
 			pokeBoxControl.LoadBox(selectedBox, PokeManager.GetIndexOfGame(selectedBox.PokePC.GameSave));
+			if (listViewBoxes.SelectedItem != null) {
+				listViewBoxes.ScrollIntoView(listViewBoxes.SelectedItem);
+				((Control)listViewBoxes.SelectedItem).Focus();
+			}
 		}
 
 		private void OnDeleteBox(object sender, RoutedEventArgs e) {
