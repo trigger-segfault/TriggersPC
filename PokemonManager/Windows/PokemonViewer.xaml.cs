@@ -1448,21 +1448,21 @@ namespace PokemonManager.Windows {
 		}
 
 		private void OnOpenPokemonInBulbapedia(object sender, RoutedEventArgs e) {
-			string url = "http://bulbapedia.bulbagarden.net/wiki/" + pokemon.PokemonData.Name + " _(Pokémon)";
+			string url = "http://bulbapedia.bulbagarden.net/wiki/" + pokemon.PokemonData.Name + "_(Pokémon)";
 			System.Diagnostics.Process.Start(url);
 		}
 		private void OnOpenLearnsetInBulbapedia(object sender, RoutedEventArgs e) {
-			string url = "http://bulbapedia.bulbagarden.net/wiki/" + pokemon.PokemonData.Name + " _(Pokémon)/Generation_III_learnset";
+			string url = "http://bulbapedia.bulbagarden.net/wiki/" + pokemon.PokemonData.Name + "_(Pokémon)/Generation_III_learnset";
 			System.Diagnostics.Process.Start(url);
 		}
 
 		private void OnOpenMoveInBulbapedia(object sender, RoutedEventArgs e) {
-			string url = "http://bulbapedia.bulbagarden.net/wiki/" + currentMoveData.Name + " _(move)";
+			string url = "http://bulbapedia.bulbagarden.net/wiki/" + currentMoveData.Name + "_(move)";
 			System.Diagnostics.Process.Start(url);
 		}
 
 		private void OnOpenAbilityInBulbapedia(object sender, RoutedEventArgs e) {
-			string url = "http://bulbapedia.bulbagarden.net/wiki/" + pokemon.AbilityData.Name + " _(ability)";
+			string url = "http://bulbapedia.bulbagarden.net/wiki/" + pokemon.AbilityData.Name + "_(ability)";
 			System.Diagnostics.Process.Start(url);
 		}
 

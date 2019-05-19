@@ -168,7 +168,7 @@ namespace PokemonManager.Windows {
 
 		}
 		private void OnOpenMoveInBulbapedia(object sender, RoutedEventArgs e) {
-			string url = "http://bulbapedia.bulbagarden.net/wiki/" + currentMoveData.Name + " _(move)";
+			string url = "http://bulbapedia.bulbagarden.net/wiki/" + currentMoveData.Name + "_(move)";
 			System.Diagnostics.Process.Start(url);
 		}
 	}
