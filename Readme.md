@@ -12,4 +12,4 @@ Trigger's PC is a tool designed for legit purposes. There really aren't enough t
 
 See the **[Wiki](https://github.com/trigger-death/TriggersPC/wiki)** for more information.
 
-See on **[Project Pokémon](https://projectpokemon.org/forums/showthread.php?48710)** for the latest downloads and changelogs.
+See on **[Project Pokémon](https://projectpokemon.org/home/forums/topic/37582-gen-3-triggers-pc-legit-use-everything-bank-and-save-manager-tool/)** for the latest downloads and changelogs.
