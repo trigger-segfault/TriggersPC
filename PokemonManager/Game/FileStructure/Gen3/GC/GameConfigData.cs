@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokemonManager.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,6 +56,21 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 				case Languages.Spanish: gcLanguage = GCLanguages.Spanish; break;
 				}
 				raw[3] = (byte)gcLanguage;
+			}
+		}
+
+		public TimeSpan PlayTime {
+			get {
+				if (gameSave.GameType == GameTypes.Colosseum)
+					return TimeSpan.FromSeconds(BigEndian.ToSingle(raw, 32));
+				else
+					return TimeSpan.FromSeconds(BigEndian.ToDouble(raw, 48));
+			}
+			set {
+				if (gameSave.GameType == GameTypes.Colosseum)
+					BigEndian.WriteSingle((float)value.TotalSeconds, raw, 32);
+				else
+					BigEndian.WriteDouble(value.TotalSeconds, raw, 48);
 			}
 		}
 	}

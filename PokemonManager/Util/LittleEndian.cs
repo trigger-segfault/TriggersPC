@@ -30,6 +30,12 @@ namespace PokemonManager.Util {
 		public static ulong ToUInt64(byte[] data, int index) {
 			return BitConverter.ToUInt64(SubByteArray(index, data, 8), 0);
 		}
+		public static float ToSingle(byte[] data, int index) {
+			return BitConverter.ToSingle(SubByteArray(index, data, 4), 0);
+		}
+		public static double ToDouble(byte[] data, int index) {
+			return BitConverter.ToDouble(SubByteArray(index, data, 8), 0);
+		}
 
 		#endregion
 
@@ -54,6 +60,12 @@ namespace PokemonManager.Util {
 			ReplaceBytes(data, index, BitConverter.GetBytes(val));
 		}
 		public static void WriteUInt64(ulong val, byte[] data, int index) {
+			ReplaceBytes(data, index, BitConverter.GetBytes(val));
+		}
+		public static void WriteSingle(float val, byte[] data, int index) {
+			ReplaceBytes(data, index, BitConverter.GetBytes(val));
+		}
+		public static void WriteDouble(double val, byte[] data, int index) {
 			ReplaceBytes(data, index, BitConverter.GetBytes(val));
 		}
 

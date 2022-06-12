@@ -288,8 +288,8 @@ namespace PokemonManager.Game.FileStructure.Gen3.GC {
 			get { return raw[index]; }
 		}
 		public TimeSpan PlayTime {
-			get { return TimeSpan.FromSeconds((double)(BigEndian.ToUInt32(raw, 40) - 0x47000000) / 128); }
-			set { BigEndian.WriteUInt32((uint)(value.TotalSeconds * 128) + 0x47000000, raw, 40); }
+			get { return GameConfigData.PlayTime; }
+			set { GameConfigData.PlayTime = value; }
 		}
 		public ushort HoursPlayed {
 			get { return (ushort)PlayTime.Hours; }

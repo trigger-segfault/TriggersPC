@@ -131,9 +131,6 @@ namespace PokemonManager.Windows {
 					TimeSpan newPlayTime = managerSave.PlayTime + new TimeSpan((DateTime.Now - managerSave.TimeOfLastSave).Ticks);
 					labelPlayTime.Content = ((int)newPlayTime.TotalHours).ToString() + ":" + newPlayTime.Minutes.ToString("00") + ":" + newPlayTime.Seconds.ToString("00");
 				}
-				else if (gameSave.GameType == GameTypes.XD || gameSave.GameType == GameTypes.Colosseum) {
-					labelPlayTime.Content = "---";
-				}
 				else {
 					labelPlayTime.Content = gameSave.HoursPlayed + ":" + gameSave.MinutesPlayed.ToString("00") + ":" + gameSave.SecondsPlayed.ToString("00");
 				}
